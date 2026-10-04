@@ -4,10 +4,15 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+    inputs:
+      attempt:
+        description: "1 = normal run. 2 or 3 = a re-run from a fresh GitHub server (set by the run itself)."
+        default: "1"
 
 permissions:
   contents: write
   issues: write
+  actions: write
 
 concurrency:
   group: site-watch
@@ -51,7 +56,14 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           FAILS: ${{ steps.check.outputs.fails }}
+          ATTEMPT: ${{ inputs.attempt || '1' }}
         run: |
+          # A host's firewall sometimes blocks one GitHub server: no alarm before a second and a third server agree.
+          if [ "$ATTEMPT" -lt 3 ]; then
+            echo "Down from this server:$FAILS - asking a fresh server (attempt $((ATTEMPT + 1)) of 3) before any alarm."
+            gh workflow run watch.yml -f attempt=$((ATTEMPT + 1))
+            exit 0
+          fi
           n=$(gh issue list --label down --state open --json number -q '.[0].number')
           msg="DOWN at $(TZ=Asia/Qatar date '+%d %b %H:%M') Doha:$FAILS"
           if [ -z "$n" ]; then
@@ -71,11 +83,12 @@ jobs:
             gh issue close "$n" --comment "All sites back UP at $(TZ=Asia/Qatar date '+%d %b %H:%M') Doha."
           done
 
-      - name: Monthly keep-alive (GitHub pauses idle scheduled workflows after 60 days)
-        if: github.event_name == 'schedule'
+      - name: Keep-alive commit every 20 days (GitHub pauses idle scheduled workflows after 60)
         run: |
-          if [ "$(date -u +%d%H%M)" \< "010010" ]; then
-            date -u > .keepalive
+          last=$(cat .keepalive 2>/dev/null || echo 0)
+          case "$last" in ''|*[!0-9]*) last=0;; esac
+          if [ $(( $(date +%s) - last )) -gt 1728000 ]; then
+            date +%s > .keepalive
             git config user.name site-watch && git config user.email site-watch@users.noreply.github.com
-            git add .keepalive && git commit -m "keep-alive" && git push || true
+            git add .keepalive && git commit -qm "keep-alive" && git push || true
           fi
