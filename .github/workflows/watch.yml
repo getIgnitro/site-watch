@@ -1,0 +1,72 @@
+name: site-watch
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: site-watch
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check every site (retry once after 60 s)
+        id: check
+        run: |
+          fails=""
+          while IFS='|' read -r url word; do
+            [ -z "$url" ] && continue
+            ok=0
+            for try in 1 2; do
+              body=$(curl -sL -A "Mozilla/5.0 (site-watch)" --max-time 30 -w '\n%{http_code}' "$url" || true)
+              code=$(printf '%s' "$body" | tail -n1)
+              if [ "$code" = "200" ] && { [ -z "$word" ] || printf '%s' "$body" | grep -q "$word"; }; then ok=1; break; fi
+              [ $try = 1 ] && sleep 60
+            done
+            if [ $ok = 1 ]; then echo "UP   $url"; else echo "DOWN $url (status $code)"; fails="$fails $url"; fi
+          done < sites.txt
+          echo "fails=$fails" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update the DOWN issue
+        if: steps.check.outputs.fails != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FAILS: ${{ steps.check.outputs.fails }}
+        run: |
+          n=$(gh issue list --label down --state open --json number -q '.[0].number')
+          msg="DOWN at $(TZ=Asia/Qatar date '+%d %b %H:%M') Doha:$FAILS"
+          if [ -z "$n" ]; then
+            gh label create down --color B60205 2>/dev/null || true
+            gh issue create --title "SITE DOWN:$FAILS" --label down --body "$msg"
+          else
+            gh issue comment "$n" --body "$msg"
+          fi
+          exit 1
+
+      - name: Close the DOWN issue when everything is back
+        if: steps.check.outputs.fails == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for n in $(gh issue list --label down --state open --json number -q '.[].number'); do
+            gh issue close "$n" --comment "All sites back UP at $(TZ=Asia/Qatar date '+%d %b %H:%M') Doha."
+          done
+
+      - name: Monthly keep-alive (GitHub pauses idle scheduled workflows after 60 days)
+        if: github.event_name == 'schedule'
+        run: |
+          if [ "$(date -u +%d%H%M)" \< "010010" ]; then
+            date -u > .keepalive
+            git config user.name site-watch && git config user.email site-watch@users.noreply.github.com
+            git add .keepalive && git commit -m "keep-alive" && git push || true
+          fi
