@@ -35,6 +35,12 @@ jobs:
             done
             if [ $ok = 1 ]; then echo "UP   $url"; else echo "DOWN $url (status $code)"; fails="$fails $url"; fi
           done < sites.txt
+          # self-repair job on Hostinger must have run in the last 20 minutes
+          for hs in https://getknservices.com/heal-status.txt; do
+            ep=$(curl -s -A "Mozilla/5.0 (site-watch)" --max-time 20 "$hs?r=$RANDOM" | sed -n 's/^last_run_epoch=//p')
+            age=$(( $(date +%s) - ${ep:-0} ))
+            if [ "$age" -gt 1200 ]; then echo "DOWN $hs (repair job silent ${age}s)"; fails="$fails repair-job:$hs"; else echo "UP   $hs (repair job ran ${age}s ago)"; fi
+          done
           echo "fails=$fails" >> "$GITHUB_OUTPUT"
 
       - name: Open or update the DOWN issue
