@@ -37,7 +37,10 @@ jobs:
           done < sites.txt
           # self-repair job on Hostinger must have run in the last 20 minutes
           for hs in https://getknservices.com/heal-status.txt; do
-            ep=$(curl -s -A "Mozilla/5.0 (site-watch)" --max-time 20 "$hs?r=$RANDOM" | sed -n 's/^last_run_epoch=//p')
+            hb=$(curl -s -A "Mozilla/5.0 (site-watch)" --max-time 20 "$hs?r=$RANDOM")
+            ep=$(printf '%s' "$hb" | sed -n 's/^last_run_epoch=//p')
+            bad=$(printf '%s' "$hb" | sed -n 's/^unhealthy=//p')
+            if [ "${bad:-0}" -gt 0 ]; then echo "DOWN repair job reports ${bad} site(s) still broken after rollback"; fails="$fails still-broken:${bad}-site(s)"; fi
             age=$(( $(date +%s) - ${ep:-0} ))
             if [ "$age" -gt 1200 ]; then echo "DOWN $hs (repair job silent ${age}s)"; fails="$fails repair-job:$hs"; else echo "UP   $hs (repair job ran ${age}s ago)"; fi
           done
