@@ -1,4 +1,17 @@
 {
- "commit": "638a3074148ce9d6a4f9598093275f5af982a9d1",
- "files": []
+ "commit": "212d57dc1bbc336db84c92d9e73a807ac35da47e",
+ "files": [
+  {
+   "site": "getignitro.com",
+   "path": "case-studies.html",
+   "sha256": "b2c160b7e7d5384cdcee5c8260937561537e148d88697b60345ff05f8028bc8a",
+   "size": 49221
+  },
+  {
+   "site": "menu.afrofusionqatar.com",
+   "path": "index.html",
+   "sha256": "7ef89fdf4a7426e679f33664c9146e8849bc6dd6be93ba9747d924da2d2ff464",
+   "size": 3090
+  }
+ ]
 }
