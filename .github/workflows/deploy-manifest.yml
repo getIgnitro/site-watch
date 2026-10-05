@@ -1,0 +1,29 @@
+name: deploy-manifest
+
+on:
+  push:
+    branches: [main]
+    paths: ["deploy/**", "!deploy/manifest.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-manifest
+  cancel-in-progress: false
+
+jobs:
+  manifest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the files and write the manifest
+        run: python3 .github/scripts/make_manifest.py
+      - name: Save the manifest
+        run: |
+          git config user.name site-watch && git config user.email site-watch@users.noreply.github.com
+          git add deploy/manifest.json
+          git commit -qm "deploy manifest for ${GITHUB_SHA::7}" || exit 0
+          git pull -q --rebase && git push
