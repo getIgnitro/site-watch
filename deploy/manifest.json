@@ -1,11 +1,17 @@
 {
- "commit": "80dcd182da2246099ea698883d48c62112fc35a1",
+ "commit": "956dcf269211ad91041454391a73c55e1cce1a75",
  "files": [
   {
    "site": "getignitro.com",
    "path": "case-studies.html",
    "sha256": "b2c160b7e7d5384cdcee5c8260937561537e148d88697b60345ff05f8028bc8a",
    "size": 49221
+  },
+  {
+   "site": "getignitro.com",
+   "path": "privacy-policy/index.html",
+   "sha256": "4eb228105d43f0a8119954ca4125c372f80ed5a6154b3ebd8ce63ac9ae21202a",
+   "size": 73059
   },
   {
    "site": "menu.afrofusionqatar.com",
