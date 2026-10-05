@@ -1,5 +1,5 @@
 {
- "commit": "212d57dc1bbc336db84c92d9e73a807ac35da47e",
+ "commit": "80dcd182da2246099ea698883d48c62112fc35a1",
  "files": [
   {
    "site": "getignitro.com",
@@ -12,6 +12,12 @@
    "path": "index.html",
    "sha256": "7ef89fdf4a7426e679f33664c9146e8849bc6dd6be93ba9747d924da2d2ff464",
    "size": 3090
+  },
+  {
+   "site": "portfolio.getignitro.com",
+   "path": "portfolio_assets/photos/photo_02.jpg",
+   "sha256": "fd830019ddc440a2b5315c842d06e318836145715bf5788f781b62b8e366bb39",
+   "size": 395003
   }
  ]
 }
