@@ -1,5 +1,5 @@
 {
- "commit": "54b8c361443df813b564b27689fee5dcbd921c93",
+ "commit": "09ad37210f9083b3305d61eab8d2c58bff9b4c21",
  "files": [
   {
    "site": "getignitro.com",
@@ -117,6 +117,18 @@
   },
   {
    "site": "getknservices.com",
+   "path": "speedtest/js/stage/logo2d.js",
+   "sha256": "a4c38c3a2fef8c4fed661cf2590d2cf2d24700c1912bc31dbd0b9c7695944750",
+   "size": 20903
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/stage/logo3d.js",
+   "sha256": "21cfe0ea20d36d310230f21f0077835aba92c3e3483485c040c521705178cb1b",
+   "size": 40692
+  },
+  {
+   "site": "getknservices.com",
    "path": "speedtest/js/stage-stub.js",
    "sha256": "68c50a5f482c13c1a20f08e7dfdd43c10d092089e42c5958a8f8c558da81da35",
    "size": 11400
@@ -129,9 +141,81 @@
   },
   {
    "site": "getknservices.com",
+   "path": "speedtest/js/ui/booking.js",
+   "sha256": "5e2d454c76f1dd17d20c600cb50adb10f8fc8d50a965d2539522b4371e5482e0",
+   "size": 181
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/build.js",
+   "sha256": "2f2b6e26472b42d13bb23d525d8e1821df7049a068ed7aacb0f078df59f45486",
+   "size": 7971
+  },
+  {
+   "site": "getknservices.com",
    "path": "speedtest/js/ui/feed.js",
    "sha256": "17b043608004d99995f8d19526b7697b90992349cb63da6e950a11ecc48c4899",
    "size": 4360
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/hud.js",
+   "sha256": "8c976c9b3ff18e6d78a530f4800172c4c6f3d54e4946b46459d1003ff0960913",
+   "size": 5884
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/lens.js",
+   "sha256": "ae63da2cc4b3e9eeb06fa301d401827bed53ffeac800323f7781db03751456fe",
+   "size": 2022
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/plans.js",
+   "sha256": "6b48fab78647da028986bab4a231ac54fbaf8f1c16a2fc3bb148330adba50ebe",
+   "size": 9632
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/s-bakery.js",
+   "sha256": "23e99c64e14d6b7a7890b4f5b5aad0aa61d3b6beb3e6301542061b1579902f25",
+   "size": 3861
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/s-barber.js",
+   "sha256": "bb5f06b495f2cf4da3a5986ed5dc629d67bac7acaa61097a821ee880c4096dd8",
+   "size": 3511
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/s-dental.js",
+   "sha256": "8c2fed08c329d1d6b010ed694c035e7bb917fd4551624c5b5e199f475617824d",
+   "size": 5638
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/s-garage.js",
+   "sha256": "3ff21db9d5c6d5a78860cfa4b8051e2b5aa942f9f12ac6a9204a9fc3d5ba7fed",
+   "size": 7784
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/samples.js",
+   "sha256": "7094dc5dd64cbbd5a1b0db12bd765150c0aa78a4b93fb0d528e8e602b1b13af6",
+   "size": 5214
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/samples2.js",
+   "sha256": "bde92a01cbfa1f6882173bdd6c1dd599f7703f857f2869c6610a84205389f1fb",
+   "size": 849
+  },
+  {
+   "site": "getknservices.com",
+   "path": "speedtest/js/ui/type.js",
+   "sha256": "65ea4bf7ea7219776c451e677a3aee7559c485c0eea9fa255b48be432cf783f3",
+   "size": 17396
   },
   {
    "site": "getknservices.com",
