@@ -1,5 +1,5 @@
 {
- "commit": "25e9e32e063bf9528ce8d81a71ed2d48da995983",
+ "commit": "60cfa51b91a2c118eca9dcbb32d11ece41bb8893",
  "files": [
   {
    "site": "getignitro.com",
@@ -15,9 +15,81 @@
   },
   {
    "site": "getknservices.com",
+   "path": "brief.html",
+   "sha256": "3d3b1f21f65bccf25460649d89eb55b0debdfb86530983261963210057544161",
+   "size": 2937
+  },
+  {
+   "site": "getknservices.com",
+   "path": "contact.html",
+   "sha256": "ff4be202b128060050f94214fa501eef071bed99b738beeeea147ca802238ebb",
+   "size": 7193
+  },
+  {
+   "site": "getknservices.com",
    "path": "email/kn-build-mark.png",
    "sha256": "942a20bd973c09164aa996428466865479b03939b03bd09c5fcdfdfaea9b6ae2",
    "size": 7209
+  },
+  {
+   "site": "getknservices.com",
+   "path": "index.html",
+   "sha256": "f1ef3a616ab2ef7a145a8d07dda5cf69b863ab65d97a4a33be104abc0d109d9a",
+   "size": 59664
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/brief.js",
+   "sha256": "1ad6ac8d46feb03d451ffcb5591f7fc9c3b16197568063b391c246332164c12d",
+   "size": 72431
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/track-config.js",
+   "sha256": "0676ce4e5f9cab178efb415ebcc9936ccb16bc73c394fae035d1b6bc5059379e",
+   "size": 769
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/track.js",
+   "sha256": "533635cb2865e1e385f66d52c07e18b3b9a32d4cf315058fa788a2ea5bc79e30",
+   "size": 2740
+  },
+  {
+   "site": "getknservices.com",
+   "path": "privacy.html",
+   "sha256": "43474bcb9e53a5af9bd5cde9036f3529456d15532d91e57bda9ad2528c07d50a",
+   "size": 9547
+  },
+  {
+   "site": "getknservices.com",
+   "path": "social-media.html",
+   "sha256": "2b1849d9fde4bf02df7683702191751d5a38e0c223ea9f34de717e6ce52e6d8a",
+   "size": 18653
+  },
+  {
+   "site": "getknservices.com",
+   "path": "start.html",
+   "sha256": "66bc5f3bec3c6606d216efd8ba99a06d95f5d7e819869de5629d4ae70f657f9e",
+   "size": 11066
+  },
+  {
+   "site": "getknservices.com",
+   "path": "terms.html",
+   "sha256": "f283b8158623bd15a665bccae7f5b28facbe4eca37cc3774bc6bc331de9dd1ae",
+   "size": 10615
+  },
+  {
+   "site": "getknservices.com",
+   "path": "thanks.html",
+   "sha256": "93f9398d8d02968ad12e281ef3c7805e97c09e3147b6eecc0f2aac35e68862ef",
+   "size": 6936
+  },
+  {
+   "site": "getknservices.com",
+   "path": "website-plans.html",
+   "sha256": "d35f6299ef1b6c6bb6678ca520eecda45c0b8cd8b4a8dfc24222c095797ee3c2",
+   "size": 27982
   },
   {
    "site": "menu.afrofusionqatar.com",
