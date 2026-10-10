@@ -1,5 +1,5 @@
 {
- "commit": "2178f235afa6177067d737208cabece1708d2c76",
+ "commit": "ac683f8114d21ea6871c0f591ba5622ba2a9c096",
  "files": [
   {
    "site": "getignitro.com",
@@ -273,6 +273,12 @@
   },
   {
    "site": "portfolio.getignitro.com",
+   "path": "portfolio_assets/originals/r25.mp4",
+   "sha256": "7dc133921b75bde293b5a8b63b60b1e0d988f18a3347ac2a71a5380aedc3483c",
+   "size": 16364541
+  },
+  {
+   "site": "portfolio.getignitro.com",
    "path": "portfolio_assets/photos/photo_01.jpg",
    "sha256": "d3d6c093c463f4726de447e48b931f8b5e00e4160b8613c5f5ae668a43b0b601",
    "size": 658642
@@ -504,6 +510,24 @@
    "path": "portfolio_assets/posters/r21.jpg",
    "sha256": "6f2a4e7df057117e693f7d8790a8f9f96d113a5b3288cde1106e2613a75cd395",
    "size": 247603
+  },
+  {
+   "site": "portfolio.getignitro.com",
+   "path": "portfolio_assets/posters/r25.jpg",
+   "sha256": "1fe2706ae0effde21f7991062c2b505de278466269b2c2ab0f9ccabdc841b5e9",
+   "size": 82202
+  },
+  {
+   "site": "portfolio.getignitro.com",
+   "path": "portfolio_assets/reels_lite/r25.mp4",
+   "sha256": "cba4ea92ac3631f3039281b26217d25991555b7420e853439cb854cf81a0a33f",
+   "size": 876484
+  },
+  {
+   "site": "portfolio.getignitro.com",
+   "path": "portfolio_assets/reels_mini/r25.mp4",
+   "sha256": "eefc2a38ef76db62891fb2d3b90f7192e4ff32a7574c3734e7fbadae4d0a0850",
+   "size": 281444
   },
   {
    "site": "portfolio.getignitro.com",
