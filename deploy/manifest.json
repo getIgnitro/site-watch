@@ -1,5 +1,5 @@
 {
- "commit": "e659a721ac2dd3f76da0e6c60182d36fabde3340",
+ "commit": "7274c790f7f8c431c90c578e4c3863cd3dc8724d",
  "files": [
   {
    "site": "getignitro.com",
@@ -88,8 +88,8 @@
   {
    "site": "getknservices.com",
    "path": "index.html",
-   "sha256": "07951856b82324cacfad2b97268f332ad3a8557ed96e674b20422d059fb3a714",
-   "size": 61760
+   "sha256": "58d92a1403658417ca75f4100489a71a58fb267c161cbc965f061d9992da7f8e",
+   "size": 62583
   },
   {
    "site": "getknservices.com",
