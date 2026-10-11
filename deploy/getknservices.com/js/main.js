@@ -14,7 +14,7 @@ import { initBakery } from './ui/s-bakery.js';
 import { initBarber } from './ui/s-barber.js';
 import { initGarage } from './ui/s-garage.js';
 import { initDental } from './ui/s-dental.js';
-import { createFeed } from './ui/feed.js';
+import { createFeed } from './ui/feed.js?v=1006';
 import { initType } from './ui/type.js';
 import { createPlans } from './ui/plans.js';
 
@@ -37,18 +37,18 @@ if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
 const SCENES = [
-  { id: 'opening',  video: 'assets/scenes/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.35 },
-  { id: 'plans',    video: 'assets/scenes/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.8 },
+  { id: 'opening',  video: 'assets/scenes/opening.mp4', videoPhone: 'assets/scenes/m/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.35 },
+  { id: 'plans',    video: 'assets/scenes/opening.mp4', videoPhone: 'assets/scenes/m/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.8 },
   { id: 'social',   color: '#E4DDD0', dim: 0 },   // 5 Oct: warm stone ground (was periwinkle #9CBEFE); = --ground in site.css
-  { id: 'software', video: 'assets/scenes/software.mp4', poster: 'assets/scenes/software.jpg', color: '#0B0B0C', dim: 0.55 },
-  { id: 'bakery',   video: 'assets/scenes/bakery.mp4',   poster: 'assets/scenes/bakery.jpg',   color: '#4A2E17', dim: 0.30 },
-  { id: 'barber',   video: 'assets/scenes/barber.mp4',   poster: 'assets/scenes/barber.jpg',   color: '#0E2A21', dim: 0.30, film: { zoom: 1, x: -0.0271, y: 0 }, filmPhone: { zoom: 1, x: -0.5, y: 0 } },
+  { id: 'software', video: 'assets/scenes/software.mp4', videoPhone: 'assets/scenes/m/software.mp4', poster: 'assets/scenes/software.jpg', color: '#0B0B0C', dim: 0.55 },
+  { id: 'bakery',   video: 'assets/scenes/bakery.mp4', videoPhone: 'assets/scenes/m/bakery.mp4',   poster: 'assets/scenes/bakery.jpg',   color: '#4A2E17', dim: 0.30 },
+  { id: 'barber',   video: 'assets/scenes/barber.mp4', videoPhone: 'assets/scenes/m/barber.mp4',   poster: 'assets/scenes/barber.jpg',   color: '#0E2A21', dim: 0.30, film: { zoom: 1, x: -0.0271, y: 0 }, filmPhone: { zoom: 1, x: -0.5, y: 0 } },
   // round 7: grounds sampled from each poster (garage: the dark bay wall; dental: the back wall).
   // The dental film keeps a light dim: its sample text is dark on the bright room.
   // chat 19: optional film placement per scene, film: { zoom, x, y } (desktop) and filmPhone: { ... } (700 px and under);
   // zoom about the centre of the cover-fit film, then x / y shift in fractions of the viewport (+x right, +y down). See stage.js setCov.
-  { id: 'garage',   video: 'assets/scenes/garage.mp4',   poster: 'assets/scenes/garage.jpg',   color: '#030B0E', dim: 0.30, film: { zoom: 1, x: 0, y: -0.028 }, filmPhone: { zoom: 0.42, x: -0.07, y: -0.27 } },
-  { id: 'dental',   video: 'assets/scenes/dental.mp4',   poster: 'assets/scenes/dental.jpg',   color: '#CAC1B7', dim: 0.06,
+  { id: 'garage',   video: 'assets/scenes/garage.mp4', videoPhone: 'assets/scenes/m/garage.mp4',   poster: 'assets/scenes/garage.jpg',   color: '#030B0E', dim: 0.30, film: { zoom: 1, x: 0, y: -0.028 }, filmPhone: { zoom: 0.42, x: -0.07, y: -0.27 } },
+  { id: 'dental',   video: 'assets/scenes/dental.mp4', videoPhone: 'assets/scenes/m/dental.mp4',   poster: 'assets/scenes/dental.jpg',   color: '#CAC1B7', dim: 0.06,
     film: { zoom: 0.92, x: 0.136, y: 0.047 }, filmPhone: { zoom: 0.472, x: -0.345, y: -0.33 } },   // chat 19: the chair sits in the arch window
   { id: 'end', color: '#F3EEE4', dim: 0 },
 ];
@@ -320,12 +320,15 @@ function logoUrl() {
 }
 async function makeStage() {
   let canvas = $('#stage');
-  const cfg = { scenes: SCENES, logo: logoUrl(), ink: '#0B0B0C', peri: '#9CBEFE', signal: '#EB7E3B', reducedMotion: RM };
-  // PERF (permanent): phones and reduced-motion load the poster-only stub, never the 34MB video engine.
-  const liteStage = PHONE_MQ.matches || RM;
-  if (!params.has('stub') && !liteStage) {
+  // speed: phones and touch screens get the lighter film files, a lower canvas resolution and no idle redraws
+  const LITE = !FINE || PHONE_MQ.matches || window.innerWidth < 900;
+  const scenes = SCENES.map((s) => (LITE && s.videoPhone) ? { ...s, video: s.videoPhone } : s);
+  const cfg = { scenes, logo: logoUrl(), ink: '#0B0B0C', peri: '#9CBEFE', signal: '#EB7E3B', reducedMotion: RM, dprCap: LITE ? 1.5 : 2, idleSkip: !FINE };
+  // perf (permanent): phones + reduced-motion load the poster stub, never the video engine.
+  const phoneStub = PHONE_MQ.matches || RM;
+  if (!params.has('stub') && !phoneStub) {
     try {
-      const m = await import('./stage.js');
+      const m = await import('./stage.js?v=1006');
       const st = await m.createStage(canvas, cfg);
       if (st) return st;
     } catch (e) { console.warn('stage.js failed, using the stub', e); }
@@ -333,7 +336,7 @@ async function makeStage() {
     canvas.replaceWith(fresh);
     canvas = fresh;
   }
-  const m = await import('./stage-stub.js');
+  const m = await import('./stage-stub.js?v=1006');
   return m.createStage(canvas, cfg);
 }
 
