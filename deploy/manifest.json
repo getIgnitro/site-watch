@@ -1,5 +1,5 @@
 {
- "commit": "28fc51caacbf6aaf5c2db5f4be913d2a717736f0",
+ "commit": "e659a721ac2dd3f76da0e6c60182d36fabde3340",
  "files": [
   {
    "site": "getignitro.com",
@@ -75,6 +75,12 @@
   },
   {
    "site": "getknservices.com",
+   "path": "css/site.css",
+   "sha256": "2408df0adff06021289f2fa27a3f51079d223640e1274d300b02c3c376c426e0",
+   "size": 23637
+  },
+  {
+   "site": "getknservices.com",
    "path": "email/kn-build-mark.png",
    "sha256": "942a20bd973c09164aa996428466865479b03939b03bd09c5fcdfdfaea9b6ae2",
    "size": 7209
@@ -82,7 +88,7 @@
   {
    "site": "getknservices.com",
    "path": "index.html",
-   "sha256": "312888255823a66ff863df7cc2fd1a50a9c62e2163f012cb9a9c6973a71d7d66",
+   "sha256": "07951856b82324cacfad2b97268f332ad3a8557ed96e674b20422d059fb3a714",
    "size": 61760
   },
   {
@@ -94,8 +100,14 @@
   {
    "site": "getknservices.com",
    "path": "js/main.js",
-   "sha256": "4badd8758469375af94b919bf2a6fe19d21abb022ee2c2bd38b07ab5e3288396",
-   "size": 48159
+   "sha256": "2a918aa6921f38fcb96ca8c7a9fdf3268f3c730b115ca9dd082ece954302a52c",
+   "size": 48620
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/stage-stub.js",
+   "sha256": "3b4afc787bf9d2a17fe37aea1fd5c78ff9fb0afd9a4959ff00885944308be82d",
+   "size": 11471
   },
   {
    "site": "getknservices.com",
