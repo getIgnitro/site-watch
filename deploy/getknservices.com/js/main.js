@@ -60,6 +60,7 @@ const SCENES = [
 const PHONE_MQ = matchMedia('(max-width: 700px)');
 // chat 22: one scroll = one step on every screen with motion on, phones and touch screens included
 const stepMode = () => !RM;
+const FAST = PHONE_MQ.matches && !RM; // phones: paint the hero instantly, cubes build behind
 const PLAN_STEP = 60;
 let SEG, FLIPS, FLIP_AT, HOLD, TOTAL, Z, REST, PLAN_REST;
 function script(len = {}) {
@@ -289,9 +290,9 @@ function initialStates() {
   gsap.set('.bar__build', { autoAlpha: 0 });
   gsap.set('.bar__bg', { scaleY: 0 });
   if (RM) gsap.set('.hero__h1', { autoAlpha: 0 });
-  else gsap.set('.ch', { clipPath: 'inset(0% 100% 0% 0%)' });
-  hideSnap('.scene--hero .js-snap', RM);
-  setRolls('.scene--hero', false);
+  else if (!FAST) gsap.set('.ch', { clipPath: 'inset(0% 100% 0% 0%)' });
+  if (!FAST) hideSnap('.scene--hero .js-snap', RM);
+  setRolls('.scene--hero', FAST || RM);
   gsap.set(`${PK}, .scene--bakery, .scene--barber, .scene--garage, .scene--dental, .scene--end, .marquee`, { autoAlpha: 0 });
   hideSnap(`.scene--plans .js-snap, .scene--plans .js-c, .scene--social .js-snap, .scene--social .js-c, .scene--software .js-snap, .scene--software .js-c`, RM);
   gsap.set('.card__tiles i, .tiles i', { opacity: RM ? 1 : 0 });
@@ -323,7 +324,7 @@ async function makeStage() {
   // speed: phones and touch screens get the lighter film files, a lower canvas resolution and no idle redraws
   const LITE = !FINE || PHONE_MQ.matches || window.innerWidth < 900;
   const scenes = SCENES.map((s) => (LITE && s.videoPhone) ? { ...s, video: s.videoPhone } : s);
-  const cfg = { scenes, logo: logoUrl(), ink: '#0B0B0C', peri: '#9CBEFE', signal: '#EB7E3B', reducedMotion: RM, dprCap: LITE ? 1.5 : 2, idleSkip: !FINE };
+  const cfg = { scenes, logo: logoUrl(), ink: '#0B0B0C', peri: '#9CBEFE', signal: '#EB7E3B', reducedMotion: RM, dprCap: LITE ? 1.5 : 2, idleSkip: !FINE, fastIntro: FAST };
   // perf (permanent): phones + reduced-motion load the poster stub, never the video engine.
   const phoneStub = PHONE_MQ.matches || RM;
   if (!params.has('stub') && !phoneStub) {
@@ -336,12 +337,19 @@ async function makeStage() {
     canvas.replaceWith(fresh);
     canvas = fresh;
   }
-  const m = await import('./stage-stub.js?v=1006');
+  const m = await import('./stage-stub.js?v=1008');
   return m.createStage(canvas, cfg);
 }
 
 // ---------- B0 intro, DOM side ----------
 function heroBuild(tl) {
+  if (FAST) {
+    gsap.set('.scene--hero .ch', { clipPath: 'none' });
+    gsap.set('.scene--hero .js-snap, .scene--hero .hero__fear', { autoAlpha: 1 });
+    gsap.set('.scene--hero .blk', { scaleX: 0 });
+    $$('.scene--hero .js-roll').forEach((el) => { el.textContent = el.dataset.to || el.textContent; });
+    return;
+  }
   if (RM) {
     tl.to('.hero__h1', { autoAlpha: 1, duration: 0.3 }, 0);
     snapIn(tl, '.scene--hero .js-snap', 0.1, { rm: true, d: 0.15, st: 0.04 });
