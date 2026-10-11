@@ -337,7 +337,7 @@ async function makeStage() {
     canvas.replaceWith(fresh);
     canvas = fresh;
   }
-  const m = await import('./stage-stub.js?v=1008');
+  const m = await import('./stage-stub.js?v=1009');
   return m.createStage(canvas, cfg);
 }
 

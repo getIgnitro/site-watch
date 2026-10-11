@@ -84,12 +84,17 @@ export async function createStage(canvas, opts) {
     if (!logo) return;
     const [, , vw, vh] = logo.viewBox;
     const target = intro.rect;
-    const cw = Math.min(W * 0.34, 440), chh = cw * vh / vw;
-    let x = (W - cw) / 2, y = (H - chh) / 2, w = cw;
-    if (t > T.wallStart) { // travel to the nav slot
-      const k = Math.min(1, (t - T.wallStart) / (T.logoDone - T.wallStart));
-      const e = 1 - Math.pow(1 - k, 3);
-      x += (target.left - x) * e; y += (target.top - y) * e; w += (target.width - w) * e;
+    let x, y, w;
+    if (opts.fastIntro) { // phones: build the logo small in the nav slot, never over the hero
+      x = target.left; y = target.top; w = target.width;
+    } else {
+      const cw = Math.min(W * 0.34, 440), chh = cw * vh / vw;
+      x = (W - cw) / 2; y = (H - chh) / 2; w = cw;
+      if (t > T.wallStart) { // travel to the nav slot
+        const k = Math.min(1, (t - T.wallStart) / (T.logoDone - T.wallStart));
+        const e = 1 - Math.pow(1 - k, 3);
+        x += (target.left - x) * e; y += (target.top - y) * e; w += (target.width - w) * e;
+      }
     }
     const s = w / vw;
     ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
