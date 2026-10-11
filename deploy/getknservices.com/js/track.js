@@ -1,10 +1,23 @@
-/* track.js - KN v5 Google Ads tracking (6 Oct 2026). Loads the Google tag and reports three conversions:
- *   purchase  - thanks.html reached after a Stripe payment (plan from localStorage kn_plan, set on the Pay click in launch.js)
- *   brief     - the build brief delivered (brief.js fires the kn:brief-sent event on success)
- *   whatsapp  - any tap on a wa.me link (page buttons and the chat square)
- * All ids and labels live in track-config.js. With an empty id this file does nothing, so it is safe on the live site. */
+/* track.js - KN v5 site tracking (6 Oct 2026; Microsoft Clarity added 11 Oct 2026).
+ *   Clarity    - anonymous behaviour analytics (session recordings + heatmaps) on every page.
+ *   Google Ads - loads the Google tag and reports three conversions:
+ *     purchase  - thanks.html reached after a Stripe payment (plan from localStorage kn_plan, set on the Pay click in launch.js)
+ *     brief     - the build brief delivered (brief.js fires the kn:brief-sent event on success)
+ *     whatsapp  - any tap on a wa.me link (page buttons and the chat square)
+ * All ids live in track-config.js. Each feature is off when its id is empty, so this file is safe on the live site. */
 (function () {
   var C = window.KN_TRACK || {};
+
+  /* Microsoft Clarity: anonymous behaviour analytics. Empty clarity id = off (loads nothing). */
+  if (C.clarity) {
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+      t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, 'clarity', 'script', C.clarity);
+  }
+
+  /* Google Ads: needs the Ads id. Everything below is unchanged from the 6 Oct build. */
   if (!C.id) return;
 
   window.dataLayer = window.dataLayer || [];
