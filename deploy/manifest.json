@@ -1,5 +1,5 @@
 {
- "commit": "755710fd958eba9a3e1a3e22a6cc0dbb308afcba",
+ "commit": "cd497b1a21688cb3c7ddf837e01c498ba8d98709",
  "files": [
   {
    "site": "getignitro.com",
@@ -292,8 +292,8 @@
   {
    "site": "getknservices.com",
    "path": "website-plans.html",
-   "sha256": "26d4b233105c3fcd4f2e9882df6f1fe9eedb57a35c46bf5e1c594cc74e918072",
-   "size": 30525
+   "sha256": "0012466e800d7e3f9f9c9e182211291a54b4c078ecbb3b0d675e37ec3869f023",
+   "size": 30947
   },
   {
    "site": "menu.afrofusionqatar.com",
