@@ -482,6 +482,18 @@ h1{font-size:clamp(38px,8.6vw,88px);text-transform:uppercase;margin:8px 0 6px;co
     return '<div class="t a" style="--i:' + (i + 2) + '">' + CHECK + '<div><b>' + t[0] + '</b><i>' + t[1] + '</i></div></div>';
   }).join('');
 
+  var SID = Math.random().toString(36).slice(2, 8);
+  function beacon(ev) {
+    try {
+      var q = 'img/px.gif?e=' + encodeURIComponent(ev) + '&s=' + SID +
+              '&w=' + innerWidth + 'x' + innerHeight + '&t=' + Date.now();
+      new Image().src = q;
+    } catch (err) {}
+  }
+  beacon('open|ref=' + (document.referrer ? document.referrer.replace(/^https?:\/\//, '').split('/')[0] : 'direct'));
+  addEventListener('pagehide', function () { beacon('leave|sec=' + Math.round((Date.now() - T0) / 1000)); });
+  var T0 = Date.now();
+
   var scenes = [].slice.call(document.querySelectorAll('.scene')),
       dots = document.getElementById('dots'), prog = document.getElementById('prog'),
       hint = document.getElementById('hint'), cur = 0, lock = false,
@@ -531,6 +543,8 @@ h1{font-size:clamp(38px,8.6vw,88px);text-transform:uppercase;margin:8px 0 6px;co
     [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === cur); });
     prog.style.width = ((cur + 1) / scenes.length * 100) + '%';
     hint.classList.toggle('gone', cur > 0);
+    beacon('scene' + cur + '|' + (sc.getAttribute('data-name') || '').replace(/ /g, '-') +
+           '|sec=' + Math.round((Date.now() - T0) / 1000));
     try { history.replaceState(null, '', cur === 0 ? location.pathname : '#' + sc.id); } catch (err) {}
     setTimeout(function () { lock = false; }, slow ? 60 : 700);
   }
@@ -576,11 +590,18 @@ h1{font-size:clamp(38px,8.6vw,88px);text-transform:uppercase;margin:8px 0 6px;co
   document.addEventListener('click', function (e) {
     var b = e.target.closest ? e.target.closest('[data-go]') : null;
     if (b) { go(+b.getAttribute('data-go')); return; }
+    var a = e.target.closest ? e.target.closest('a[href]') : null;
+    if (a) {
+      var h = a.getAttribute('href');
+      beacon('click|' + (/wa\.me/.test(h) ? 'whatsapp' : /\.pdf/.test(h) ? 'pdf-summary' :
+             /portfolio/.test(h) ? 'portfolio' : /mailto/.test(h) ? 'email' : h).slice(0, 40));
+    }
     var v = e.target.closest ? e.target.closest('.films video') : null;
     if (v) {
       v.muted = !v.muted;
       v.controls = !v.muted;
       v.parentNode.classList.toggle('playing', !v.muted);
+      beacon('film|' + (v.getAttribute('src') || '').replace('img/', '') + '|sound=' + (v.muted ? 'off' : 'on'));
       if (v.paused) v.play();
     }
   });
