@@ -20,10 +20,12 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"></noscript>
 <link rel="stylesheet" href="css/site.css?v=1005">
 <link rel="stylesheet" href="css/details.css?v=1005">
-<link rel="stylesheet" href="css/launch.css?v=1005">
+<link rel="stylesheet" href="css/launch.css?v=1005" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/launch.css?v=1005"></noscript>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -32,8 +34,8 @@
 (function () { var r = document.documentElement; try { if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) { r.classList.add('dt-anim'); setTimeout(function () { if (!window.__dtLive) r.classList.remove('dt-anim'); }, 2500); } } catch (e) { r.classList.remove('dt-anim'); } })();
 </script>
 <script defer src="js/details.js"></script>
-<script defer src="js/track-config.js?v=1"></script>
-<script defer src="js/track.js?v=1"></script>
+<script defer src="js/track-config.js?v=2"></script>
+<script defer src="js/track.js?v=2"></script>
 <!-- seo-schema -->
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://getknservices.com/#org", "name": "KN Services Group LLC", "alternateName": "KN Services Group", "url": "https://getknservices.com/", "logo": "https://getknservices.com/apple-touch-icon.png", "image": "https://getknservices.com/kn-share.jpg", "email": "hello@getknservices.com", "priceRange": "$$", "description": "KN Services Group builds and runs websites, social media and custom software at a fixed monthly price.", "address": {"@type": "PostalAddress", "addressRegion": "WY", "addressCountry": "US"}, "areaServed": {"@type": "Country", "name": "United States"}, "contactPoint": {"@type": "ContactPoint", "email": "hello@getknservices.com", "contactType": "sales", "availableLanguage": "English"}}, {"@type": "Service", "serviceType": "Website design, hosting and management", "provider": {"@id": "https://getknservices.com/#org"}, "areaServed": {"@type": "Country", "name": "United States"}, "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website plans", "itemListElement": [{"@type": "Offer", "name": "Launch", "price": "99", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Business", "price": "179", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "179", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Pro", "price": "329", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "329", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Store", "price": "499", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "499", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}]}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://getknservices.com/"}, {"@type": "ListItem", "position": 2, "name": "Website plans", "item": "https://getknservices.com/website-plans.html"}]}]}</script>
 </head>
