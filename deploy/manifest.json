@@ -1,5 +1,5 @@
 {
- "commit": "da2ea938cd5d5e0a6d0d6496451347182d8ec1cf",
+ "commit": "09c3418325ffd73ab75b21e5b607bf1937d9f1e4",
  "files": [
   {
    "site": "getignitro.com",
@@ -93,6 +93,12 @@
   },
   {
    "site": "getignitro.com",
+   "path": "oryx-group/img/px.gif",
+   "sha256": "ef1955ae757c8b966c83248350331bd3a30f658ced11f387f8ebf05ab3368629",
+   "size": 42
+  },
+  {
+   "site": "getignitro.com",
    "path": "oryx-group/img/qfc.svg",
    "sha256": "0c26b77aaea63c41a34689d22a0d209aeec008b3a899712a0370393be45363da",
    "size": 10204
@@ -160,8 +166,8 @@
   {
    "site": "getignitro.com",
    "path": "oryx-group/index.html",
-   "sha256": "a02f34d08f3f899ca128433590102912894381edda920bd00bcccb5b34e96d4b",
-   "size": 35647
+   "sha256": "93713a3281b61984bbf9bd14ec8d83b8c6047dc12d15e2417b399a7602bcae5b",
+   "size": 36759
   },
   {
    "site": "getignitro.com",
