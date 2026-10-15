@@ -1,5 +1,5 @@
 {
- "commit": "09c3418325ffd73ab75b21e5b607bf1937d9f1e4",
+ "commit": "258488446594a3e4ca29859a503f4f839a49e994",
  "files": [
   {
    "site": "getignitro.com",
@@ -166,8 +166,8 @@
   {
    "site": "getignitro.com",
    "path": "oryx-group/index.html",
-   "sha256": "93713a3281b61984bbf9bd14ec8d83b8c6047dc12d15e2417b399a7602bcae5b",
-   "size": 36759
+   "sha256": "dc79cf0927528e93ad7e44de14120a59a88b7b6f69beceeb6dafb463754b0de0",
+   "size": 37402
   },
   {
    "site": "getignitro.com",
