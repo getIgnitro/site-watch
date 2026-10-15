@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ignitro &middot; Prepared for Oryx Group</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="A social media and advertising plan for Nando's, Ocean Basket and Oodles Wok, prepared by Ignitro for Oryx Group for Food Services.">
+<meta property="og:title" content="Ignitro &middot; Prepared for Oryx Group">
+<meta property="og:description" content="Nando's &middot; Ocean Basket &middot; Oodles Wok — one team, every platform, QAR 1,600 a month per brand.">
+<meta property="og:image" content="https://getignitro.com/oryx-group/img/hero1.jpg">
+<link rel="icon" href="img/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0908; --ink2:#121010; --card:#16130F; --line:#2C2723; --line2:#3A3228;
+  --txt:#F3EEE8; --mut:#A49C93; --acc:#F07800; --pur:#D45BE4;
+  --bar:58px; --pad:clamp(18px,4.4vw,70px);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{background:var(--ink);color:var(--txt);font-family:'Inter',system-ui,Arial,sans-serif;line-height:1.45;
+     -webkit-font-smoothing:antialiased;overscroll-behavior:none}
+img{max-width:100%;display:block}
+
+/* ---------- chrome ---------- */
+.bar{position:fixed;top:0;left:0;right:0;height:var(--bar);z-index:60;display:flex;align-items:center;gap:14px;
+     padding:0 var(--pad);background:rgba(10,9,8,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar img{height:22px;width:auto}
+.bar .who{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--acc);color:#0A0908;font-weight:900;font-family:inherit;
+     font-size:clamp(12.5px,2vw,14.5px);padding:10px 17px;border-radius:999px;text-decoration:none;white-space:nowrap;
+     transition:transform .18s ease,box-shadow .18s ease;border:0;cursor:pointer}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(240,120,0,.32)}
+.btn.ghost{background:transparent;color:var(--txt);border:1.5px solid var(--line2)}
+.btn.ghost:hover{border-color:var(--acc);box-shadow:none}
+.bar .btn{margin-left:auto}
+.prog{position:fixed;top:var(--bar);left:0;height:2px;background:var(--acc);width:0;z-index:61;transition:width .5s cubic-bezier(.2,.7,.2,1)}
+.dots{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:11px}
+.dots i{width:8px;height:8px;border-radius:50%;background:#4A423A;cursor:pointer;transition:.3s;display:block}
+.dots i.on{background:var(--acc);transform:scale(1.45)}
+.hint{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;font-size:11px;letter-spacing:.22em;
+      text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:9px;transition:opacity .4s}
+.hint.gone{opacity:0;pointer-events:none}
+.hint span{display:block;width:16px;height:16px;border-right:1.5px solid var(--acc);border-bottom:1.5px solid var(--acc);
+           transform:rotate(45deg) translate(-3px,-3px);animation:bob 1.7s infinite}
+@keyframes bob{0%,100%{opacity:.35;transform:rotate(45deg) translate(-3px,-3px)}50%{opacity:1;transform:rotate(45deg) translate(1px,1px)}}
+
+/* ---------- scenes ---------- */
+#deck{position:fixed;inset:var(--bar) 0 0 0;overflow:hidden}
+.scene{position:absolute;inset:0;display:flex;align-items:center;align-items:safe center;justify-content:center;padding:clamp(12px,3vh,40px) 0;
+       overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;
+       opacity:0;visibility:hidden;transform:translateY(34px);
+       transition:opacity .5s ease,transform .62s cubic-bezier(.2,.75,.2,1),visibility 0s linear .62s}
+.scene.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s ease,transform .62s cubic-bezier(.2,.75,.2,1),visibility 0s}
+.scene.up{transform:translateY(-34px)}
+.scene::-webkit-scrollbar{width:0;height:0}
+.wrap{width:100%;max-width:1120px;padding:0 var(--pad);margin:0 auto}
+.a{opacity:0;transform:translateY(24px);transition:opacity .62s cubic-bezier(.2,.7,.2,1),transform .62s cubic-bezier(.2,.7,.2,1);
+   transition-delay:calc(var(--i,0) * 85ms + 140ms)}
+.scene.on .a{opacity:1;transform:none}
+.eyebrow{font-size:clamp(10.5px,2.2vw,12.5px);font-weight:900;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.eyebrow b{color:var(--acc)}
+h1,h2,h3,.amt,.big,.n{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:-.4px;line-height:1.04}
+h2{font-size:clamp(25px,4.6vw,44px);margin:10px 0 12px}
+h2 em{font-style:italic;color:var(--acc)}
+.lede{font-size:clamp(14px,1.9vw,18px);color:var(--mut);max-width:60ch}
+.lede b{color:var(--txt);font-weight:600}
+.cta{display:flex;flex-wrap:wrap;gap:11px;margin-top:clamp(16px,2.6vh,26px)}
+
+/* hero */
+#s0 .strip{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;z-index:-2}
+#s0 .strip div{background-size:cover;background-position:center}
+#s0 .scrim{position:absolute;inset:0;z-index:-1;background:
+  linear-gradient(90deg,rgba(10,9,8,.95) 0,rgba(10,9,8,.74) 48%,rgba(10,9,8,.3) 100%),
+  linear-gradient(180deg,rgba(10,9,8,.75) 0,rgba(10,9,8,.4) 30%,rgba(10,9,8,.88) 78%,var(--ink) 100%)}
+#s0 .eyebrow{color:#CFC6BC}
+h1{font-size:clamp(38px,8.6vw,88px);text-transform:uppercase;margin:8px 0 6px;color:var(--pur);
+   text-shadow:0 3px 30px rgba(0,0,0,.8)}
+.brands{font-size:clamp(11px,2.2vw,16px);font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.hline{font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:clamp(23px,4.4vw,48px);line-height:1.08;
+       margin:clamp(14px,2.6vh,30px) 0 12px;max-width:20ch;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.hline em{font-style:italic;color:var(--acc)}
+.hsub{color:var(--mut);font-size:clamp(13.5px,1.8vw,17px);max-width:52ch}
+
+/* audit */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(9px,1.2vw,16px);margin-top:clamp(14px,2.4vh,26px)}
+.c{background:var(--card);border:1.5px solid var(--line2);border-radius:16px;padding:clamp(13px,1.8vh,20px)}
+.c .bn{font-size:clamp(15px,1.5vw,18px);font-weight:900}
+.c .h{font-size:clamp(11.5px,1.1vw,13.5px);color:var(--mut);margin-top:1px}
+.c .big{font-size:clamp(30px,4.2vw,50px);color:var(--acc);line-height:1;margin:clamp(8px,1.4vh,14px) 0 1px}
+.c .cap{font-size:clamp(9.5px,.95vw,12px);letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.c ul{list-style:none;margin-top:clamp(8px,1.4vh,14px);border-top:1px solid var(--line);padding-top:8px}
+.c li{display:flex;justify-content:space-between;gap:8px;font-size:clamp(12px,1.15vw,14.5px);padding:3px 0;color:var(--mut)}
+.c li b{color:var(--txt)}
+.c .lab{margin-top:clamp(8px,1.4vh,14px);font-size:clamp(9.5px,.95vw,11.5px);letter-spacing:.17em;text-transform:uppercase;color:var(--mut)}
+.c .lab + ul{margin-top:5px;border-top:0;padding-top:0}
+.c .note{margin-top:9px;font-size:clamp(11.5px,1.1vw,14px);color:var(--mut);line-height:1.4}
+.band{margin-top:clamp(12px,2vh,22px);background:var(--acc);color:#0A0908;border-radius:14px;
+      padding:clamp(12px,1.8vh,18px) clamp(14px,2vw,22px);font-size:clamp(14.5px,2.3vw,23px);font-weight:900;line-height:1.25}
+.band span{display:block;font-weight:600;font-size:clamp(12px,1.5vw,16px);margin-top:5px;color:#2A1300}
+.src{margin-top:9px;font-size:11.5px;color:#6F675F}
+
+/* plan */
+.plan{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(9px,1.2vw,16px);margin-top:clamp(14px,2.4vh,26px)}
+.p{background:linear-gradient(180deg,#141210,#0E0C0B);border:1.5px solid var(--line2);border-radius:16px;padding:clamp(14px,2vh,22px)}
+.p .meta{font-size:clamp(10.5px,1vw,12.5px);color:var(--acc);font-weight:900;letter-spacing:.14em;text-transform:uppercase}
+.p h3{font-size:clamp(17px,1.8vw,23px);margin:5px 0 7px}
+.p p{font-size:clamp(12.5px,1.2vw,15.5px);color:var(--mut);line-height:1.5}
+.p p b{color:var(--txt);font-weight:600}
+
+/* every month */
+.big3{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(8px,1.1vw,14px);margin-top:clamp(12px,2.2vh,24px)}
+.pan{background:var(--card);border:1.5px solid var(--line2);border-radius:16px;padding:clamp(12px,2vh,20px) 12px;text-align:center}
+.pan .n{font-size:clamp(38px,7vw,84px);color:var(--acc);line-height:.95}
+.pan .l{font-size:clamp(11px,1.6vw,17px);font-weight:900;letter-spacing:.17em;text-transform:uppercase;margin-top:5px}
+.pan .d{font-size:clamp(10.5px,1.1vw,14px);color:var(--mut);margin-top:5px;line-height:1.3}
+.sum{margin-top:clamp(10px,1.6vh,16px);background:var(--acc);color:#0A0908;border-radius:13px;text-align:center;
+     padding:clamp(10px,1.6vh,15px);font-size:clamp(14px,2.2vw,23px);font-weight:900}
+.sum i{font-style:normal;font-weight:600}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:clamp(10px,1.8vh,18px)}
+.pill{border:1.5px solid var(--line2);border-radius:999px;padding:6px 15px;font-size:clamp(12px,1.2vw,14.5px);font-weight:700}
+.pill.on{border:0;color:var(--mut);font-weight:900;letter-spacing:.16em;text-transform:uppercase;font-size:11.5px;padding-left:0}
+
+/* included */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:clamp(7px,1vw,11px);margin-top:clamp(12px,2.2vh,22px)}
+.t{display:flex;gap:11px;background:var(--ink2);border:1.5px solid var(--line);border-radius:13px;padding:clamp(8px,1.3vh,13px) 13px}
+.t svg{flex:0 0 22px;margin-top:2px}
+.t b{display:block;font-size:clamp(13px,1.3vw,16.5px)}
+.t i{display:block;font-style:normal;font-size:clamp(11px,1.1vw,14px);color:var(--mut);margin-top:1px}
+.free{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:13px;margin-top:clamp(10px,1.8vh,18px);
+      border:2px solid var(--acc);background:#1E140A;border-radius:14px;padding:clamp(10px,1.6vh,15px) 16px;text-align:center}
+.free .tag{background:var(--acc);color:#0A0908;font-weight:900;letter-spacing:.13em;border-radius:7px;padding:3px 10px;font-size:14px}
+.free b{font-size:clamp(15px,2.2vw,21px);font-weight:900}
+.free i{font-style:normal;color:var(--mut);font-size:clamp(12.5px,1.2vw,15px)}
+
+/* ten days */
+.days{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.1vw,14px);margin-top:clamp(14px,2.4vh,26px)}
+.d{background:var(--card);border:1.5px solid var(--line2);border-radius:14px;padding:clamp(13px,1.9vh,20px)}
+.d .k{font-size:clamp(10.5px,1vw,12.5px);font-weight:900;letter-spacing:.18em;text-transform:uppercase;color:var(--acc)}
+.d p{margin-top:6px;font-size:clamp(12.5px,1.2vw,15.5px);color:var(--mut);line-height:1.45}
+.d p b{color:var(--txt);font-weight:600}
+
+/* numbers */
+.price{margin-top:clamp(12px,2.2vh,24px);border:1.5px solid var(--line2);border-radius:16px;overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;padding:clamp(10px,1.7vh,16px) clamp(13px,1.6vw,20px);
+     border-bottom:1px solid var(--line);font-size:clamp(13.5px,1.5vw,18px)}
+.row:last-child{border-bottom:0}
+.row .nm{font-weight:700}
+.row .was{margin-left:auto;color:#6F675F;font-size:clamp(11.5px,1.1vw,14.5px);text-decoration:line-through;white-space:nowrap}
+.row .amt{font-size:clamp(17px,2.2vw,26px);white-space:nowrap;min-width:104px;text-align:right}
+.row.total{background:var(--acc);color:#0A0908}
+.row.total .amt{color:#0A0908;font-size:clamp(20px,2.9vw,34px)}
+.row.total .nm{font-weight:900}
+.notes{margin-top:clamp(10px,1.8vh,16px);display:grid;gap:6px}
+.notes li{list-style:none;font-size:clamp(12px,1.2vw,15px);color:var(--mut);padding-left:19px;position:relative;line-height:1.4}
+.notes li:before{content:"";position:absolute;left:0;top:7px;width:7px;height:7px;background:var(--acc);border-radius:2px;transform:rotate(45deg)}
+.notes li b{color:var(--txt);font-weight:600}
+.valid{margin-top:clamp(10px,1.6vh,16px);font-size:clamp(12px,1.5vw,16px);font-weight:900;letter-spacing:.13em;
+       text-transform:uppercase;color:var(--acc)}
+
+/* work */
+.work{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:clamp(12px,2.2vh,22px)}
+.work img{height:clamp(80px,18.5vh,198px);object-fit:cover;border-radius:9px;width:100%}
+.stats{display:flex;flex-wrap:wrap;gap:8px 30px;margin-top:clamp(12px,2vh,20px);align-items:baseline}
+.stats div{font-size:clamp(13px,1.5vw,18px);font-weight:700}
+.stats .n{color:var(--acc);font-size:clamp(22px,3.4vw,36px);margin-right:7px}
+
+/* films */
+.films{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:clamp(12px,2.2vh,22px)}
+.films::-webkit-scrollbar{display:none}
+.films .fw{position:relative;flex:1 1 0;min-width:0;scroll-snap-align:center}
+.films video{width:100%;height:min(46vh,470px);object-fit:cover;border-radius:14px;background:#000;cursor:pointer;display:block}
+.films .sp{position:absolute;left:10px;bottom:10px;background:rgba(10,9,8,.72);border:1px solid var(--line2);color:var(--txt);
+           font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;border-radius:999px;pointer-events:none}
+.films .fw.playing .sp{opacity:0}
+
+/* close */
+.sign{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:end;margin-top:clamp(14px,2.6vh,28px);
+      border-top:1px solid var(--line);padding-top:clamp(12px,2vh,20px)}
+.sign .nm{font-size:clamp(15px,1.6vw,19px);font-weight:900}
+.sign .ti{font-size:clamp(12px,1.2vw,14.5px);color:var(--mut);margin-top:1px}
+.sign .ad{font-size:clamp(11.5px,1.15vw,14px);color:var(--mut);margin-top:9px;line-height:1.5}
+.marks{display:flex;align-items:center;gap:14px;justify-content:flex-end}
+.marks img{height:28px;width:auto;opacity:.9}
+.marks .qmc{height:36px}
+
+@media (max-width:760px){
+  .dots{display:none}
+  .bar .who{display:none}
+  .cards,.plan{grid-template-columns:1fr}
+  .days{grid-template-columns:1fr 1fr}
+  .c{display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:center}
+  .c .bn,.c .h{grid-column:1}
+  .c .big{grid-column:2;grid-row:1/3;margin:0;text-align:right}
+  .c .cap{grid-column:2;grid-row:3;text-align:right}
+  .c ul{grid-column:1/3;display:grid;grid-template-columns:1fr 1fr;gap:0 14px;margin-top:9px}
+  .c .note{display:none}
+  .big3{grid-template-columns:1fr;gap:8px}
+  .pan{display:flex;align-items:center;gap:16px;text-align:left;padding:12px 16px}
+  .pan .n{font-size:42px;flex:0 0 58px;text-align:center}
+  .pan .l{margin-top:0;font-size:14px}
+  .pan .d{margin-top:2px;font-size:12px}
+  .sign{grid-template-columns:1fr}
+  .marks{justify-content:flex-start}
+  .work{gap:5px}
+  .films .fw{flex:0 0 64%}
+  .films video{height:min(46vh,420px)}
+  .lede{font-size:13.5px}
+  #s0 .scrim{background:linear-gradient(180deg,rgba(10,9,8,.8) 0,rgba(10,9,8,.55) 24%,rgba(10,9,8,.93) 66%,var(--ink) 100%)}
+  .scene{padding:10px 0}
+}
+@media (max-height:800px) and (min-width:761px){
+  .c .note{display:none}
+  .lede{font-size:15px}
+}
+@media (max-width:430px){
+  .grid2{grid-template-columns:1fr}
+  .xs{display:none}
+  .cards{gap:7px}
+  .c{padding:11px 13px}
+  .band{padding:11px 14px;font-size:14px;margin-top:10px}
+  .c li{padding:2px 0}
+  .cards{margin-top:10px;gap:6px}
+  .src{font-size:10.5px;margin-top:6px}
+  .scene{padding:6px 0}
+  h2{font-size:23px;margin:8px 0 10px}
+}
+@media (prefers-reduced-motion:reduce){
+  .scene,.a{transition:none!important}
+  .hint span{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <img src="img/logo.png" alt="Ignitro">
+  <div class="who">Prepared for Oryx Group</div>
+  <a class="btn" href="https://wa.me/97460027117?text=ORYX" target="_blank" rel="noopener">Talk to us</a>
+</div>
+<div class="prog" id="prog"></div>
+<div class="dots" id="dots"></div>
+
+<div id="deck">
+
+  <section class="scene" id="s0" data-name="Cover">
+    <div class="strip">
+      <div style="background-image:url('img/hero1.jpg')"></div>
+      <div style="background-image:url('img/hero2.jpg')"></div>
+      <div style="background-image:url('img/hero3.jpg')"></div>
+    </div>
+    <div class="scrim"></div>
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">Prepared for the brands of</div>
+      <h1 class="a" style="--i:1">Oryx Group</h1>
+      <div class="brands a" style="--i:2">Nando&rsquo;s &middot; Ocean Basket &middot; Oodles Wok</div>
+      <p class="hline a" style="--i:3">They decide before they park.<br><em>Their phone picks the table.</em></p>
+      <p class="hsub a" style="--i:4">A social media and advertising plan for all three brands, and what it costs.
+        Prepared by Ignitro for Oryx Group for Food Services, 15 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="s1" data-name="Where you stand">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">01 &middot; <b>Where the three brands stand today</b></div>
+      <h2 class="a" style="--i:1">We read every post first.</h2>
+      <p class="lede a" style="--i:2">Before writing a word of this, we read the most recent posts on all three
+        accounts, back to March &mdash; <b>127 posts</b>.<span class="xs"> All of it is public, and
+        you can check it from your own phone in a minute.</span></p>
+      <div class="cards">
+        <div class="c a" style="--i:3">
+          <div class="bn">Nando&rsquo;s Qatar</div><div class="h">@nandosqatar &middot; 12 restaurants</div>
+          <div class="big" data-count="39063">39,063</div><div class="cap">followers</div>
+          <div class="lab">Posts published</div>
+          <ul><li>September <b>10</b></li><li>1&ndash;14 October <b>5</b></li><li>Captions in Arabic <b>2</b></li></ul>
+          <p class="note">The strongest of the three, and the only one that has ever posted in Arabic &mdash; twice, in a year.</p>
+        </div>
+        <div class="c a" style="--i:4">
+          <div class="bn">Ocean Basket Qatar</div><div class="h">@oceanbasketqa &middot; Mall of Qatar</div>
+          <div class="big" data-count="7630">7,630</div><div class="cap">followers</div>
+          <div class="lab">Posts published</div>
+          <ul><li>September <b>7</b></li><li>1&ndash;14 October <b>4</b></li><li>Captions in Arabic <b>0</b></li></ul>
+          <p class="note">Posting steadily, but one restaurant has to be made a destination before people drive to Al Rayyan.</p>
+        </div>
+        <div class="c a" style="--i:5">
+          <div class="bn">Oodles Wok Qatar</div><div class="h">@oodleswok_qatar &middot; two counters</div>
+          <div class="big" data-count="822">822</div><div class="cap">followers</div>
+          <div class="lab">Posts published</div>
+          <ul><li>September <b>5</b></li><li>1&ndash;14 October <b>4</b></li><li>Captions in Arabic <b>0</b></li></ul>
+          <p class="note">A second branch opened in August and the account is still under a thousand. The most to gain.</p>
+        </div>
+      </div>
+      <div class="band a" style="--i:6">Two of those 127 posts carried a word of Arabic. The last one was 4 August.
+        <span>Qatar reads in two languages. Right now all three feeds speak one of them.</span></div>
+      <p class="src a" style="--i:7">Source: the three public Instagram accounts, read 15 October 2026.</p>
+    </div>
+  </section>
+
+  <section class="scene" id="s2" data-name="The plan">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">02 &middot; <b>What we would do</b></div>
+      <h2 class="a" style="--i:1">Three brands, three different jobs.</h2>
+      <p class="lede a" style="--i:2">One team, one calendar, one invoice &mdash; but the brands are not in the same
+        place, so they do not get the same plan.</p>
+      <div class="plan">
+        <div class="p a" style="--i:3">
+          <div class="meta">Nando&rsquo;s Qatar</div>
+          <h3>Put all 12 branches on camera.</h3>
+          <p>One shoot day a month that <b>rotates branch to branch</b>, so every restaurant gets its turn. The flame
+            grill, the PERi-PERi ritual, the people behind the counter. <b>Arabic and English on every caption</b>, all
+            12 Google profiles current, every review answered.</p>
+        </div>
+        <div class="p a" style="--i:4">
+          <div class="meta">Ocean Basket Qatar</div>
+          <h3>Make one restaurant a destination.</h3>
+          <p>With a single location the content has to be worth a drive. <b>One film a month built around one dish</b>,
+            platters and family tables for the weekend, and paid reach aimed at the Mall of Qatar catchment rather than
+            all of Doha.</p>
+        </div>
+        <div class="p a" style="--i:5">
+          <div class="meta">Oodles Wok Qatar</div>
+          <h3>Get the brand known, fast.</h3>
+          <p>Under a thousand followers with two counters open is the clearest gap in the group. Loud, quick wok
+            content, price-led stories and ads pointed at the <b>office-lunch and student crowd</b> in both malls.
+            The job is recognition, not polish.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s3" data-name="Every month">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">03 &middot; <b>What each brand gets, every month</b></div>
+      <h2 class="a" style="--i:1">All of this. <em>Every month.</em></h2>
+      <div class="big3">
+        <div class="pan a" style="--i:2"><div class="n" data-count="4">4</div>
+          <div><div class="l">Videos</div><div class="d">filmed by our crew on professional cameras, never a phone &mdash; shoots rotate across your branches</div></div></div>
+        <div class="pan a" style="--i:3"><div class="n" data-count="12">12</div>
+          <div><div class="l">Images</div><div class="d">designed from our own professional photo shoots, English &amp; Arabic</div></div></div>
+        <div class="pan a" style="--i:4"><div class="n" data-count="16">16</div>
+          <div><div class="l">Stories</div><div class="d">new dishes, offers, behind the scenes</div></div></div>
+      </div>
+      <div class="sum a" style="--i:5">= <span data-count="32">32</span> pieces of content <i>&middot; 8 every week, per brand</i></div>
+      <div class="pills a" style="--i:6">
+        <span class="pill on">On</span><span class="pill">Instagram</span><span class="pill">Facebook</span>
+        <span class="pill">TikTok</span><span class="pill">Google Business Profile</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s4" data-name="Included">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">04 &middot; <b>Also included &middot; no extra cost</b></div>
+      <h2 class="a" style="--i:1">The work nobody sees.</h2>
+      <div class="grid2" id="inc"></div>
+      <div class="free a" style="--i:7"><span class="tag">FREE</span><b>Website re-design</b><i>when you sign</i></div>
+    </div>
+  </section>
+
+  <section class="scene" id="s5" data-name="Ten days">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">05 &middot; <b>The first ten days</b></div>
+      <h2 class="a" style="--i:1">Live in ten days, not next quarter.</h2>
+      <div class="days">
+        <div class="d a" style="--i:2"><div class="k">Day 3</div><p>Your plan and strategy for all three brands, ready for approval.</p></div>
+        <div class="d a" style="--i:3"><div class="k">Day 5</div><p>Mood boards and storyboards &mdash; you see every film before it is shot.</p></div>
+        <div class="d a" style="--i:4"><div class="k">Day 7</div><p>We shoot, at the branches you choose.</p></div>
+        <div class="d a" style="--i:5"><div class="k">Day 10</div><p><b>Your first content is live</b>, in English and Arabic.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s6" data-name="The numbers">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">06 &middot; <b>The numbers</b></div>
+      <h2 class="a" style="--i:1">One rate for the group.</h2>
+      <p class="lede a" style="--i:2">Billing is <b>per brand, not per branch</b>. One brand is one social handle,
+        however many restaurants sit behind it &mdash; the shoots simply rotate between them.</p>
+      <div class="price a" style="--i:3">
+        <div class="row"><span class="nm">Nando&rsquo;s Qatar</span><span class="was">QAR 3,400</span><span class="amt">QAR 1,600</span></div>
+        <div class="row"><span class="nm">Ocean Basket Qatar</span><span class="was">QAR 3,400</span><span class="amt">QAR 1,600</span></div>
+        <div class="row"><span class="nm">Oodles Wok Qatar</span><span class="was">QAR 3,400</span><span class="amt">QAR 1,600</span></div>
+        <div class="row total"><span class="nm">All three brands, every month</span>
+          <span class="amt">QAR <span data-count="4800">4,800</span></span></div>
+      </div>
+      <ul class="notes a" style="--i:4">
+        <li><b>Ad budget is not included.</b> It is spent on your own ad accounts, and you see every riyal of it.</li>
+        <li><b>A free website re-design</b> for the brand that needs one, when you sign.</li>
+        <li>Starts when you sign &middot; <b>six-month agreement</b> &middot; invoiced monthly, in advance.</li>
+      </ul>
+      <div class="valid a" style="--i:5">Group rate held until 31 October 2026</div>
+      <div class="cta a" style="--i:6">
+        <a class="btn" href="https://wa.me/97460027117?text=ORYX" target="_blank" rel="noopener">Talk to us on WhatsApp</a>
+        <a class="btn ghost" href="IGNITRO_Oryx_Group_Offer.pdf" target="_blank" rel="noopener">The one-page summary</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s7" data-name="Our work">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">07 &middot; <b>Our work</b></div>
+      <h2 class="a" style="--i:1">Shot by our own team, in Qatar.</h2>
+      <p class="lede a" style="--i:2">Professional cameras and lighting, our own crew &mdash; never a phone, never stock.</p>
+      <div class="work a" style="--i:3">
+        <img src="img/w1.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w2.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w3.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w4.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w5.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w6.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w7.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w8.jpg" alt="Ignitro food photography" loading="lazy">
+        <img src="img/w9.jpg" alt="Ignitro food photography" loading="lazy">
+      </div>
+      <div class="stats a" style="--i:4" id="stats">
+        <div><span class="n" data-count="25" data-suffix="+">25+</span>brands across Qatar</div>
+        <div><span class="n">6M+</span>content views</div>
+        <div><span class="n" data-count="2">2</span>years, Doha</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s8" data-name="Films">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">08 &middot; <b>Films</b></div>
+      <h2 class="a" style="--i:1">A few of ours. <em>Sound on.</em></h2>
+      <div class="films a" style="--i:2">
+        <div class="fw"><video src="img/film1.mp4" poster="img/film1.jpg" muted loop playsinline preload="metadata"></video><span class="sp">Tap for sound</span></div>
+        <div class="fw"><video src="img/film2.mp4" poster="img/film2.jpg" muted loop playsinline preload="metadata"></video><span class="sp">Tap for sound</span></div>
+        <div class="fw"><video src="img/film3.mp4" poster="img/film3.jpg" muted loop playsinline preload="metadata"></video><span class="sp">Tap for sound</span></div>
+        <div class="fw"><video src="img/film4.mp4" poster="img/film4.jpg" muted loop playsinline preload="metadata"></video><span class="sp">Tap for sound</span></div>
+      </div>
+      <p class="src a" style="--i:3">Shot, lit and edited by our own crew.</p>
+      <div class="cta a" style="--i:4">
+        <a class="btn ghost" href="https://portfolio.getignitro.com" target="_blank" rel="noopener">See the full portfolio &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="scene" id="s9" data-name="Next step">
+    <div class="wrap">
+      <div class="eyebrow a" style="--i:0">09 &middot; <b>The next step</b></div>
+      <h2 class="a" style="--i:1">Twenty minutes, at your office.</h2>
+      <p class="lede a" style="--i:2">We will walk your team through the first month for all three brands &mdash; the
+        shoot days, the calendar and the ad plan &mdash; and you decide after that. If it is easier, send one word on
+        WhatsApp and we will arrange the time.</p>
+      <div class="cta a" style="--i:3">
+        <a class="btn" href="https://wa.me/97460027117?text=ORYX" target="_blank" rel="noopener">WhatsApp 6002 7117</a>
+        <a class="btn ghost" href="mailto:info@getignitro.com?subject=Oryx%20Group%20%C2%B7%20Ignitro%20proposal">Email info@getignitro.com</a>
+      </div>
+      <div class="sign a" style="--i:4">
+        <div>
+          <div class="nm">Kashif Malik</div>
+          <div class="ti">Chief Management Officer &middot; Ignitro Innovative Solutions LLC</div>
+          <div class="ad">Media City Qatar, Building 7, Street 810, Zone 3<br>
+            Msheireb Downtown, Doha &middot; QFC02809<br>info@getignitro.com &middot; getignitro.com</div>
+        </div>
+        <div class="marks">
+          <img src="img/qfc.svg" alt="Qatar Financial Centre">
+          <img class="qmc" src="img/qmc.png" alt="Media City Qatar">
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="hint" id="hint">Scroll <span></span></div>
+
+<script>
+(function () {
+  var CHECK = '<svg viewBox="0 0 24 24" width="22" height="22"><circle cx="12" cy="12" r="12" fill="#F07800"/>' +
+    '<path d="M6.5 12.5l3.6 3.6 7.4-7.6" fill="none" stroke="#0A0908" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ITEMS = [['Ads management', 'Facebook, Instagram, Google'], ['Website management', 'kept updated, every month'],
+    ['Google Business Profile', 'claimed, completed, current'], ['Replies &amp; reviews', 'every comment and message'],
+    ['Content calendar', 'planned monthly, approved by you'], ['Monthly report', 'posts, reach and cost'],
+    ['Set up for you', 'every account, in your name'], ['English &amp; Arabic', 'every caption, both languages']];
+  document.getElementById('inc').innerHTML = ITEMS.map(function (t, i) {
+    return '<div class="t a" style="--i:' + (i + 2) + '">' + CHECK + '<div><b>' + t[0] + '</b><i>' + t[1] + '</i></div></div>';
+  }).join('');
+
+  var scenes = [].slice.call(document.querySelectorAll('.scene')),
+      dots = document.getElementById('dots'), prog = document.getElementById('prog'),
+      hint = document.getElementById('hint'), cur = 0, lock = false,
+      slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]still=1/.test(location.search);
+
+  scenes.forEach(function (s, i) {
+    var d = document.createElement('i');
+    d.title = s.getAttribute('data-name') || ('Scene ' + (i + 1));
+    d.onclick = function () { go(i); };
+    dots.appendChild(d);
+  });
+
+  function count(el) {
+    var to = +el.getAttribute('data-count'), sfx = el.getAttribute('data-suffix') || '';
+    if (slow) { el.textContent = to.toLocaleString('en-US') + sfx; return; }
+    var t0 = null, dur = to > 1000 ? 1150 : 850;
+    el.textContent = '0' + sfx;
+    setTimeout(function () { el.textContent = to.toLocaleString('en-US') + sfx; }, dur + 600);
+    requestAnimationFrame(function step(t) {
+      if (!t0) t0 = t;
+      var p = Math.min((t - t0) / dur, 1), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(to * e).toLocaleString('en-US') + sfx;
+      if (p < 1) requestAnimationFrame(step);
+    });
+  }
+
+  function animate(sc) {
+    [].forEach.call(sc.querySelectorAll('[data-count]'), function (el) {
+      setTimeout(function () { count(el); }, 340);
+    });
+  }
+
+  function go(n) {
+    n = Math.max(0, Math.min(scenes.length - 1, n));
+    if (n === cur || lock) return;
+    lock = true;
+    var out = scenes[cur];
+    out.classList.remove('on');
+    out.classList.toggle('up', n > cur);
+    cur = n;
+    var sc = scenes[cur];
+    sc.classList.remove('up');
+    sc.classList.add('on');
+    [].forEach.call(out.querySelectorAll('video'), function (v) { v.pause(); });
+    [].forEach.call(sc.querySelectorAll('video'), function (v) { var q = v.play(); if (q && q.catch) q.catch(function () {}); });
+    animate(sc);
+    [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === cur); });
+    prog.style.width = ((cur + 1) / scenes.length * 100) + '%';
+    hint.classList.toggle('gone', cur > 0);
+    try { history.replaceState(null, '', cur === 0 ? location.pathname : '#' + sc.id); } catch (err) {}
+    setTimeout(function () { lock = false; }, slow ? 60 : 700);
+  }
+
+  var wheelLock = false, wt;
+  function inner(sc, dir) {
+    if (sc.scrollHeight - sc.clientHeight < 8) return false;
+    return dir > 0 ? sc.scrollTop + sc.clientHeight < sc.scrollHeight - 3 : sc.scrollTop > 3;
+  }
+  addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaY) < 6) return;
+    if (inner(scenes[cur], e.deltaY > 0 ? 1 : -1)) return;
+    e.preventDefault();
+    if (lock || wheelLock) return;
+    wheelLock = true;
+    go(cur + (e.deltaY > 0 ? 1 : -1));
+    clearTimeout(wt);
+    wt = setTimeout(function () { wheelLock = false; }, 640);
+  }, { passive: false });
+
+  var y0 = null;
+  addEventListener('touchstart', function (e) { y0 = e.touches[0].clientY; }, { passive: true });
+  addEventListener('touchmove', function (e) {
+    if (y0 === null) return;
+    var dir = y0 - e.touches[0].clientY > 0 ? 1 : -1;
+    if (!inner(scenes[cur], dir)) e.preventDefault();
+  }, { passive: false });
+  addEventListener('touchend', function (e) {
+    if (y0 === null) return;
+    var dy = y0 - e.changedTouches[0].clientY, dir = dy > 0 ? 1 : -1;
+    if (Math.abs(dy) > 42 && !inner(scenes[cur], dir)) go(cur + dir);
+    y0 = null;
+  });
+
+  addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowDown' || k === 'PageDown' || k === ' ') { e.preventDefault(); go(cur + 1); }
+    else if (k === 'ArrowUp' || k === 'PageUp') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'Home') { go(0); }
+    else if (k === 'End') { go(scenes.length - 1); }
+  });
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('[data-go]') : null;
+    if (b) { go(+b.getAttribute('data-go')); return; }
+    var v = e.target.closest ? e.target.closest('.films video') : null;
+    if (v) {
+      v.muted = !v.muted;
+      v.controls = !v.muted;
+      v.parentNode.classList.toggle('playing', !v.muted);
+      if (v.paused) v.play();
+    }
+  });
+
+  scenes[0].classList.add('on');
+  prog.style.width = (1 / scenes.length * 100) + '%';
+  dots.children[0].classList.add('on');
+  var ids = scenes.map(function (s) { return '#' + s.id; }), start = ids.indexOf(location.hash);
+  if (start > 0) {
+    scenes[0].classList.remove('on');
+    scenes[start].classList.add('on');
+    cur = start;
+    [].forEach.call(dots.children, function (d, i) { d.classList.toggle('on', i === cur); });
+    prog.style.width = ((cur + 1) / scenes.length * 100) + '%';
+    hint.classList.add('gone');
+  }
+  setTimeout(function () { animate(scenes[cur]); }, 440);
+})();
+</script>
+</body>
+</html>
