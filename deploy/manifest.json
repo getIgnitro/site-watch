@@ -1,5 +1,5 @@
 {
- "commit": "ccc5f439a2324e6aecc10affe6cc051b39184f27",
+ "commit": "da2ea938cd5d5e0a6d0d6496451347182d8ec1cf",
  "files": [
   {
    "site": "getignitro.com",
@@ -16,8 +16,8 @@
   {
    "site": "getignitro.com",
    "path": "oryx-group/IGNITRO_Oryx_Group_Offer.pdf",
-   "sha256": "3d519c8881748124ac36e69b6f6e4e82629c6f088ae05c3f43f54e117ca8c63f",
-   "size": 901965
+   "sha256": "f8a9b6c3d488548868766516486bcf3d878a6a5652ee9b3f97c08cf96499163d",
+   "size": 902024
   },
   {
    "site": "getignitro.com",
