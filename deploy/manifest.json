@@ -1,17 +1,17 @@
 {
- "commit": "258488446594a3e4ca29859a503f4f839a49e994",
+ "commit": "18016ea9cbc6a570fe2946767ac3fdc2d65f61e8",
  "files": [
   {
    "site": "getignitro.com",
    "path": "case-studies.html",
-   "sha256": "2764e289bd8bd94395832989f532353cc365b321364af55b29815bf81d920b4b",
-   "size": 49858
+   "sha256": "bcc9f14a3f2f100af4060e38cf261e88539c31ce0d2577452060d895d46711f9",
+   "size": 50170
   },
   {
    "site": "getignitro.com",
    "path": "index.html",
-   "sha256": "d78d4c58668cad5fd0670b8cd3466c5a7e85cd11a4b2c3484e2fd627a2bf0a3f",
-   "size": 84033
+   "sha256": "aaa86a4d11c55a4d870f11edf6191b5116c77d32a7e80411c87210b49a6b7d40",
+   "size": 84345
   },
   {
    "site": "getignitro.com",
@@ -460,8 +460,8 @@
   {
    "site": "portfolio.getignitro.com",
    "path": "index.html",
-   "sha256": "64a355eb1a1b4b2041d06477fcfa7c2a55873185c44b7d3429cfd1501c59e400",
-   "size": 52036
+   "sha256": "3cc1453f4735663e09678620bbb18c90ab8efcfe68db60e59c1496ca98466f78",
+   "size": 52347
   },
   {
    "site": "portfolio.getignitro.com",
