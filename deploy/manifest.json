@@ -1,5 +1,5 @@
 {
- "commit": "18016ea9cbc6a570fe2946767ac3fdc2d65f61e8",
+ "commit": "b987b8b5ec29a6b14d38aba8fa87169841cef00f",
  "files": [
   {
    "site": "getignitro.com",
@@ -183,6 +183,54 @@
   },
   {
    "site": "getknservices.com",
+   "path": "assets/proof/bakery-1120.webp",
+   "sha256": "4a89318d98e2690913fe90cbcaa09ca0819bf0a70b434cd95281321112538856",
+   "size": 71970
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/bakery-720.webp",
+   "sha256": "fc3d40b206e9c1cd963e0251ec3b27b7bf5fd253d98e09e277b70bcba934263f",
+   "size": 39958
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/barber-1120.webp",
+   "sha256": "888a6ac87456909a41ba80998da4add512518d94caef6dc523809f26357ad0f9",
+   "size": 53280
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/barber-720.webp",
+   "sha256": "84e070da35180261c6b2bd00563555f32431ba494c83530ddac8aa6dd8bb9846",
+   "size": 31130
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/dental-1120.webp",
+   "sha256": "66fff28eda1faf68a8ff2df54374a546923f368fcddcf51c59d6702b5e532043",
+   "size": 42726
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/dental-720.webp",
+   "sha256": "a39008073ba44165050da251fd15df7c01fc7b72d2f61f60d9b47900bf9d3e6b",
+   "size": 23610
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/garage-1120.webp",
+   "sha256": "25f29406df2d4a69b5608eedf683409af197bed27e87249779145349a59c2196",
+   "size": 51812
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/proof/garage-720.webp",
+   "sha256": "48e5376645bf6e826fea42de7d1580e4f1dcf13541991f92a23b42fb7cfa852e",
+   "size": 31610
+  },
+  {
+   "site": "getknservices.com",
    "path": "assets/scenes/m/bakery.mp4",
    "sha256": "9b517fbb11784e2f63e9001d498e7f9af0d17e229d13f98af3142fbc41b79baf",
    "size": 934244
@@ -228,6 +276,12 @@
    "path": "contact.html",
    "sha256": "fec3b217ac8e6d952ca5178613f6983551dbd7baa1fb826ebd7825a9f0628fa6",
    "size": 8297
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/details.css",
+   "sha256": "0f4a04ab8f93c13f41ae801ba55224f12d50daaf44de31ca055bcfd695878c9d",
+   "size": 28522
   },
   {
    "site": "getknservices.com",
@@ -430,8 +484,8 @@
   {
    "site": "getknservices.com",
    "path": "start.html",
-   "sha256": "978559c3cf615a773e8993e4c2815b80a3a50a42f23921a028a5a56317ac5408",
-   "size": 12166
+   "sha256": "b3c8a6003095f4c64f7a5262db7b55e8c064f07ef099a511c0ec343fc46812c9",
+   "size": 18721
   },
   {
    "site": "getknservices.com",
@@ -448,8 +502,8 @@
   {
    "site": "getknservices.com",
    "path": "website-plans.html",
-   "sha256": "0012466e800d7e3f9f9c9e182211291a54b4c078ecbb3b0d675e37ec3869f023",
-   "size": 30947
+   "sha256": "18fd45bbf8ed6da4223952f80cffd4df4b110a190fe3a5d4b324bf3777e0353c",
+   "size": 45693
   },
   {
    "site": "menu.afrofusionqatar.com",
