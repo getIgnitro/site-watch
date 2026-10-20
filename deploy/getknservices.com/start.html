@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Start now · KN Services Group</title>
-<meta name="description" content="Pick a KN Services Group plan and start: websites from $99 a month, social media from $499 a month. $0 setup, month to month, cancel anytime.">
+<meta name="description" content="Pick a KN Services Group plan and start: websites from $499 once or $99 a month, social media from $499 a month. $0 setup.">
 <meta name="theme-color" content="#0B0B0C">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Start now · KN Services Group">
-<meta property="og:description" content="Pick a KN Services Group plan and start: websites from $99 a month, social media from $499 a month. $0 setup, month to month, cancel anytime.">
+<meta property="og:description" content="Pick a KN Services Group plan and start: websites from $499 once or $99 a month, social media from $499 a month. $0 setup.">
 <meta property="og:url" content="https://getknservices.com/start.html">
 <meta property="og:site_name" content="KN Services Group">
 <meta property="og:image" content="https://getknservices.com/kn-share.jpg">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap">
 <link rel="stylesheet" href="css/site.css?v=1005">
-<link rel="stylesheet" href="css/details.css?v=1005">
+<link rel="stylesheet" href="css/details.css?v=1007">
 <link rel="stylesheet" href="css/launch.css?v=1005">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -54,15 +54,20 @@
     <section class="dh dh--peri dh--tight rvg" aria-labelledby="st-h1" data-st=".07">
       <p class="dh__k rv">Start now</p>
       <h1 class="dh__h1 rv" id="st-h1">Pick your <em>plan</em></h1>
-      <p class="dh__p rv">Choose a plan, pay the first month, and we get to work.</p>
-      <ul class="badges badges--ink"><li class="badge rv">$0 setup</li><li class="badge rv">Month to month</li><li class="badge rv">Cancel anytime</li></ul>
+      <p class="dh__p rv">Choose a plan, make the first payment, and we get to work.</p>
+      <ul class="badges badges--ink"><li class="badge rv">$0 setup</li><li class="badge rv">Pay once or monthly</li><li class="badge rv">Cancel anytime on monthly</li></ul>
     </section>
 
     <section class="co" aria-label="Your plan and your order">
       <div class="co__pick">
         <div class="co__grp rvg" data-st=".05">
           <p class="co__k rv">Websites</p>
-          <div class="pks" style="--n:4"><button class="pk rv" type="button" data-plan="launch" aria-pressed="false"><span class="pk__name">Launch</span><span class="pk__price"><span class="cur">$</span>99</span><span class="pk__per">a month</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="business" aria-pressed="false"><span class="pk__name">Business</span><span class="pk__price"><span class="cur">$</span>179</span><span class="pk__per">a month</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="pro" aria-pressed="false"><span class="pk__name">Pro</span><span class="pk__price"><span class="cur">$</span>329</span><span class="pk__per">a month</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="store" aria-pressed="false"><span class="pk__name">Store</span><span class="pk__price"><span class="cur">$</span>499</span><span class="pk__per">a month</span><i class="pk__tick" aria-hidden="true"></i></button></div>
+          <div class="pks" style="--n:4"><button class="pk rv" type="button" data-plan="launch" aria-pressed="false"><span class="pk__name">Launch</span><span class="pk__price is-long"><span class="cur">$</span>499</span><span class="pk__per">once</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="business" aria-pressed="false"><span class="pk__name">Business</span><span class="pk__price is-long"><span class="cur">$</span>899</span><span class="pk__per">once</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="pro" aria-pressed="false"><span class="pk__name">Pro</span><span class="pk__price is-long"><span class="cur">$</span>1,650</span><span class="pk__per">once</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pk rv" type="button" data-plan="store" aria-pressed="false"><span class="pk__name">Store</span><span class="pk__price is-long"><span class="cur">$</span>2,490</span><span class="pk__per">once</span><i class="pk__tick" aria-hidden="true"></i></button></div>
+          <div class="pyc rv" id="pyc">
+            <p class="pyc__k" id="pyc-k">How do you want to pay?</p>
+            <div class="pyc__opts" role="group" aria-labelledby="pyc-k"><button class="pyc__b" type="button" data-pay="once" aria-pressed="true"><span class="pyc__t">Pay once</span><span class="pyc__d">Cheaper in total. Year one included.</span><i class="pk__tick" aria-hidden="true"></i></button><button class="pyc__b" type="button" data-pay="monthly" aria-pressed="false"><span class="pyc__t">Pay monthly</span><span class="pyc__d">Nothing upfront. Cancel anytime.</span><i class="pk__tick" aria-hidden="true"></i></button></div>
+            <p class="pyc__note" id="pyc-note" hidden>Social media plans are monthly.</p>
+          </div>
         </div>
         <div class="co__grp rvg" data-st=".05">
           <p class="co__k rv">Social media</p>
@@ -82,36 +87,36 @@
           <p class="or__grp" id="or-grp"></p>
           <ul class="or__rows">
             <li class="or__due"><span id="or-due-k">Due today</span><b id="or-due"></b></li>
-            <li><span>Then each month</span><b id="or-then"></b></li>
-            <li><span>Setup fee</span><b>$0</b></li>
+            <li id="or-then-row"><span id="or-then-k">Then each month</span><b id="or-then"></b></li>
+            <li id="or-setup"><span>Setup fee</span><b>$0</b></li>
           </ul>
           <div id="or-paybox" hidden>
             <a class="btn btn--xl" id="or-pay" href="start.html">Pay&nbsp;<span id="or-pay-amt"></span>&nbsp;and start</a>
             <p class="or__note">Secure checkout by Stripe. Pay by card or US bank account. Cancel anytime by email.</p>
           </div>
           <form class="fm" id="or-form" action="contact.php" method="post" hidden>
-            <input type="hidden" name="type" value="order"><input type="hidden" name="from" value="start"><input type="hidden" name="interest" id="or-plan" value="">
+            <input type="hidden" name="type" value="order"><input type="hidden" name="from" value="start"><input type="hidden" name="interest" id="or-plan" value=""><input type="hidden" name="pay" id="or-route" value="once">
             <label>Name<input name="name" required autocomplete="name" maxlength="100"></label>
             <label>Business name<input name="company" required autocomplete="organization" maxlength="120"></label>
             <label>Email<input name="email" type="email" required autocomplete="email" maxlength="254"></label>
             <label><span>Phone <em>(optional)</em></span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
             <div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
             <div class="fm__send"><button class="btn btn--xl" type="submit">Place my order</button><p class="fm__msg" role="status" aria-live="polite"></p></div>
-            <p class="fm__fine">No payment is taken on this page. We email your secure payment link within one business day, and your plan starts when the first month is paid.</p>
+            <p class="fm__fine" id="or-fine">No payment is taken on this page. We email your secure payment link within one business day, and your plan starts when the first month is paid.</p>
           </form>
           <p class="or__note">A question first? <a id="or-ask" href="contact.html">Ask us</a>. By ordering you agree to our <a href="terms.html">terms</a>.</p>
         </div>
-        <div class="ok" id="or-done" hidden><p class="ok__h">Order received</p><p class="ok__p">We email your secure payment link within one business day. Your plan starts when the first month is paid.</p></div>
+        <div class="ok" id="or-done" hidden><p class="ok__h">Order received</p><p class="ok__p" id="or-done-p">We email your secure payment link within one business day. Your plan starts when the first month is paid.</p></div>
       </aside>
     </section>
 
     <section class="hm" aria-labelledby="hm-h">
       <h2 class="dt-h2 rv rvg" id="hm-h">What happens <em>next</em></h2>
       <ol class="hm__steps rvg" data-st=".08">
-        <li class="hm__s rv"><span class="hm__n" aria-hidden="true">1</span><p class="hm__t">Pick your plan.</p><p class="hm__d">The first month is the only payment to start. The setup fee is $0.</p></li>
+        <li class="hm__s rv"><span class="hm__n" aria-hidden="true">1</span><p class="hm__t">Pick your plan.</p><p class="hm__d" id="hm-s1">The first month is the only payment to start. The setup fee is $0.</p></li>
         <li class="hm__s rv"><span class="hm__n" aria-hidden="true">2</span><p class="hm__t">You tell us once.</p><p class="hm__d">Website plans: one brief of short questions, mostly picks and uploads. Social media plans: we email you the link to connect your accounts.</p></li>
         <li class="hm__s rv"><span class="hm__n" aria-hidden="true">3</span><p class="hm__t">We build it for you.</p><p class="hm__d">Your website's first draft arrives 3 to 10 business days after your brief, by plan. You send one list of changes, and it goes live. Your first social media month comes to you for review before anything is posted.</p></li>
-        <li class="hm__s rv"><span class="hm__n" aria-hidden="true">4</span><p class="hm__t">Month to month.</p><p class="hm__d">Cancel anytime by email. Stay 12 paid months on a website plan and the site and domain are yours.</p></li>
+        <li class="hm__s rv"><span class="hm__n" aria-hidden="true">4</span><p class="hm__t" id="hm-s4t">Month to month.</p><p class="hm__d" id="hm-s4">Cancel anytime by email. Stay 12 paid months on a website plan and the site and domain are yours.</p></li>
       </ol>
     </section>
 
@@ -127,6 +132,100 @@
   </ul>
 </footer>
 <a class="wa" href="https://wa.me/13074359384" target="_blank" rel="noopener" aria-label="Chat on WhatsApp (opens in a new tab)" data-cursor="click"><span class="wa__i" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false"><path d="M2 3h20v14H11l-6 5v-5H2z" fill="currentColor"/><rect x="6.5" y="8.7" width="2.6" height="2.6"/><rect x="10.7" y="8.7" width="2.6" height="2.6"/><rect x="14.9" y="8.7" width="2.6" height="2.6"/></svg></span><span class="wa__t">Chat<span class="wa__l">&nbsp;on WhatsApp</span></span></a>
+<script>
+/* How do you want to pay (website plans only): Pay once | Pay monthly. js/launch.js runs the plan picker and the
+   order panel; this script runs after it (DOMContentLoaded) and re-dresses the website prices, the order summary,
+   the fine print and the steps for the chosen route. Social media plans are monthly: the control stands down. */
+(function () {
+  var d = document;
+  var WEB = {
+    launch:   { once: 499,  mo: 99,  care: 39 },
+    business: { once: 899,  mo: 179, care: 59 },
+    pro:      { once: 1650, mo: 329, care: 89 },
+    store:    { once: 2490, mo: 499, care: 129 }
+  };
+  var TXT = {
+    fine:  { monthly: 'No payment is taken on this page. We email your secure payment link within one business day, and your plan starts when the first month is paid.',
+             once:    'No payment is taken on this page. We email your secure payment link within one business day, and your build starts when the one payment is made.' },
+    done:  { monthly: 'We email your secure payment link within one business day. Your plan starts when the first month is paid.',
+             once:    'We email your secure payment link within one business day. Your build starts when the one payment is made.' },
+    s1:    { monthly: 'The first month is the only payment to start. The setup fee is $0.',
+             once:    'One payment, and your build starts when it is made. The first year of hosting, domain, mailbox and small updates is included.' },
+    s4t:   { monthly: 'Month to month.', once: 'After year one.' },
+    s4:    { monthly: 'Cancel anytime by email. Stay 12 paid months on a website plan and the site and domain are yours.' }
+  };
+  function $(id) { return d.getElementById(id); }
+  function qsa(s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); }
+  function fmt(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function usd(n) { return '$' + fmt(n); }
+  function set(id, t) { var e = $(id); if (e) e.textContent = t; }
+  function payLink(k) {
+    var u = (window.KN_PAY || {})[k] || '';
+    return /^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_\-\/]+$/.test(u) ? u : '';
+  }
+  var box = $('pyc'); if (!box) return;
+  var btns = qsa('.pyc__b', box), note = $('pyc-note');
+
+  var pay = 'once';
+  try { var q = new URLSearchParams(location.search).get('pay'); } catch (e) { q = null; }
+  if (q === 'once' || q === 'monthly') pay = q;
+  else { try { var m = sessionStorage.getItem('knPay'); if (m === 'once' || m === 'monthly') pay = m; } catch (e) {} }
+
+  function current() { var b = d.querySelector('.pk[aria-pressed="true"]'); return b ? b.getAttribute('data-plan') : ''; }
+
+  function apply() {
+    var k = current(), web = WEB[k], social = !!k && !web, route = social ? 'monthly' : pay;
+    btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pay') === pay)); b.disabled = social; });
+    box.classList.toggle('is-off', social); note.hidden = !social;
+    qsa('.pk').forEach(function (b) {
+      var w = WEB[b.getAttribute('data-plan')]; if (!w) return;
+      var n = pay === 'once' ? w.once : w.mo, pr = b.querySelector('.pk__price');
+      pr.innerHTML = '<span class="cur">$</span>' + fmt(n); pr.classList.toggle('is-long', pay === 'once');   /* one size across the row */
+      b.querySelector('.pk__per').textContent = pay === 'once' ? 'once' : 'a month';
+    });
+    $('or-route').value = route;
+    set('hm-s1', TXT.s1[route]); set('hm-s4t', TXT.s4t[route]);
+    set('hm-s4', route === 'once' ? 'Keep us running it ' + (web ? 'for ' + usd(web.care) : 'from $39') + ' a month, or take your files.' : TXT.s4.monthly);
+    set('or-fine', TXT.fine[route]); set('or-done-p', TXT.done[route]);
+    if (!k) return;
+    try { history.replaceState(null, '', 'start.html?plan=' + k + (web ? '&pay=' + pay : '')); } catch (e) {}
+    if (!$('or-done').hidden) return;               // order already placed: leave the panel as it is
+    var thenK = $('or-then-k'), setup = $('or-setup');
+    if (!web) { thenK.textContent = 'Then each month'; setup.hidden = false; return; }   // launch.js set the rest
+    var form = $('or-form'), paybox = $('or-paybox');
+    $('or-grp').textContent = 'Website plan, ' + (pay === 'once' ? 'pay once' : 'pay monthly');
+    if (pay === 'once') {
+      /* the Stripe links in js/pay-config.js are the monthly subscriptions: a one-time order goes by form */
+      paybox.hidden = true; form.hidden = false;
+      set('or-due-k', 'One payment'); set('or-due', usd(web.once));
+      thenK.textContent = 'From year two, optional'; set('or-then', usd(web.care) + ' a month');
+      setup.hidden = true;
+      $('or-plan').value = k + '-once';
+    } else {
+      var link = payLink(k);
+      paybox.hidden = !link; form.hidden = !!link;
+      set('or-due-k', link ? 'Due today' : 'First month'); set('or-due', usd(web.mo));
+      thenK.textContent = 'Then each month'; set('or-then', usd(web.mo));
+      setup.hidden = false;
+      if (link) { $('or-pay').setAttribute('href', link + '?client_reference_id=' + k); set('or-pay-amt', usd(web.mo)); }
+      $('or-plan').value = k;
+    }
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      pay = b.getAttribute('data-pay');
+      try { sessionStorage.setItem('knPay', pay); } catch (e) {}
+      apply();
+    });
+  });
+  apply();                                            // website prices and steps before js/launch.js runs
+  d.addEventListener('DOMContentLoaded', function () {
+    qsa('.pk').forEach(function (b) { b.addEventListener('click', apply); });   // after launch.js's own handler
+    apply();
+  });
+})();
+</script>
 <script defer src="js/chat.js?v=1005"></script>
 </body>
 </html>
