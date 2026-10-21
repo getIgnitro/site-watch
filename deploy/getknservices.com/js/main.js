@@ -481,6 +481,7 @@ function plansTl() {
   const tl = T();
   showScene(tl, '.scene--plans');
   headTl(tl, '.scene--plans');
+  snapIn(tl, '.scene--plans .pay .js-snap', 0.34, { d: 0.05, st: 0.045, rm: RM });   // two ways to pay: the switch + its rule line
   $$('.scene--plans .plc', fin).forEach((card, ci) => buildBlock(tl, card, 0.08 + ci * 0.07, 3 + ci));
   buildBlock(tl, $('.scene--plans .pv', fin), 0.22, 9, { each: 0.004, parts: 0.025 });
   return tl;

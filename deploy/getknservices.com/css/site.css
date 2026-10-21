@@ -397,3 +397,51 @@ body.dt .ft { padding-bottom: 112px; }
   .scene--hero .blk{ transform: scaleX(0) !important; }
   .scene--hero .js-snap{ opacity: 1 !important; visibility: visible !important; }
 }
+
+/* ---------- home: two ways to pay (21 Oct), the same quiet switch as website-plans.html ----------
+   The switch takes the badges' place in the website plans head; each plan card shows the chosen route
+   (figure + "once" / "a month") and the other route as one small line. Four-digit figures step down
+   inside the same line box, so a switch never changes a card's height (the plans fit stays true). */
+.pill .pl-m { display: none; }
+.scene--plans .pay { display: flex; flex-wrap: wrap; align-items: center; gap: clamp(8px, 1.2vh, 14px) clamp(14px, 1.3vw, 24px); }
+.scene--plans .pay__sw { display: inline-flex; flex: none; box-shadow: inset 0 0 0 1px var(--line-p); background: rgba(11,11,12,.35); }
+.scene--plans .pay__b {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .6em; margin: 0; border: 0;
+  height: calc(var(--rd) * 2.3); padding: 0 1.05em 0 .9em; background: transparent; color: rgba(243,238,228,.62);
+  font: 600 var(--rd)/1 var(--f-body); cursor: pointer; white-space: nowrap; transition: color .14s steps(3, end), background .14s steps(3, end);
+}
+.scene--plans .pay__b + .pay__b { box-shadow: inset 1px 0 0 var(--line-p); }
+.scene--plans .pay__b::before { content: ''; flex: none; width: .45em; height: .45em; box-shadow: inset 0 0 0 1.5px currentColor; }
+.scene--plans .pay__b:hover { color: var(--paper); }
+.scene--plans .pay__b[aria-pressed="true"] { color: var(--paper); background: rgba(243,238,228,.07); cursor: default; }
+.scene--plans .pay__b[aria-pressed="true"]::before { background: var(--peri); box-shadow: none; }
+.scene--plans .pay__b:focus-visible { outline: 2px solid var(--peri); outline-offset: -4px; }   /* inside: the build clip would cut an outer ring */
+.scene--plans .pay__rule { margin: 0; flex: 1 1 18em; max-width: 30em; font: 500 var(--rd)/1.3 var(--f-body); color: rgba(243,238,228,.8); text-wrap: pretty; }
+.plc__alt { margin: .4em 0 0; font: 500 var(--rd)/1.2 var(--f-body); opacity: .72; white-space: nowrap; }
+/* end panel, 701-1100 px: the three figures step down so $4,900 stays inside its cell (it ran 2-10 px past it, live too) */
+@media (min-width: 701px) and (max-width: 1100px) { .ep__v { font-size: min(6.6vw, 13.5vh); } }
+/* hero: "$499 once, or $99 a month." keeps price and side on one row from 900 px up (the side text wraps instead) */
+@media (min-width: 900px) {
+  .hero__row { flex-wrap: nowrap; }
+  .scene--hero .price { flex: none; }
+  .scene--hero .price__big { white-space: nowrap; }
+  .hero__side { flex: 0 1 auto; min-width: 0; }
+}
+@media (min-width: 701px) {
+  .plc:not(.is-open) .plc__alt { display: none; }
+  /* open card: a four-digit figure keeps the card's size until it would run wide */
+  .plc.is-open .plc__price.is-long { font-size: min(calc(29cqw * var(--k, 1)), 25cqw); min-height: calc(29cqw * var(--k, 1)); margin-bottom: calc(29cqw * var(--k, 1) * -.12); }
+  /* collapsed columns: with pay once one size across the row, so $899 sits level with $1,650 and $2,490 */
+  .pln.is-long .plc:not(.is-open) .plc__price { font-size: 25cqw; min-height: 37cqw; margin-bottom: calc(37cqw * -.12); }
+}
+@media (max-width: 700px) {
+  .pill .pl-m { display: inline; }
+  .scene--hero .price { grid-template-columns: auto; }
+  .scene--hero .price__rest { padding: 8px 0 0; }
+  .scene--plans .pay { flex-direction: column; align-items: stretch; }
+  .scene--plans .pay__sw { display: flex; width: 100%; }
+  .scene--plans .pay__b { flex: 1 1 50%; height: 48px; font-size: 17px; padding: 0 12px; }
+  .scene--plans .pay__rule { flex: none; max-width: none; font-size: 16px; }
+  .plc .plc__price.is-long { font-size: calc(20.5vw * var(--pf, 1)) !important; min-height: calc(25vw * var(--pf, 1)); margin-bottom: calc(25vw * var(--pf, 1) * -.12); }
+  .plc__alt { font-size: 16px; }
+}
