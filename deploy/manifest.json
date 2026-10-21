@@ -1,5 +1,5 @@
 {
- "commit": "d665c4ce4f094d805b84996cc9dc500534033a7d",
+ "commit": "c51cb114b09591c5fb3b41f51fb9c0487baa09f6",
  "files": [
   {
    "site": "getignitro.com",
@@ -298,8 +298,8 @@
   {
    "site": "getknservices.com",
    "path": "index.html",
-   "sha256": "501789036d3aa7608a90e019fd56930211198fada15cabe925780cc898db1b11",
-   "size": 68115
+   "sha256": "1adce73bb41792e6d0830b53aa251016425297ca51e82e0908786c2a7e771217",
+   "size": 49893
   },
   {
    "site": "getknservices.com",
@@ -310,8 +310,8 @@
   {
    "site": "getknservices.com",
    "path": "js/main.js",
-   "sha256": "0c3007566758e0803d4a024dd5acba7bbfd13178678415746c43488ce578816c",
-   "size": 48752
+   "sha256": "80ec8d334edfae386ce3e90bb4cdc00b4bcaad9ab18b30879e9647ecea0d4f9f",
+   "size": 50597
   },
   {
    "site": "getknservices.com",
@@ -357,9 +357,15 @@
   },
   {
    "site": "getknservices.com",
+   "path": "samples.html",
+   "sha256": "ba94c682d745c0f5ac9dca6cc824414df3fea145d64df3dd8efa8ea3885c7bb1",
+   "size": 45475
+  },
+  {
+   "site": "getknservices.com",
    "path": "sitemap.xml",
-   "sha256": "a36845fbb65d2f61aae3e229ff6dc4ffc14a95cdbe2413e795e7048114eafe1e",
-   "size": 749
+   "sha256": "80d0b6eb2684d113293f98fee1e0de5c7b0a9519bf03e81caebfdbf8af563890",
+   "size": 841
   },
   {
    "site": "getknservices.com",
