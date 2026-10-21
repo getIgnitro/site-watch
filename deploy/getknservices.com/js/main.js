@@ -4,6 +4,8 @@
 // a short time-based stepped wipe fired when the scroll crosses its threshold, reversed fast when the
 // visitor scrolls back. At any resting position everything is fully built.
 // Proof 3: seven scenes (opening, plans, social, software, bakery, barber, end), working nav.
+// chat 23: one engine, two pages. The scenes in the page decide the script: index.html carries plans, social,
+// software, the bakery sample and the "more sample builds" screen; samples.html carries all four samples.
 import { prepareDom, setRoots, hideSnap, snapIn, snapOut, rollIn, setRolls, shuffled } from './ui/build.js';
 import { createLensGate } from './ui/lens.js';
 import { createHud } from './ui/hud.js?v=1005';
@@ -29,6 +31,13 @@ const params = new URLSearchParams(location.search);
 const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+gsap.config({ nullTargetWarn: false });   // chat 23: shared selectors name scenes one of the two pages does not carry
+const HAS = (k) => !!document.querySelector(`.scene--${k}`);
+const SAMPLE_KEYS = ['bakery', 'barber', 'garage', 'dental'].filter(HAS);
+const PK_KEYS = ['plans', 'social', 'software'].filter(HAS);
+const ORDER = ['hero', ...PK_KEYS, ...SAMPLE_KEYS, ...(HAS('more') ? ['more'] : []), 'end'];
+const SHORT = { bakery: 'bak', barber: 'bar', garage: 'gar', dental: 'den' };   // build zones: bak1 / bak2 ...
+const MQ = { bakery: 'A', barber: 'B', garage: 'C', dental: 'D' };              // marquee band before each sample
 
 html.dataset.state = 'intro';
 html.dataset.mode = 'hero';
@@ -36,7 +45,7 @@ html.classList.add('is-locked');
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
-const SCENES = [
+const SCENE_DEFS = [
   { id: 'opening',  video: 'assets/scenes/opening.mp4', videoPhone: 'assets/scenes/m/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.35 },
   { id: 'plans',    video: 'assets/scenes/opening.mp4', videoPhone: 'assets/scenes/m/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.8 },
   { id: 'social',   color: '#E4DDD0', dim: 0 },   // 5 Oct: warm stone ground (was periwinkle #9CBEFE); = --ground in site.css
@@ -50,8 +59,10 @@ const SCENES = [
   { id: 'garage',   video: 'assets/scenes/garage.mp4', videoPhone: 'assets/scenes/m/garage.mp4',   poster: 'assets/scenes/garage.jpg',   color: '#030B0E', dim: 0.30, film: { zoom: 1, x: 0, y: -0.028 }, filmPhone: { zoom: 0.42, x: -0.07, y: -0.27 } },
   { id: 'dental',   video: 'assets/scenes/dental.mp4', videoPhone: 'assets/scenes/m/dental.mp4',   poster: 'assets/scenes/dental.jpg',   color: '#CAC1B7', dim: 0.06,
     film: { zoom: 0.92, x: 0.136, y: 0.047 }, filmPhone: { zoom: 0.472, x: -0.345, y: -0.33 } },   // chat 19: the chair sits in the arch window
+  { id: 'more',     video: 'assets/scenes/opening.mp4', videoPhone: 'assets/scenes/m/opening.mp4',  poster: 'assets/scenes/opening.jpg',  color: '#0B0B0C', dim: 0.8 },   // chat 23
   { id: 'end', color: '#F3EEE4', dim: 0 },
 ];
+const SCENES = ORDER.map((k) => SCENE_DEFS.find((s) => s.id === (k === 'hero' ? 'opening' : k)));
 
 // Scroll script in vh. Holds are the resting screens; flips are the only places content leaves.
 // Proof 4: the plans hold is 260 vh and steps Launch -> Business -> Pro -> Store (PLAN_STEP vh each,
@@ -62,45 +73,43 @@ const PHONE_MQ = matchMedia('(max-width: 700px)');
 const stepMode = () => !RM;
 const FAST = PHONE_MQ.matches && !RM; // phones: paint the hero instantly, cubes build behind
 const PLAN_STEP = 60;
-let SEG, FLIPS, FLIP_AT, HOLD, TOTAL, Z, REST, PLAN_REST;
+let SEG, FLIPS, FLIP_AT, FI, HOLD, TOTAL, Z, REST, PLAN_REST, SOC_R, BUILD_R, PAPER_AT;
+// Hold lengths (vh) and the flip INTO each scene [style, vh]. Home today: hero > rows > plans > diagonal >
+// social > radial > software > diagonal > bakery > rows > more > diagonal > end. Samples page: hero > diagonal >
+// bakery > rows > barber > diagonal > garage > rows > dental > diagonal > end (the sample flips as they were).
+const HOLD_VH = { hero: 30, plans: 260, social: 140, software: 140, bakery: 150, barber: 150, garage: 150, dental: 150, more: 140, end: 50 };
+const FLIP_IN = { plans: ['rows', 50], social: ['diagonal', 70], software: ['radial', 70], bakery: ['diagonal', 80], barber: ['rows', 80],
+  garage: ['diagonal', 80], dental: ['rows', 80], more: ['rows', 80], end: ['diagonal', 50] };
 function script(len = {}) {
-  SEG = [
-    ['hero', 30], ['rows', 50], ['plans', len.plans || 260], ['diagonal', 70], ['social', len.social || 140], ['radial', 70],
-    ['software', 140], ['diagonal', 80], ['bakery', 150], ['rows', 80], ['barber', 150],
-    ['diagonal', 80], ['garage', 150], ['rows', 80], ['dental', 150], ['diagonal', 50], ['end', 50],
-  ];
-  FLIPS = []; FLIP_AT = []; HOLD = {}; TOTAL = 0;
+  SEG = [];
+  ORDER.forEach((k, i) => { if (i) SEG.push(FLIP_IN[k]); SEG.push([k, len[k] || HOLD_VH[k]]); });
+  FLIPS = []; FLIP_AT = []; FI = {}; HOLD = {}; TOTAL = 0;
   for (const [k, n] of SEG) {
     if (['rows', 'diagonal', 'radial'].includes(k)) { FLIPS.push(k); FLIP_AT.push([TOTAL, TOTAL + n]); }
-    else HOLD[k] = [TOTAL, TOTAL + n];
+    else { HOLD[k] = [TOTAL, TOTAL + n]; if (k !== 'hero') FI[k] = FLIP_AT.length - 1; }   // FI: the flip into k
     TOTAL += n;
   }
   // Build zones: content builds once its flip is half done and leaves as the next flip starts.
-  Z = {
-    heroOut: FLIP_AT[0][0] - 4,
-    plans: [mid(0), FLIP_AT[1][0] + 2],
-    social: [mid(1), FLIP_AT[2][0] + 2],
-    software: [mid(2), FLIP_AT[3][0] + 2],
-    mqA: [FLIP_AT[3][0] - 4, FLIP_AT[3][1] - 14],
-    bak1: [FLIP_AT[3][1] - 14, FLIP_AT[4][0] + 2], bak2: [HOLD.bakery[0] + 60, FLIP_AT[4][0] + 2],
-    mqB: [FLIP_AT[4][0] - 4, FLIP_AT[4][1] - 14],
-    bar1: [FLIP_AT[4][1] - 14, FLIP_AT[5][0] + 2], bar2: [HOLD.barber[0] + 60, FLIP_AT[5][0] + 2],
-    // round 7: flips 5 (barber > garage) and 6 (garage > dental) are new; the end flip is now 7
-    mqC: [FLIP_AT[5][0] - 4, FLIP_AT[5][1] - 14],
-    gar1: [FLIP_AT[5][1] - 14, FLIP_AT[6][0] + 2], gar2: [HOLD.garage[0] + 60, FLIP_AT[6][0] + 2],
-    mqD: [FLIP_AT[6][0] - 4, FLIP_AT[6][1] - 14],
-    den1: [FLIP_AT[6][1] - 14, FLIP_AT[7][0] + 2], den2: [HOLD.dental[0] + 60, FLIP_AT[7][0] + 2],
-    end: mid(7),
-  };
+  Z = { heroOut: FLIP_AT[0][0] - 4, end: mid(FI.end) };
+  [...PK_KEYS, 'more'].forEach((k) => { if (HOLD[k]) Z[k] = [mid(FI[k]), FLIP_AT[FI[k] + 1][0] + 2]; });
+  SAMPLE_KEYS.forEach((k) => {
+    const f = FI[k], s = SHORT[k];
+    Z['mq' + MQ[k]] = [FLIP_AT[f][0] - 4, FLIP_AT[f][1] - 14];
+    Z[s + '1'] = [FLIP_AT[f][1] - 14, FLIP_AT[f + 1][0] + 2];
+    Z[s + '2'] = [HOLD[k][0] + 60, FLIP_AT[f + 1][0] + 2];
+  });
   // Plan resting points inside the plans hold (vh): Launch, Business, Pro, Store.
-  PLAN_REST = [0, 1, 2, 3].map((i) => HOLD.plans[0] + i * PLAN_STEP + 32);
+  PLAN_REST = HOLD.plans ? [0, 1, 2, 3].map((i) => HOLD.plans[0] + i * PLAN_STEP + 32) : [];
   // Resting positions (vh) for the nav links and the shot list.
-  REST = {
-    top: 0,
-    plans: PLAN_REST[0], social: HOLD.social[0] + 70, software: HOLD.software[0] + 70,
-    bakery: HOLD.bakery[0] + 110, barber: HOLD.barber[0] + 110,
-    garage: HOLD.garage[0] + 110, dental: HOLD.dental[0] + 110, end: TOTAL,
-  };
+  REST = { top: 0, end: TOTAL };
+  if (HOLD.plans) REST.plans = PLAN_REST[0];
+  ['social', 'software', 'more'].forEach((k) => { if (HOLD[k]) REST[k] = HOLD[k][0] + 70; });
+  SAMPLE_KEYS.forEach((k) => { REST[k] = HOLD[k][0] + 110; });
+  // Header and ground ranges: the stone social screen, the slim build bar over the samples, the paper from
+  // the light dental room (or the end panel) on.
+  SOC_R = HOLD.social ? [mid(FI.social), mid(FI.social + 1)] : null;
+  BUILD_R = SAMPLE_KEYS.length ? [Z[SHORT[SAMPLE_KEYS[0]] + '1'][0], mid(FI[SAMPLE_KEYS[SAMPLE_KEYS.length - 1]] + 1)] : null;
+  PAPER_AT = mid(HOLD.dental ? FI.dental : FI.end);
 }
 function mid(i) { return (FLIP_AT[i][0] + FLIP_AT[i][1]) / 2; }
 script();
@@ -170,7 +179,8 @@ function pickPlan(i) {
 // Phone (no pin): the stacked plans and social screens travel up with the scroll through their hold.
 // Chat 22: with steps on, the travel rests only at fixed stops (PH_STOPS, px of travel): the opening screen,
 // then one stop per card with the card's top under the bar, so one swipe shows one whole card.
-const PH = { plans: null, social: null }, PH_EXT = { plans: 0, social: 0 }, PH_STOPS = { plans: [{ y: 0 }], social: [{ y: 0 }] }, PH_PAD = 20;
+const PH = {}, PH_EXT = {}, PH_STOPS = {}, PH_PAD = 20;
+['plans', 'social'].filter(HAS).forEach((k) => { PH[k] = null; PH_EXT[k] = 0; PH_STOPS[k] = [{ y: 0 }]; });
 let PH_BAR = 64;
 function phoneFit(stepped) {
   const pv = $('.scene--plans .pv', fin), cards = $$('.scene--plans .plc', fin);
@@ -293,7 +303,8 @@ function initialStates() {
   else if (!FAST) gsap.set('.ch', { clipPath: 'inset(0% 100% 0% 0%)' });
   if (!FAST) hideSnap('.scene--hero .js-snap', RM);
   setRolls('.scene--hero', FAST || RM);
-  gsap.set(`${PK}, .scene--bakery, .scene--barber, .scene--garage, .scene--dental, .scene--end, .marquee`, { autoAlpha: 0 });
+  gsap.set([...PK_KEYS, ...SAMPLE_KEYS, 'more', 'end'].filter(HAS).map((k) => `.scene--${k}`).concat('.marquee').join(', '), { autoAlpha: 0 });
+  hideSnap('.scene--more .js-snap', RM);
   hideSnap(`.scene--plans .js-snap, .scene--plans .js-c, .scene--social .js-snap, .scene--social .js-c, .scene--software .js-snap, .scene--software .js-c`, RM);
   gsap.set('.card__tiles i, .tiles i', { opacity: RM ? 1 : 0 });
   gsap.set('.reel__tiles i', { opacity: RM ? 0 : 1 });
@@ -531,6 +542,12 @@ function sample2Tl(key) {
     tl.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.02, ease: 'steps(1)', immediateRender: false }, 0.16 + i * 0.024));
   return tl;
 }
+function moreTl() {
+  const tl = T();
+  showScene(tl, '.scene--more');
+  snapIn(tl, '.scene--more .js-snap', 0, { d: 0.07, st: 0.05, rm: RM });
+  return tl;
+}
 function endTl() {
   const tl = T();
   showScene(tl, '.scene--end');
@@ -550,9 +567,15 @@ function sceneAt(t) {
   return s;
 }
 const inRange = (t, [a, b]) => t >= a && t < b;
-const modeAt = (t) => (inRange(t, [mid(1), mid(2)]) || t >= mid(7)) ? 'ink' : inRange(t, [Z.bak1[0], mid(7)]) ? 'build' : 'hero';
-const chapAt = (t) => inRange(t, [Z.bak1[0], Z.bar1[0]]) ? 1 : inRange(t, [Z.bar1[0], Z.gar1[0]]) ? 2
-  : inRange(t, [Z.gar1[0], Z.den1[0]]) ? 3 : inRange(t, [Z.den1[0], mid(7)]) ? 4 : 0;
+const modeAt = (t) => ((SOC_R && inRange(t, SOC_R)) || t >= mid(FI.end)) ? 'ink' : (BUILD_R && inRange(t, BUILD_R)) ? 'build' : 'hero';
+// the header chip of the sample on screen: 1..n in page order (bar__build--1 is the first sample on either page)
+const chapAt = (t) => {
+  for (let i = 0; i < SAMPLE_KEYS.length; i++) {
+    const a = Z[SHORT[SAMPLE_KEYS[i]] + '1'][0], b = i + 1 < SAMPLE_KEYS.length ? Z[SHORT[SAMPLE_KEYS[i + 1]] + '1'][0] : BUILD_R[1];
+    if (inRange(t, [a, b])) return i + 1;
+  }
+  return 0;
+};
 
 function buildScroll(stage) {
   // One light-scrubbed timeline carries only the scroll position (vh) and the marquee drift.
@@ -560,42 +583,33 @@ function buildScroll(stage) {
   const tl = gsap.timeline({ defaults: { ease: 'none' } });
   tl.to(P, { t: TOTAL, duration: TOTAL }, 0);
   if (!RM) {
-    tl.fromTo('.marquee--a .marquee__track', { xPercent: 6 }, { xPercent: -44, duration: 80, immediateRender: false }, FLIP_AT[3][0]);
-    tl.fromTo('.marquee--b .marquee__track', { xPercent: 6 }, { xPercent: -44, duration: 80, immediateRender: false }, FLIP_AT[4][0]);
-    tl.fromTo('.marquee--c .marquee__track', { xPercent: 6 }, { xPercent: -44, duration: 80, immediateRender: false }, FLIP_AT[5][0]);
-    tl.fromTo('.marquee--d .marquee__track', { xPercent: 6 }, { xPercent: -44, duration: 80, immediateRender: false }, FLIP_AT[6][0]);
+    SAMPLE_KEYS.forEach((k) => tl.fromTo(`.marquee--${MQ[k].toLowerCase()} .marquee__track`, { xPercent: 6 }, { xPercent: -44, duration: 80, immediateRender: false }, FLIP_AT[FI[k]][0]));
   }
   ScrollTrigger.create({ animation: tl, trigger: '#track', start: 0, end: () => ScrollTrigger.maxScroll(window), scrub: RM ? true : 0.5 });
 
-  const zones = [
-    { tl: heroOutTl(), on: (t) => t >= Z.heroOut, back: 1.6 },
-    { tl: plansTl(), on: (t) => inRange(t, Z.plans), back: 2.4 },
-    { tl: socialTl(), on: (t) => inRange(t, Z.social), back: 2.4 },
-    { tl: softwareTl(), on: (t) => inRange(t, Z.software), back: 2.4 },
-    { tl: marqueeTl('.marquee--a'), on: (t) => inRange(t, Z.mqA), back: 2 },
-    { tl: sample1Tl('bakery'), on: (t) => inRange(t, Z.bak1), back: 2.2 },
-    { tl: sample2Tl('bakery'), on: (t) => inRange(t, Z.bak2), back: 2.2 },
-    { tl: marqueeTl('.marquee--b'), on: (t) => inRange(t, Z.mqB), back: 2 },
-    { tl: sample1Tl('barber'), on: (t) => inRange(t, Z.bar1), back: 2.2 },
-    { tl: sample2Tl('barber'), on: (t) => inRange(t, Z.bar2), back: 2.2 },
-    { tl: marqueeTl('.marquee--c'), on: (t) => inRange(t, Z.mqC), back: 2 },
-    { tl: sample1Tl('garage'), on: (t) => inRange(t, Z.gar1), back: 2.2 },
-    { tl: sample2Tl('garage'), on: (t) => inRange(t, Z.gar2), back: 2.2 },
-    { tl: marqueeTl('.marquee--d'), on: (t) => inRange(t, Z.mqD), back: 2 },
-    { tl: sample1Tl('dental'), on: (t) => inRange(t, Z.den1), back: 2.2 },
-    { tl: sample2Tl('dental'), on: (t) => inRange(t, Z.den2), back: 2.2 },
-    { tl: endTl(), on: (t) => t >= Z.end, back: 2.2 },
-  ].map((z) => ({ ...z, st: false }));
+  const SCENE_TL = { plans: plansTl, social: socialTl, software: softwareTl, more: moreTl };
+  const zones = [{ tl: heroOutTl(), on: (t) => t >= Z.heroOut, back: 1.6 }];
+  ORDER.forEach((k) => {
+    if (SCENE_TL[k]) zones.push({ tl: SCENE_TL[k](), on: (t) => inRange(t, Z[k]), back: 2.4 });
+    else if (SHORT[k]) {
+      const s = SHORT[k], q = 'mq' + MQ[k];
+      zones.push(
+        { tl: marqueeTl(`.marquee--${MQ[k].toLowerCase()}`), on: (t) => inRange(t, Z[q]), back: 2 },
+        { tl: sample1Tl(k), on: (t) => inRange(t, Z[s + '1']), back: 2.2 },
+        { tl: sample2Tl(k), on: (t) => inRange(t, Z[s + '2']), back: 2.2 },
+      );
+    }
+  });
+  zones.push({ tl: endTl(), on: (t) => t >= Z.end, back: 2.2 });
+  zones.forEach((z) => { z.st = false; });
+  const MQ_Z = SAMPLE_KEYS.map((k) => 'mq' + MQ[k]);
 
   const gate = createLensGate(stage, fin);
   let lastS = -1, mode = 'hero', chap = 0, v = 0, ground = '';
   const rows = $$('.marquee__row');
   const setRowX = gsap.quickSetter(rows, 'x', 'px');
   const lensZone = (t) => t < Z.heroOut ? 'hero'
-    : inRange(t, [HOLD.bakery[0] + 10, HOLD.bakery[1] - 2]) ? 'bakery'
-    : inRange(t, [HOLD.barber[0] + 10, HOLD.barber[1] - 2]) ? 'barber'
-    : inRange(t, [HOLD.garage[0] + 10, HOLD.garage[1] - 2]) ? 'garage'
-    : inRange(t, [HOLD.dental[0] + 10, HOLD.dental[1] - 2]) ? 'dental' : null;
+    : (SAMPLE_KEYS.find((k) => inRange(t, [HOLD[k][0] + 10, HOLD[k][1] - 2])) || null);
   gsap.ticker.add(() => {
     const t = stepper && stepper.on() ? stepper.pos() : P.t;   // step mode: the stepper's own timing, no scrub lag
     const s = sceneAt(t);
@@ -607,7 +621,7 @@ function buildScroll(stage) {
     const m = modeAt(t);
     if (m !== mode) { mode = m; setMode(m); }
     // the dental room is light: the step indicator turns ink there, as on the paper end panel
-    const g = inRange(t, [mid(1), mid(2)]) ? 'stone' : t >= mid(6) ? 'paper' : 'dark';
+    const g = (SOC_R && inRange(t, SOC_R)) ? 'stone' : t >= PAPER_AT ? 'paper' : 'dark';
     if (g !== ground) { ground = g; html.dataset.ground = g; }
     const c = chapAt(t);
     if (c !== chap) { chap = c; setChap(c); }
@@ -615,16 +629,16 @@ function buildScroll(stage) {
     gate(lensZone(t));
     const lv = lenis ? lenis.velocity : 0;
     v += (lv - v) * 0.08;
-    feed.setOn(inRange(t, Z.social));
+    feed.setOn(!!Z.social && inRange(t, Z.social));
     // plans: the scroll steps Launch -> Business -> Pro -> Store while the screen is up; off screen the
     // state is set silently (from above = Launch, from below = Store). Phone: no pin, content travels.
     if (PHONE_MQ.matches) phoneTravel(t);
-    else if (performance.now() > planLock) {
+    else if (HOLD.plans && performance.now() > planLock) {
       if (inRange(t, Z.plans)) { if (planAt(t) !== plans.open()) plans.go(planAt(t), true); }
       else if (planAt(t) !== plans.open()) plans.go(planAt(t), false);
     }
     feed.setVelocity(v);
-    if (!RM && (inRange(t, Z.mqA) || inRange(t, Z.mqB) || inRange(t, Z.mqC) || inRange(t, Z.mqD))) setRowX(Math.max(-420, Math.min(420, -v * 9)));
+    if (!RM && MQ_Z.some((q) => inRange(t, Z[q]))) setRowX(Math.max(-420, Math.min(420, -v * 9)));
   });
 }
 
@@ -638,7 +652,7 @@ function setMode(m) {
 }
 function setChap(c) {
   const d = RM ? 0 : 0.24;
-  [1, 2, 3, 4].forEach((k) => gsap.to(`.bar__build--${k}`, {
+  [1, 2, 3, 4].filter((k) => $(`.bar__build--${k}`)).forEach((k) => gsap.to(`.bar__build--${k}`, {
     autoAlpha: c === k ? 1 : 0, clipPath: c === k ? 'inset(0% 0% 0% 0%)' : 'inset(0% 100% 0% 0%)',
     duration: d, ease: 'steps(4)', delay: c === k ? d : 0, overwrite: true,
   }));
@@ -652,7 +666,6 @@ function setChap(c) {
 // natural scrolling.
 const PLAN_NAMES = ['Launch', 'Business', 'Pro', 'Store'], SOCIAL_NAMES = ['Essential', 'Growth', 'Full'];
 let STEP_OF = { top: 0 };   // nav link key -> step, rebuilt with the step list
-const SAMPLE_KEYS = ['bakery', 'barber', 'garage', 'dental'];
 const FLIP_S = 0.8;   // seconds the wall takes to flip to the next scene
 let stepper = null;
 function createStepper() {
@@ -673,14 +686,15 @@ function createStepper() {
     const add = (name, scene, t, o = {}) => L.push({ name, scene, t, ...o });
     add('Start', 'hero', 0);
     if (PHONE_MQ.matches) {
-      PH_STOPS.plans.forEach((s, i) => add(i ? `Website plans: ${PLAN_NAMES[s.card]}` : 'Website plans', 'plans', phoneT('plans', s.y), { sub: i > 0, card: s.card, more: s.more }));
-      PH_STOPS.social.forEach((s, i) => add(i ? `Social media: ${SOCIAL_NAMES[s.card]}` : 'Social media', 'social', phoneT('social', s.y), { sub: i > 0, card: s.card, more: s.more }));
+      if (HOLD.plans) PH_STOPS.plans.forEach((s, i) => add(i ? `Website plans: ${PLAN_NAMES[s.card]}` : 'Website plans', 'plans', phoneT('plans', s.y), { sub: i > 0, card: s.card, more: s.more }));
+      if (HOLD.social) PH_STOPS.social.forEach((s, i) => add(i ? `Social media: ${SOCIAL_NAMES[s.card]}` : 'Social media', 'social', phoneT('social', s.y), { sub: i > 0, card: s.card, more: s.more }));
     } else {
       PLAN_REST.forEach((t, i) => add(`Website plans: ${PLAN_NAMES[i]}`, 'plans', t, { sub: i > 0, plan: i }));
-      add('Social media', 'social', REST.social);
+      if (HOLD.social) add('Social media', 'social', REST.social);
     }
-    add('Software', 'software', REST.software);
+    if (HOLD.software) add('Software', 'software', REST.software);
     SAMPLE_KEYS.forEach((k) => add(`Sample build: ${k}`, k, REST[k]));
+    if (HOLD.more) add('More sample builds', 'more', REST.more);
     add('Get started', 'end', TOTAL);
     const was = steps[cur];
     steps = L;
@@ -887,7 +901,7 @@ async function boot() {
   fitPackages();
   phoneMeasure();
   if (PHONE_MQ.matches) {
-    const lenOf = (k) => Math.max(140, Math.ceil((PH_EXT[k] / window.innerHeight) * 100 + 2 * PH_PAD));
+    const lenOf = (k) => (k in PH_EXT ? Math.max(140, Math.ceil((PH_EXT[k] / window.innerHeight) * 100 + 2 * PH_PAD)) : undefined);
     script({ plans: lenOf('plans'), social: lenOf('social') });
     $('#track').style.height = `${TOTAL + 100}vh`;
   }
@@ -896,7 +910,10 @@ async function boot() {
   FLIPS.forEach((s, i) => stage.setFlipStyle(i, s));
   stage.setScenePosition(0);
   stage.setLensEnabled(false);
-  window.__kn = { stage, lenis, TOTAL, REST, HOLD, Z };
+  // chat 23: js/ui/samples.js (the third build step of each sample) starts only once __kn.HOLD has bakery AND barber;
+  // the home page has no barber screen, so it gets a stand-in range that never matches (NaN), and the bakery step runs.
+  const knHold = HOLD.barber || !HOLD.bakery ? HOLD : { ...HOLD, barber: [NaN, NaN] };
+  window.__kn = { stage, lenis, TOTAL, REST, HOLD: knHold, Z };
 
   await runIntro(stage);
 
@@ -912,6 +929,12 @@ async function boot() {
   buildScroll(stage);
   heroDrift();
   html.dataset.state = 'live';
+  // chat 23: a link from another page (index.html#software, samples.html#end) rests on that screen
+  const h0 = decodeURIComponent(location.hash.slice(1));
+  if (h0 && h0 !== 'top') {
+    if (stepper.on() && h0 in STEP_OF) stepper.goTo(STEP_OF[h0]);
+    else if (h0 in REST) scrollToVh(REST[h0]);
+  }
   // A resize, or a font that lands after boot (slow network: the fallback face was measured), lays the
   // screens out again and re-rests the current step; never under a step in flight.
   let rz = 0;

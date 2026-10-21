@@ -30,9 +30,31 @@
 <link rel="stylesheet" href="css/plans.css?v=1005" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/plans.css?v=1005"></noscript>
 <link rel="stylesheet" href="css/samples2.css" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/samples2.css"></noscript>
 <link rel="stylesheet" href="css/s-bakery.css" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/s-bakery.css"></noscript>
-<link rel="stylesheet" href="css/s-barber.css" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/s-barber.css"></noscript>
-<link rel="stylesheet" href="css/s-garage.css" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/s-garage.css"></noscript>
-<link rel="stylesheet" href="css/s-dental.css" media="print" onload="this.media=&#39;all&#39;"><noscript><link rel="stylesheet" href="css/s-dental.css"></noscript>
+<style>
+/* chat 23: the screen after the bakery sample points to the four builds on samples.html */
+.scene--more { color: var(--paper); padding: calc(var(--bar-h) + clamp(12px, 3vh, 40px)) var(--m) clamp(28px, 5vh, 64px); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: clamp(12px, 2.2vh, 24px); }
+.mo__k { color: var(--peri); font-size: 13px; margin: 0; }
+.mo__h { font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase; letter-spacing: -0.02em; line-height: .9; font-size: clamp(30px, min(5.4vw, 8.6vh), 104px); margin: 0; }
+.mo__h em { display: block; margin-top: .06em; font-family: var(--f-serif); font-style: italic; font-weight: 400; text-transform: lowercase; font-stretch: 100%; letter-spacing: -0.01em; font-size: 1.12em; line-height: .95; }
+.mo__sub { font: 500 clamp(17px, 1.3vw, 24px)/1.3 var(--f-body); max-width: 46ch; color: rgba(243,238,228,.88); margin: 0; text-wrap: balance; }
+.mo__grid { list-style: none; margin: clamp(2px, .8vh, 10px) 0 0; padding: 0; width: 100%; max-width: 1560px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(10px, 1.2vw, 20px); }
+.mo__grid a { display: block; color: inherit; text-decoration: none; }
+.mo__grid img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 3; object-fit: cover; object-position: top; border: 1px solid rgba(243,238,228,.22); background: #16161a; transition: border-color .2s steps(2, end); }
+.mo__grid a:hover img, .mo__grid a:focus-visible img { border-color: var(--signal); }
+.mo__cap { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: baseline; margin-top: 10px; }
+.mo__n { color: var(--peri); }
+.mo__t { font: 600 clamp(16px, 1.2vw, 20px)/1.2 var(--f-body); }
+.mo__u { grid-column: 2; color: rgba(243,238,228,.68); margin-top: 2px; text-transform: none; letter-spacing: .02em; }
+.mo__arr { margin-left: .45em; }
+.mo__btn { margin-top: clamp(2px, .8vh, 10px); }
+@media (max-width: 700px) {
+  .scene--more { padding: calc(var(--bar-h) + 10px) var(--m) 24px; gap: 12px; }
+  .mo__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .mo__cap { margin-top: 6px; }
+  .mo__u { display: none; }
+  .mo__btn.btn--xl { height: 52px; padding: 0 18px; font-size: 16px; }
+}
+</style>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -47,7 +69,7 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.11/dist/lenis.min.js"></script>
-<script type="module" src="js/main.js?v=1010"></script>
+<script type="module" src="js/main.js?v=1011"></script>
 <script defer src="js/track-config.js?v=1"></script>
 <script defer src="js/track.js?v=1"></script>
 <!-- seo-schema -->
@@ -67,26 +89,11 @@
       <img class="logo logo--ink" src="assets/logo/kn-build-mark-ink.svg" alt="" aria-hidden="true" width="64" height="30">
     </a>
     <nav class="bar__nav js-snap" aria-label="Main">
-      <a href="#plans">Websites</a><a href="#social">Social media</a><a href="#software">Software</a><a href="#bakery">Work</a><a href="contact.html">Contact</a>
+      <a href="#plans">Websites</a><a href="#social">Social media</a><a href="#software">Software</a><a href="samples.html">Work</a><a href="contact.html">Contact</a>
     </nav>
     <div class="bar__build bar__build--1 mono" aria-hidden="true">
-      <span class="bar__chap">Sample build 01 of 04</span>
+      <span class="bar__chap">Sample build</span>
       <span class="bar__url"><i></i>yourbakery.com</span>
-      <span class="bar__tag">Sample design</span>
-    </div>
-    <div class="bar__build bar__build--2 mono" aria-hidden="true">
-      <span class="bar__chap">Sample build 02 of 04</span>
-      <span class="bar__url"><i></i>yourbarbershop.com</span>
-      <span class="bar__tag">Sample design</span>
-    </div>
-    <div class="bar__build bar__build--3 mono" aria-hidden="true">
-      <span class="bar__chap">Sample build 03 of 04</span>
-      <span class="bar__url"><i></i>yourgarage.com</span>
-      <span class="bar__tag">Sample design</span>
-    </div>
-    <div class="bar__build bar__build--4 mono" aria-hidden="true">
-      <span class="bar__chap">Sample build 04 of 04</span>
-      <span class="bar__url"><i></i>yourdentist.com</span>
       <span class="bar__tag">Sample design</span>
     </div>
     <div class="bar__right">
@@ -295,7 +302,7 @@
     </section>
 
     <!-- C1 BAKERY (fictional sample) -->
-    <section class="scene scene--bakery site-bakery" aria-label="Sample build 01 of 04: a fictional bakery website">
+    <section class="scene scene--bakery site-bakery" aria-label="Sample build: a fictional bakery website">
       <!-- chat 19: approved composition _dev/mocks/bakery.html; css/s-bakery.css, js/ui/s-bakery.js.
            js-b1 masthead, headline, hanging sign · js-b2 the order ticket (.js-w parts) · js-s3 Today's bake -->
       <div class="gc-veil" aria-hidden="true"></div>
@@ -375,210 +382,18 @@
       <p class="kn-cap js-cap">They search for a bakery. They find the one with a website. Live in days. From $499 once or $99 a month.</p>
     </section>
 
-    <!-- C2 BARBER (fictional sample) -->
-    <section class="scene scene--barber site-barber" aria-label="Sample build 02 of 04: a fictional barbershop website">
-      <!-- chat 19: approved split-screen poster (_dev/mocks/barber.html); css/s-barber.css, js/ui/s-barber.js -->
-      <div class="nb-panel js-b1">
-        <div class="nb-spine"><span class="nb-spine__rule" aria-hidden="true"></span><span class="nb-spine__name">Northgate Barbers</span></div>
-        <nav class="nb-nav" aria-label="Sample barbershop"><a href="#">Services</a><a href="#">Find us</a><a class="is-book" href="#">Book</a></nav>
-        <div class="nb-roster" role="group" aria-labelledby="nb-ro-t">
-          <p class="kn-tag">In the Pro plan</p>
-          <h3 class="nb-lab" id="nb-ro-t">Choose your barber</h3>
-          <div class="nb-team" role="radiogroup" aria-labelledby="nb-ro-t">
-            <button class="nb-barber is-on" type="button" role="radio" aria-checked="true" data-barber="" data-cursor="click"><span class="n">01</span><span class="nm">Any barber</span><span class="sp">First free chair</span></button>
-            <button class="nb-barber" type="button" role="radio" aria-checked="false" data-barber="Marco" data-cursor="click"><span class="n">02</span><span class="nm">Marco</span><span class="sp">Skin fades</span></button>
-            <button class="nb-barber" type="button" role="radio" aria-checked="false" data-barber="Dev" data-cursor="click"><span class="n">03</span><span class="nm">Dev</span><span class="sp">Beard work</span></button>
-            <button class="nb-barber" type="button" role="radio" aria-checked="false" data-barber="Sam" data-cursor="click"><span class="n">04</span><span class="nm">Sam</span><span class="sp">Classic cuts</span></button>
-          </div>
-        </div>
-        <p class="nb-sub">Pick a time, take the chair.</p>
-      </div>
-      <h2 class="nb-hl js-b1"><span>Sharp cuts.</span><span>No waiting.</span></h2>
-      <i class="nb-shade" aria-hidden="true"></i>
-      <div class="nb-feat">
-        <div class="sx-f nb-prices js-s3">
-          <p class="kn-tag">In the Launch plan</p>
-          <div class="nb-card">
-            <h3 class="nb-card__t">Price list</h3>
-            <p class="nb-card__s">Northgate</p>
-            <ul>
-              <li><span>Cut</span><i></i><b>$32</b></li>
-              <li><span>Skin fade</span><i></i><b>$38</b></li>
-              <li><span>Beard trim</span><i></i><b>$18</b></li>
-              <li><span>Cut and beard</span><i></i><b>$46</b></li>
-              <li><span>Hot towel shave</span><i></i><b>$30</b></li>
-            </ul>
-          </div>
-        </div>
-        <div class="sx-f nb-find js-s3">
-          <p class="kn-tag">In the Launch plan</p>
-          <div class="nb-fu">
-            <span class="nb-lab">Find us</span><span class="ad">41 Northgate Avenue</span><i class="dot" aria-hidden="true"></i><span class="tel">(555) 555-0147</span>
-            <span class="acts"><a class="nb-fu-btn is-fill" href="#" data-cursor="click">Call</a><a class="nb-fu-btn" href="#" data-cursor="click">Directions</a></span>
-          </div>
-        </div>
-      </div>
-      <aside class="nb-rail js-b2" aria-label="Book a chair">
-        <p class="kn-tag js-w">In the Business plan</p>
-        <div class="nb-next js-w">
-          <p class="nb-lab">Next free chair</p>
-          <p class="nb-next__n" aria-live="polite"><b>2:30</b></p>
-          <p class="nb-next__w"><span>Today</span> <em class="nb-who">with any barber</em></p>
-        </div>
-        <div class="nb-book__h js-w"><h3 id="nb-book-t">Book a chair</h3><span class="nb-lab">Today</span></div>
-        <div class="nb-slots js-w" role="radiogroup" aria-labelledby="nb-book-t">
-          <button class="nb-slot is-taken" type="button" role="radio" aria-checked="false" aria-disabled="true" data-slot="1:45"><b>1:45</b><span>Taken</span></button>
-          <button class="nb-slot" type="button" role="radio" aria-checked="false" data-slot="2:30" data-cursor="book"><b>2:30</b><span>Free</span></button>
-          <button class="nb-slot is-on" type="button" role="radio" aria-checked="true" data-slot="3:15" data-cursor="book"><b>3:15</b><span>Your chair</span></button>
-          <button class="nb-slot" type="button" role="radio" aria-checked="false" data-slot="4:00" data-cursor="book"><b>4:00</b><span>Free</span></button>
-          <button class="nb-slot" type="button" role="radio" aria-checked="false" data-slot="4:45" data-cursor="book"><b>4:45</b><span>Free</span></button>
-          <button class="nb-slot is-taken" type="button" role="radio" aria-checked="false" aria-disabled="true" data-slot="5:30"><b>5:30</b><span>Taken</span></button>
-        </div>
-        <p class="nb-lab nb-svc-lab js-w" id="nb-svc-t">Service</p>
-        <div class="nb-svc js-w" role="radiogroup" aria-labelledby="nb-svc-t">
-          <button class="nb-opt is-on" type="button" role="radio" aria-checked="true" data-svc="Cut" data-cursor="click"><span>Cut</span><b>$32</b></button>
-          <button class="nb-opt" type="button" role="radio" aria-checked="false" data-svc="Skin fade" data-cursor="click"><span>Skin fade</span><b>$38</b></button>
-          <button class="nb-opt" type="button" role="radio" aria-checked="false" data-svc="Beard trim" data-cursor="click"><span>Beard trim</span><b>$18</b></button>
-        </div>
-        <button class="nb-go js-w" type="button" data-cursor="book"><span class="nb-go__l">Book now</span> <em>3:15</em></button>
-        <p class="nb-conf" aria-live="polite"></p>
-      </aside>
-      <p class="kn-cap js-cap">An empty chair earns nothing. Fill it from your website. Live in days. From $499 once or $99 a month.</p>
-    </section>
-
-    <!-- C3 GARAGE (fictional sample; chat 19: approved mock _dev/mocks/garage.html; css/s-garage.css, js/ui/s-garage.js) -->
-    <section class="scene scene--garage site-garage" aria-label="Sample build 03 of 04: a fictional auto repair website">
-      <div class="ga-shade" aria-hidden="true"></div>
-      <div class="ga-slab js-b1" aria-hidden="true"></div>
-      <div class="ga-head js-b1">
-        <span class="ga-brand"><span class="ga-brand__a">Millbrook</span><span class="ga-brand__b">Auto Repair</span></span>
-        <nav class="ga-nav" aria-label="Sample garage"><a href="#" data-cursor="click">Services</a><a href="#" data-cursor="click">Book</a><a href="#" data-cursor="click">Shop</a><a href="#" data-cursor="click">Visit</a></nav>
-        <div class="ga-towns">
-          <p class="kn-tag">In the Pro plan</p>
-          <div class="ga-tabs" role="radiogroup" aria-label="Town">
-            <button class="ga-tab is-on" type="button" role="radio" aria-checked="true" data-cursor="click">Millbrook</button><button class="ga-tab" type="button" role="radio" aria-checked="false" data-cursor="click">Eastfield</button><button class="ga-tab" type="button" role="radio" aria-checked="false" data-cursor="click">Oak Hill</button>
-          </div>
-          <p class="ga-in" aria-live="polite">Auto repair in <b>Millbrook</b></p>
-        </div>
-      </div>
-      <div class="ga-intro js-b1">
-        <p class="ga-sub">Book online, drop off, drive home the same day.</p>
-        <a class="ga-btn" href="#" data-cursor="click">Book a service <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M3 12h17M13 5l7 7-7 7"/></svg></a>
-      </div>
-      <h2 class="ga-h1 js-b1"><span class="ga-l1">Honest repairs.</span><span class="ga-l2">Done on time.</span></h2>
-      <div class="ga-hazard js-b1" aria-hidden="true"></div>
-      <div class="ga-board js-b2" role="group" aria-labelledby="ga-board-t">
-        <div class="ga-sh js-w"><span class="ga-no">01</span><h3 class="ga-sh__t" id="ga-board-t">Book a service</h3><p class="kn-tag">In the Business plan</p></div>
-        <div class="ga-bd">
-          <div class="ga-row ga-row--head js-w" aria-hidden="true"><span class="ga-pick"><span>No.</span><span>Service</span><span>Price</span></span><span>Drop-off day</span><span>Time</span><span></span></div>
-          <div class="ga-rows" role="radiogroup" aria-label="Service">
-            <div class="ga-row js-w is-on" data-svc="Oil change"><button class="ga-pick" type="button" role="radio" aria-checked="true" data-cursor="click"><span class="ga-row__no">01</span><span class="ga-svc">Oil change</span><span class="ga-flap" aria-label="$59"><b>$</b><b>5</b><b>9</b></span></button><span class="ga-cell ga-cell--d"><i class="ga-dash"></i></span><span class="ga-cell ga-cell--t"><i class="ga-dash"></i></span><button class="ga-bk" type="button" data-cursor="book">Book</button></div>
-            <div class="ga-row js-w" data-svc="Brake pads"><button class="ga-pick" type="button" role="radio" aria-checked="false" data-cursor="click"><span class="ga-row__no">02</span><span class="ga-svc">Brake pads</span><span class="ga-flap" aria-label="$189"><b>$</b><b>1</b><b>8</b><b>9</b></span></button><span class="ga-cell ga-cell--d"><i class="ga-dash"></i></span><span class="ga-cell ga-cell--t"><i class="ga-dash"></i></span><button class="ga-bk" type="button" data-cursor="book">Book</button></div>
-            <div class="ga-row js-w" data-svc="Tire rotation"><button class="ga-pick" type="button" role="radio" aria-checked="false" data-cursor="click"><span class="ga-row__no">03</span><span class="ga-svc">Tire rotation</span><span class="ga-flap" aria-label="$35"><b>$</b><b>3</b><b>5</b></span></button><span class="ga-cell ga-cell--d"><i class="ga-dash"></i></span><span class="ga-cell ga-cell--t"><i class="ga-dash"></i></span><button class="ga-bk" type="button" data-cursor="book">Book</button></div>
-            <div class="ga-row js-w" data-svc="Diagnostics"><button class="ga-pick" type="button" role="radio" aria-checked="false" data-cursor="click"><span class="ga-row__no">04</span><span class="ga-svc">Diagnostics</span><span class="ga-flap" aria-label="$89"><b>$</b><b>8</b><b>9</b></span></button><span class="ga-cell ga-cell--d"><i class="ga-dash"></i></span><span class="ga-cell ga-cell--t"><i class="ga-dash"></i></span><button class="ga-bk" type="button" data-cursor="book">Book</button></div>
-          </div>
-          <div class="ga-when js-w">
-            <div class="ga-days" role="radiogroup" aria-label="Drop-off day"><button class="ga-chip is-on" type="button" role="radio" aria-checked="true" data-v="Tue" data-cursor="click">Tue</button><button class="ga-chip" type="button" role="radio" aria-checked="false" data-v="Wed" data-cursor="click">Wed</button><button class="ga-chip" type="button" role="radio" aria-checked="false" data-v="Thu" data-cursor="click">Thu</button></div>
-            <div class="ga-times" role="radiogroup" aria-label="Drop-off time"><button class="ga-chip is-on" type="button" role="radio" aria-checked="true" data-v="8:00" data-cursor="click">8:00</button><button class="ga-chip" type="button" role="radio" aria-checked="false" data-v="10:30" data-cursor="click">10:30</button><button class="ga-chip" type="button" role="radio" aria-checked="false" data-v="1:15" data-cursor="click">1:15</button></div>
-            <button class="ga-go" type="button" data-cursor="book">Book</button>
-          </div>
-          <p class="ga-status js-w" data-state="booked"><i class="ga-lamp" aria-hidden="true"></i><span class="ga-status__t" aria-live="polite">Booked. Drop off Tue at 8:00.</span></p>
-        </div>
-      </div>
-      <div class="ga-feat">
-        <div class="sx-f js-s3 ga-call" role="group" aria-labelledby="ga-open">
-          <div class="ga-sh"><span class="ga-no">02</span><h3 class="ga-open" id="ga-open" data-open="1"><i class="ga-lamp ga-lamp--go" aria-hidden="true"></i><span class="ga-open__t" aria-live="polite">Open now</span></h3><p class="kn-tag">In the Launch plan</p></div>
-          <p class="ga-hrs">Mon to Fri 7 am to 6 pm<br>Sat 8 am to 1 pm</p>
-          <div class="ga-tagrow"><p class="kn-tag">In the Launch plan</p></div>
-          <p class="ga-phone"><span>(555)</span> 555-0163</p>
-          <div class="ga-callrow"><span class="ga-addr">88 Mill Road</span><a class="ga-b ga-b--y" href="#" data-cursor="click">Call the shop</a><a class="ga-b ga-b--o" href="#" data-cursor="click">Directions</a></div>
-        </div>
-        <div class="sx-f js-s3 ga-parts" role="group" aria-labelledby="ga-parts-t">
-          <div class="ga-sh"><span class="ga-no">03</span><h3 class="ga-sh__t" id="ga-parts-t">Parts shop</h3><p class="ga-cart" aria-live="polite">Cart <b>1</b></p></div>
-          <div class="ga-pt">
-            <button class="ga-add is-in" type="button" data-price="24" aria-label="Add Wiper blades, $24" data-cursor="click"><span class="ga-pt__n">Wiper blades</span><span class="ga-pt__p">$24</span><span class="ga-pt__a">Add</span></button>
-            <button class="ga-add" type="button" data-price="39" aria-label="Add Floor mats, $39" data-cursor="click"><span class="ga-pt__n">Floor mats</span><span class="ga-pt__p">$39</span><span class="ga-pt__a">Add</span></button>
-            <button class="ga-add" type="button" data-price="12" aria-label="Add Oil filter, $12" data-cursor="click"><span class="ga-pt__n">Oil filter</span><span class="ga-pt__p">$12</span><span class="ga-pt__a">Add</span></button>
-            <div class="ga-pt__tot"><p><small class="ga-pt__l" aria-live="polite">Total</small><strong class="ga-pt__sum">$24.00</strong></p><button class="ga-co" type="button" data-cursor="click">Checkout</button></div>
-          </div>
-          <div class="ga-tagrow"><p class="kn-tag">In the Store plan</p></div>
-        </div>
-      </div>
-      <p class="kn-cap js-cap">The car will not start. They search. The shop with a website gets the call. Live in days. From $499 once or $99 a month.</p>
-    </section>
-
-    <!-- C4 DENTAL (fictional sample; chat 19: approved mock _dev/mocks/dental.html, css/s-dental.css, js/ui/s-dental.js).
-         A cream page with one arch window: the film shows through the arch only (the page is a box-shadow round the hole). -->
-    <section class="scene scene--dental site-dental" aria-label="Sample build 04 of 04: a fictional dental practice website">
-      <div class="ld-page js-b1" aria-hidden="true"><i class="ld-hole"></i><i class="ld-line"></i></div>
-      <div class="ld-nav js-b1">
-        <span class="ld-brand"><svg viewBox="0 0 26 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M1 31V13a12 12 0 0 1 24 0v18"/><path d="M7 31V14a6 6 0 0 1 12 0v17"/></svg>Linden Dental Care</span>
-        <nav class="ld-links" aria-label="Sample dentist"><a href="#" data-cursor="click">Treatments</a><a href="#" data-cursor="click">Team</a><a class="is-book" href="#" data-cursor="click">Book</a><a href="#" data-cursor="click">Visit</a></nav>
-      </div>
-      <div class="ld-hero js-b1">
-        <h2 class="ld-h1"><span>A calmer visit</span> <span>to the dentist.</span></h2>
-        <p class="ld-sub">New patients welcome. Book a check-up in under a minute.</p>
-      </div>
-      <div class="ld-book js-b2" role="group" aria-labelledby="ld-book-t">
-        <div class="ld-book__head"><h3 class="ld-book__t js-w" id="ld-book-t">Book a visit</h3><p class="kn-tag">In the Business plan</p></div>
-        <div class="ld-pill">
-          <div class="ld-seg ld-seg--why js-w">
-            <span class="ld-seg__l" id="ld-why-l">Reason</span>
-            <button class="ld-dd" type="button" data-dd="why" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="ld-why-l ld-why-v" data-cursor="click"><span class="ld-dd__v" id="ld-why-v">Check-up and clean</span><svg class="ld-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5l5 5 5-5"/></svg></button>
-          </div>
-          <div class="ld-seg ld-seg--who js-w">
-            <span class="ld-seg__l" id="ld-who-l">Dentist</span>
-            <button class="ld-dd" type="button" data-dd="who" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="ld-who-l ld-who-v" data-cursor="click"><span class="ld-mini" aria-hidden="true">ME</span><span class="ld-dd__v" id="ld-who-v">Dr. Maya Ellis</span><svg class="ld-chev" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5l5 5 5-5"/></svg></button>
-          </div>
-          <div class="ld-seg ld-seg--time">
-            <span class="ld-seg__l js-w">Time</span>
-            <div class="ld-slots" role="radiogroup" aria-label="Time">
-              <button class="ld-slot js-w is-on" type="button" role="radio" aria-checked="true" data-day="Mon" data-time="9:00" data-cursor="click">Mon 9:00</button>
-              <button class="ld-slot js-w" type="button" role="radio" aria-checked="false" data-day="Tue" data-time="11:30" data-cursor="click">Tue 11:30</button>
-              <button class="ld-slot js-w" type="button" role="radio" aria-checked="false" data-day="Wed" data-time="2:00" data-cursor="click">Wed 2:00</button>
-              <button class="ld-slot js-w" type="button" role="radio" aria-checked="false" data-day="Thu" data-time="4:15" data-cursor="click">Thu 4:15</button>
-            </div>
-          </div>
-          <button class="ld-go js-w" type="button" data-cursor="book">Book</button>
-        </div>
-        <p class="ld-conf js-w" aria-live="polite"><span class="ld-tick" aria-hidden="true"><svg viewBox="0 0 13 10" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 5l3.5 3.5L12 1"/></svg></span><span class="ld-conf__t">Booked. See you Mon at 9:00 with Dr. Maya Ellis.</span></p>
-      </div>
-      <div class="ld-menu" data-for="why" role="listbox" aria-label="Reason" hidden>
-        <button class="ld-opt is-on" type="button" role="option" aria-selected="true" data-v="Check-up and clean" data-cursor="click">Check-up and clean</button>
-        <button class="ld-opt" type="button" role="option" aria-selected="false" data-v="Whitening" data-cursor="click">Whitening</button>
-        <button class="ld-opt" type="button" role="option" aria-selected="false" data-v="Toothache" data-cursor="click">Toothache</button>
-      </div>
-      <div class="ld-menu" data-for="who" role="listbox" aria-label="Dentist" hidden>
-        <button class="ld-opt is-on" type="button" role="option" aria-selected="true" data-v="Dr. Maya Ellis" data-cursor="click"><span class="ld-mini" aria-hidden="true">ME</span>Dr. Maya Ellis</button>
-        <button class="ld-opt" type="button" role="option" aria-selected="false" data-v="Dr. Tom Reyes" data-cursor="click"><span class="ld-mini" aria-hidden="true">TR</span>Dr. Tom Reyes</button>
-        <button class="ld-opt" type="button" role="option" aria-selected="false" data-v="Jo Park" data-cursor="click"><span class="ld-mini" aria-hidden="true">JP</span>Jo Park</button>
-      </div>
-      <div class="ld-team js-s3">
-        <div class="ld-blk__h"><h3 class="ld-blk__t">Meet the team</h3><p class="kn-tag">In the Pro plan</p></div>
-        <div class="ld-docs" role="radiogroup" aria-label="Team member">
-          <button class="ld-doc is-on" type="button" role="radio" aria-checked="true" data-v="Dr. Maya Ellis" data-cursor="click"><span class="ld-av" aria-hidden="true">ME</span><span class="ld-doc__n">Dr. Maya Ellis</span><span class="ld-doc__r">General dentistry</span></button>
-          <button class="ld-doc" type="button" role="radio" aria-checked="false" data-v="Dr. Tom Reyes" data-cursor="click"><span class="ld-av" aria-hidden="true">TR</span><span class="ld-doc__n">Dr. Tom Reyes</span><span class="ld-doc__r">Orthodontics</span></button>
-          <button class="ld-doc" type="button" role="radio" aria-checked="false" data-v="Jo Park" data-cursor="click"><span class="ld-av" aria-hidden="true">JP</span><span class="ld-doc__n">Jo Park</span><span class="ld-doc__r">Hygienist</span></button>
-        </div>
-      </div>
-      <div class="ld-guides js-s3">
-        <div class="ld-blk__h"><h3 class="ld-blk__t">Patient guides</h3><p class="kn-tag">In the Pro plan</p></div>
-        <a href="#" data-cursor="click">Your first visit<svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a>
-        <a href="#" data-cursor="click">Caring for braces<svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a>
-        <a href="#" data-cursor="click">After a filling<svg viewBox="0 0 18 12" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M0 6h16M11 1l5 5-5 5"/></svg></a>
-      </div>
-      <div class="ld-hours js-s3" data-open="1">
-        <p class="kn-tag">In the Launch plan</p>
-        <h3 class="ld-hours__now" aria-live="polite"><span class="ld-dot" aria-hidden="true"></span><span class="ld-state">Open now</span></h3>
-        <p class="ld-hours__l"><b>Mon to Thu</b> 8 am to 5 pm<br><b>Fri</b> 8 am to 1 pm</p>
-      </div>
-      <div class="ld-foot js-s3">
-        <p class="kn-tag">In the Launch plan</p>
-        <h3 class="ld-foot__t">Find us</h3>
-        <span class="ld-foot__a">12 Linden Square</span><i class="ld-sep" aria-hidden="true"></i><span class="ld-foot__p">(555) 555-0182</span>
-        <a class="ld-fb ld-fb--fill" href="#" data-cursor="click">Call</a><a class="ld-fb ld-fb--line" href="#" data-cursor="click">Directions</a>
-      </div>
-      <p class="kn-cap js-cap">A toothache at 9 pm. They book the dentist they can book online. Live in days. From $499 once or $99 a month.</p>
+    <!-- M MORE SAMPLE BUILDS (chat 23): the barber, garage and dental builds live on samples.html -->
+    <section class="scene scene--more" id="work" aria-labelledby="more-h">
+      <p class="mo__k mono js-snap">Sample builds</p>
+      <h2 class="mo__h js-snap" id="more-h">That was the bakery. <em>three more to see.</em></h2>
+      <p class="mo__sub js-snap">A barbershop, an auto repair shop and a dental practice. Fictional businesses, designed the way we design yours.</p>
+      <ul class="mo__grid" aria-label="Sample builds">
+        <li class="js-snap"><a href="samples.html" data-cursor="click"><img src="assets/proof/bakery-720.webp" srcset="assets/proof/bakery-720.webp 720w, assets/proof/bakery-1120.webp 1120w" sizes="(max-width: 700px) 46vw, 24vw" width="1120" height="672" loading="lazy" decoding="async" alt="Sample Bakery website"><span class="mo__cap"><span class="mo__n mono">01</span><span class="mo__t">Bakery</span><span class="mo__u mono">yourbakery.com</span></span></a></li>
+        <li class="js-snap"><a href="samples.html" data-cursor="click"><img src="assets/proof/barber-720.webp" srcset="assets/proof/barber-720.webp 720w, assets/proof/barber-1120.webp 1120w" sizes="(max-width: 700px) 46vw, 24vw" width="1120" height="672" loading="lazy" decoding="async" alt="Sample Barbershop website"><span class="mo__cap"><span class="mo__n mono">02</span><span class="mo__t">Barbershop</span><span class="mo__u mono">yourbarbershop.com</span></span></a></li>
+        <li class="js-snap"><a href="samples.html" data-cursor="click"><img src="assets/proof/garage-720.webp" srcset="assets/proof/garage-720.webp 720w, assets/proof/garage-1120.webp 1120w" sizes="(max-width: 700px) 46vw, 24vw" width="1120" height="672" loading="lazy" decoding="async" alt="Sample Auto repair website"><span class="mo__cap"><span class="mo__n mono">03</span><span class="mo__t">Auto repair</span><span class="mo__u mono">yourgarage.com</span></span></a></li>
+        <li class="js-snap"><a href="samples.html" data-cursor="click"><img src="assets/proof/dental-720.webp" srcset="assets/proof/dental-720.webp 720w, assets/proof/dental-1120.webp 1120w" sizes="(max-width: 700px) 46vw, 24vw" width="1120" height="672" loading="lazy" decoding="async" alt="Sample Dentist website"><span class="mo__cap"><span class="mo__n mono">04</span><span class="mo__t">Dentist</span><span class="mo__u mono">yourdentist.com</span></span></a></li>
+      </ul>
+      <a class="btn btn--xl btn--paper mo__btn js-snap" href="samples.html" data-cursor="click">See all four sample builds<span class="mo__arr" aria-hidden="true">&rarr;</span></a>
     </section>
 
     <!-- E END PANEL (paper) -->
@@ -603,9 +418,6 @@
   </main>
 
   <div class="marquee marquee--a" aria-hidden="true"><div class="marquee__track"><div class="marquee__row"></div></div></div>
-  <div class="marquee marquee--b" aria-hidden="true"><div class="marquee__track"><div class="marquee__row"></div></div></div>
-  <div class="marquee marquee--c" aria-hidden="true"><div class="marquee__track"><div class="marquee__row"></div></div></div>
-  <div class="marquee marquee--d" aria-hidden="true"><div class="marquee__track"><div class="marquee__row"></div></div></div>
 </div>
 
 <div class="hud">
