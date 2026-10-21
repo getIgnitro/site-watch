@@ -1,5 +1,5 @@
 {
- "commit": "b987b8b5ec29a6b14d38aba8fa87169841cef00f",
+ "commit": "d665c4ce4f094d805b84996cc9dc500534033a7d",
  "files": [
   {
    "site": "getignitro.com",
@@ -268,13 +268,13 @@
   {
    "site": "getknservices.com",
    "path": "brief.html",
-   "sha256": "a10a386dfc88e410e0f0b048c186a874621af28db96b3b81bbe848929af54655",
+   "sha256": "7e0c8c38d156aa54ee33a2fe4e659606201861915d79a641ff3e0ba5a4cd7e62",
    "size": 2937
   },
   {
    "site": "getknservices.com",
    "path": "contact.html",
-   "sha256": "fec3b217ac8e6d952ca5178613f6983551dbd7baa1fb826ebd7825a9f0628fa6",
+   "sha256": "32652ccc6b5425dcd1272d7d71f48fd2ca7c09dec8df7202d9a788710e316d07",
    "size": 8297
   },
   {
@@ -286,8 +286,8 @@
   {
    "site": "getknservices.com",
    "path": "css/site.css",
-   "sha256": "2408df0adff06021289f2fa27a3f51079d223640e1274d300b02c3c376c426e0",
-   "size": 23637
+   "sha256": "bc9f7ac27eb4a81a7cde7be9001e3ba12386b56dd19be2b1f44d082ddbd5c3f4",
+   "size": 27431
   },
   {
    "site": "getknservices.com",
@@ -298,8 +298,8 @@
   {
    "site": "getknservices.com",
    "path": "index.html",
-   "sha256": "6551502753f7ba58b23e244ff7440c2def3792b4e74f365c9210ef6d16054987",
-   "size": 62583
+   "sha256": "501789036d3aa7608a90e019fd56930211198fada15cabe925780cc898db1b11",
+   "size": 68115
   },
   {
    "site": "getknservices.com",
@@ -310,8 +310,8 @@
   {
    "site": "getknservices.com",
    "path": "js/main.js",
-   "sha256": "43bc5335f92b2026c8731a307e22ca75134c4edc1483cb61f5ca390253f3f0ad",
-   "size": 48620
+   "sha256": "0c3007566758e0803d4a024dd5acba7bbfd13178678415746c43488ce578816c",
+   "size": 48752
   },
   {
    "site": "getknservices.com",
@@ -346,7 +346,7 @@
   {
    "site": "getknservices.com",
    "path": "privacy.html",
-   "sha256": "6730db91687e2d9e7f24e68034584caba68d204cb288a2534108c26c0b6db39e",
+   "sha256": "5f7447e349438a72df53a4b74f0480199ced6dcf7f5323d89a74263e8dade0b8",
    "size": 10150
   },
   {
@@ -364,7 +364,7 @@
   {
    "site": "getknservices.com",
    "path": "social-media.html",
-   "sha256": "e20fe35ec136bd4105764fe6154de6273b2c75d5f22a03287cc34cfe38fab806",
+   "sha256": "ced27bc7fec9a1fd08479900b5722989fdc6accbc7bc5d117c739eb13fe889f5",
    "size": 20911
   },
   {
@@ -484,25 +484,25 @@
   {
    "site": "getknservices.com",
    "path": "start.html",
-   "sha256": "b3c8a6003095f4c64f7a5262db7b55e8c064f07ef099a511c0ec343fc46812c9",
+   "sha256": "e95c3175adf742c006a744a102f01d0b840261abff75d384651bcddbda9b05df",
    "size": 18721
   },
   {
    "site": "getknservices.com",
    "path": "terms.html",
-   "sha256": "9f9f0c3a84a6d2f8b31760268e470c970e4b74f5e22351b179490a681d2d765b",
+   "sha256": "2bacae15a854a192aa843ab82e1b24dd1e44ada3381d73885c762f9c71a9b32f",
    "size": 10615
   },
   {
    "site": "getknservices.com",
    "path": "thanks.html",
-   "sha256": "167aaa50bdd56e47048fd4612a5eb9f2e6c5a3d7b8ca45d6e68d132fa6e3657e",
+   "sha256": "1a93d7f89e2419aefd460fc59509a5b2342687260131ad645c040d4fef58bc1a",
    "size": 6936
   },
   {
    "site": "getknservices.com",
    "path": "website-plans.html",
-   "sha256": "18fd45bbf8ed6da4223952f80cffd4df4b110a190fe3a5d4b324bf3777e0353c",
+   "sha256": "4eb1542ee64ecc843eae419cba51c5a578a484028a57198e908bc3d0522e2587",
    "size": 45693
   },
   {
