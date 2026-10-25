@@ -154,4 +154,41 @@ document.querySelectorAll('.reel').forEach(r=>{r.onclick=function(){document.que
 document.querySelectorAll('.photo').forEach(p=>{p.onclick=()=>openLb('<img src="'+p.dataset.full+'" oncontextmenu="return false" draggable="false">');});
 document.getElementById('lb').onclick=e=>{if(e.target.id==='lb')closeLb();};
 function submitEnq(e){e.preventDefault();var n=(document.getElementById('f_name').value||'').trim();var b=(document.getElementById('f_biz').value||'').trim();var p=(document.getElementById('f_phone').value||'').trim();var m=(document.getElementById('f_msg').value||'').trim();if(!n||!p){alert('Please add your name and phone/WhatsApp so we can reply.');return;}try{var ifr=document.getElementById('fs_iframe');if(!ifr){ifr=document.createElement('iframe');ifr.name='fs_iframe';ifr.id='fs_iframe';ifr.style.display='none';document.body.appendChild(ifr);}var f=document.createElement('form');f.action='https://formsubmit.co/info@getignitro.com';f.method='POST';f.target='fs_iframe';f.style.display='none';function add(k,v){var i=document.createElement('input');i.type='hidden';i.name=k;i.value=v;f.appendChild(i);}add('name',n);add('business',b);add('phone',p);add('message',m);add('_subject','New enquiry from portfolio.getignitro.com');add('_captcha','false');add('_template','table');document.body.appendChild(f);f.submit();}catch(_){}try{var fd=new FormData();fd.append('name',n);fd.append('business',b);fd.append('phone',p);fd.append('message',m);fetch('contact.php',{method:'POST',body:fd,keepalive:true}).catch(function(){});}catch(_){}document.getElementById('enqForm').innerHTML='<div class="form-done"><div class="ok">\u2713</div><h4>Thank you, '+(n?n.split(' ')[0]:'')+'!</h4><p>Your enquiry has been sent to our team. We will get back to you within one business day.</p></div>';}
+</script>
+<script>
+/* Ignitro visit log: one open, time on page, enquiry sent -> brief.getignitro.com/api/v (doc portfolio-site).
+   Same fields as the proposal pages. Report: brief.getignitro.com/views?d=portfolio-site#<key> */
+(function(){
+  if (navigator.webdriver) return;
+  var API = "https://brief.getignitro.com/api/v";
+  var q = new URLSearchParams(location.search), REF = (q.get("s") || "").slice(0, 40);
+  var rid = function(){ return Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4); };
+  var vid = null; try { vid = localStorage.getItem("ig-vid"); if (!vid) { vid = rid(); localStorage.setItem("ig-vid", vid); } } catch (e) { vid = rid(); }
+  var ua = navigator.userAgent, dev = "Other", os = "";
+  if (/iPhone/.test(ua)) { dev = "iPhone"; os = "iOS"; }
+  else if (/iPad/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) { dev = "iPad"; os = "iPadOS"; }
+  else if (/Android/.test(ua)) { dev = /Mobile/.test(ua) ? "Android phone" : "Android tablet"; os = "Android"; }
+  else if (/Windows/.test(ua)) { dev = "Windows computer"; os = "Windows"; }
+  else if (/Macintosh/.test(ua)) { dev = "Mac"; os = "macOS"; }
+  var br = /WhatsApp/i.test(ua) ? "WhatsApp" : /FBAN|FBAV|Instagram/.test(ua) ? "Facebook/Instagram app" : /EdgA?\//.test(ua) ? "Edge"
+         : /SamsungBrowser/.test(ua) ? "Samsung Internet" : /CriOS|Chrome\//.test(ua) ? "Chrome" : /FxiOS|Firefox/.test(ua) ? "Firefox" : /Safari/.test(ua) ? "Safari" : "Other";
+  var base = {doc: "portfolio-site", link: REF || null, visitor: vid, visit: rid(), device: dev, os: os, browser: br,
+              screen: screen.width + "x" + screen.height, referrer: (document.referrer || "").slice(0, 300)};
+  try { navigator.userAgentData.getHighEntropyValues(["model"]).then(function(v){ if (v && v.model) base.device = dev + " (" + v.model + ")"; }, function(){}); } catch (e) {}
+  function send(ev){
+    var o = {}, k; for (k in base) o[k] = base[k]; for (k in ev) o[k] = ev[k];
+    var body = JSON.stringify(o);
+    try { if (navigator.sendBeacon && navigator.sendBeacon(API, new Blob([body], {type: "text/plain"}))) return; } catch (e) {}
+    try { fetch(API, {method: "POST", body: body, keepalive: true, mode: "no-cors", headers: {"Content-Type": "text/plain"}}); } catch (e) {}
+  }
+  var t0 = document.hidden ? 0 : Date.now();
+  function flush(){ if (t0) { var s = Math.round((Date.now() - t0) / 1000); if (s >= 1) send({kind: "page", page: 1, seconds: Math.min(s, 3600)}); } t0 = 0; }
+  document.addEventListener("visibilitychange", function(){ if (document.hidden) flush(); else t0 = Date.now(); });
+  addEventListener("pagehide", flush);
+  document.addEventListener("submit", function(){
+    var n = document.getElementById("f_name"), p = document.getElementById("f_phone");
+    if (n && p && n.value.trim() && p.value.trim()) send({kind: "accept"});
+  }, true);
+  setTimeout(function(){ send({kind: "open"}); }, 700);
+})();
 </script></body></html>
