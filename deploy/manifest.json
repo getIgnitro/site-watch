@@ -1,5 +1,5 @@
 {
- "commit": "6a33af939a535d6f8f0d2ca29326f7e91b6d7d56",
+ "commit": "ed3f9354d0a0bda94338c955c9c37e969e38f660",
  "files": [
   {
    "site": "getignitro.com",
@@ -274,7 +274,7 @@
   {
    "site": "getknservices.com",
    "path": "contact.html",
-   "sha256": "df4ddd2c88c1c072dc11c912da5eaf31092284b2a31cbc8fc247927eef5838ef",
+   "sha256": "f375d9dadbe1abef7dec2624c84b5cb7fbbb8bb0aade47c64cf45d9df7a31fcd",
    "size": 8328
   },
   {
@@ -282,6 +282,12 @@
    "path": "css/details.css",
    "sha256": "0f4a04ab8f93c13f41ae801ba55224f12d50daaf44de31ca055bcfd695878c9d",
    "size": 28522
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/launch.css",
+   "sha256": "eb98c0935faac0276782eef42287a6ae6ef4999e4ff35e40c64138d855909f41",
+   "size": 10956
   },
   {
    "site": "getknservices.com",
@@ -303,9 +309,21 @@
   },
   {
    "site": "getknservices.com",
+   "path": "js/ask.js",
+   "sha256": "20e7d2baeae9e8e1d1ae0f3fa5c44eddf63186ad7730991278dc2f034f906f03",
+   "size": 2489
+  },
+  {
+   "site": "getknservices.com",
    "path": "js/brief.js",
    "sha256": "1ad6ac8d46feb03d451ffcb5591f7fc9c3b16197568063b391c246332164c12d",
    "size": 72431
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/launch.js",
+   "sha256": "0451fdc760a589199aed691687e1f2efc014f4e85d0c574eb13787b50951d45d",
+   "size": 5996
   },
   {
    "site": "getknservices.com",
@@ -334,8 +352,8 @@
   {
    "site": "getknservices.com",
    "path": "js/track.js",
-   "sha256": "a2175ae8fd61fe3b013c74a6575209e44fd304ddc279fdccdd696bb5b118c568",
-   "size": 3434
+   "sha256": "434c8640a650dc3f58d1c6641be76451530f2fce7ec049a10c4661410e0ef53f",
+   "size": 3838
   },
   {
    "site": "getknservices.com",
@@ -496,7 +514,7 @@
   {
    "site": "getknservices.com",
    "path": "start.html",
-   "sha256": "c73dd776f6437ef237f0595235dd17a4858a02440a62af55c33512d0d175b592",
+   "sha256": "e29b84fb9094beb200bc3ad4640dfb32c4f0525624a541a069f4d077f86751dc",
    "size": 18752
   },
   {
@@ -514,8 +532,8 @@
   {
    "site": "getknservices.com",
    "path": "website-plans.html",
-   "sha256": "b38d94c1a8216aa9dea25cd74e69630b8fd336823465c8255f834f778981a94e",
-   "size": 45724
+   "sha256": "e51cf071b1aa9d11aeef84f9a73b8d493f0d8a17599a7471c0e89f24452cd288",
+   "size": 47809
   },
   {
    "site": "menu.afrofusionqatar.com",
