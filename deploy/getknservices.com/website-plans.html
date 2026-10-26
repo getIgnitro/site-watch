@@ -25,8 +25,8 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=IBM+Plex+Mono:wght@400;600&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"></noscript>
 <link rel="stylesheet" href="css/site.css?v=1009">
 <link rel="stylesheet" href="css/details.css?v=1007">
-<link rel="stylesheet" href="css/launch.css?v=1005" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="css/launch.css?v=1005"></noscript>
+<link rel="stylesheet" href="css/launch.css?v=1006" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="css/launch.css?v=1006"></noscript>
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -36,7 +36,8 @@
 </script>
 <script defer src="js/details.js"></script>
 <script defer src="js/track-config.js?v=2"></script>
-<script defer src="js/track.js?v=2"></script>
+<script defer src="js/track.js?v=3"></script>
+<script defer src="js/ask.js?v=1"></script>
 <!-- seo-schema -->
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://getknservices.com/#org", "name": "KN Services Group LLC", "alternateName": "KN Services Group", "url": "https://getknservices.com/", "logo": "https://getknservices.com/apple-touch-icon.png", "image": "https://getknservices.com/kn-share.jpg", "email": "hello@getknservices.com", "priceRange": "$$", "description": "KN Services Group builds and runs websites, social media and custom software at a fixed price, paid once or monthly.", "address": {"@type": "PostalAddress", "addressRegion": "WY", "addressCountry": "US"}, "areaServed": {"@type": "Country", "name": "United States"}, "contactPoint": {"@type": "ContactPoint", "email": "hello@getknservices.com", "contactType": "sales", "availableLanguage": "English"}}, {"@type": "Service", "serviceType": "Website design, hosting and management", "provider": {"@id": "https://getknservices.com/#org"}, "areaServed": {"@type": "Country", "name": "United States"}, "hasOfferCatalog": {"@type": "OfferCatalog", "name": "Website plans", "itemListElement": [{"@type": "Offer", "name": "Launch", "price": "99", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "99", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Business", "price": "179", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "179", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Pro", "price": "329", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "329", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Store", "price": "499", "priceCurrency": "USD", "priceSpecification": {"@type": "UnitPriceSpecification", "price": "499", "priceCurrency": "USD", "unitText": "per month", "referenceQuantity": {"@type": "QuantitativeValue", "value": 1, "unitCode": "MON"}}}, {"@type": "Offer", "name": "Launch, pay once", "price": "499", "priceCurrency": "USD", "description": "One payment. The first year of hosting, domain, mailbox, Google setup and small updates is included. From year two, optional maintenance at $39 a month.", "priceSpecification": {"@type": "PriceSpecification", "price": "499", "priceCurrency": "USD"}}, {"@type": "Offer", "name": "Business, pay once", "price": "899", "priceCurrency": "USD", "description": "One payment. The first year of hosting, domain, mailboxes, Google setup and small updates is included. From year two, optional maintenance at $59 a month.", "priceSpecification": {"@type": "PriceSpecification", "price": "899", "priceCurrency": "USD"}}, {"@type": "Offer", "name": "Pro, pay once", "price": "1650", "priceCurrency": "USD", "description": "One payment. The first year of hosting, domain, mailboxes, Google setup and small updates is included. From year two, optional maintenance at $89 a month.", "priceSpecification": {"@type": "PriceSpecification", "price": "1650", "priceCurrency": "USD"}}, {"@type": "Offer", "name": "Store, pay once", "price": "2490", "priceCurrency": "USD", "description": "One payment. The first year of hosting, domain, mailboxes, Google setup and small updates is included. From year two, optional maintenance at $129 a month.", "priceSpecification": {"@type": "PriceSpecification", "price": "2490", "priceCurrency": "USD"}}]}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://getknservices.com/"}, {"@type": "ListItem", "position": 2, "name": "Website plans", "item": "https://getknservices.com/website-plans.html"}]}]}</script>
 </head>
@@ -101,6 +102,26 @@
         <a class="jt rv" href="#pro" data-plan="pro"><span class="jt__name">Pro</span><span class="jt__price"><span class="cur">$</span><span class="js-roll" data-to="1,650">1,650</span></span><span class="jt__per">once</span><span class="jt__alt">or $329 a month, nothing upfront</span><i class="jt__go" aria-hidden="true"></i></a>
         <a class="jt rv" href="#store" data-plan="store"><span class="jt__name">Store</span><span class="jt__price"><span class="cur">$</span><span class="js-roll" data-to="2,490">2,490</span></span><span class="jt__per">once</span><span class="jt__alt">or $499 a month, nothing upfront</span><i class="jt__go" aria-hidden="true"></i></a>
       </nav>
+      <div class="ask" id="ask">
+        <div class="ask__copy">
+          <p class="dh__k">Not ready to order?</p>
+          <h3 class="ask__h">Ask us <em>first.</em></h3>
+          <p class="ask__p">Tell us about your business. A real person on our team replies within one business day with the plan that fits. No payment, no obligation.</p>
+        </div>
+        <div class="ask__box">
+          <form class="fm ask__fm" id="ask-form" action="contact.php" method="post">
+            <input type="hidden" name="from" value="website-plans">
+            <input type="hidden" name="interest" value="unsure">
+            <label>Name<input name="name" required autocomplete="name" maxlength="100"></label>
+            <label>Email<input name="email" type="email" required autocomplete="email" inputmode="email" maxlength="254"></label>
+            <label class="full">Your business and your question<textarea name="message" required maxlength="5000" rows="3" placeholder="Example: I run a bakery in Ohio. Which plan fits, and how soon can it go live?"></textarea></label>
+            <div class="hp" aria-hidden="true"><label>Leave this field empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
+            <div class="full fm__send"><button class="btn btn--xl" type="submit">Send my question</button><p class="fm__msg" role="status" aria-live="polite"></p></div>
+            <p class="full fm__fine">We use these details only to reply to you. See our <a href="privacy.html">privacy policy</a>.</p>
+          </form>
+          <div class="ok ask__ok" id="ask-ok" hidden><p class="ok__h">Question sent</p><p class="ok__p">Thank you. We reply within one business day.</p></div>
+        </div>
+      </div>
     </section>
 
     <div class="pbs">
@@ -111,6 +132,7 @@
         <p class="pb__pitch rv">Get your business online.</p>
         <div class="pb__stats"><p class="st rv"><b>5</b><span>pages</span></p><p class="st rv"><b>1</b><span>business mailbox</span></p></div>
         <a class="btn btn--xl pb__btn rv" href="start.html?plan=launch&amp;pay=once">Start now</a>
+        <a class="pb__ask" href="#ask">Questions first? Ask us, no payment</a>
       </div>
       <ul class="pb__list">
         <li class="ln ln--val ln--tag rv"><span class="ln__k">Pages</span><span class="ln__v">5: Home, About, Services, Gallery, Contact</span></li>
@@ -140,6 +162,7 @@
         <p class="pb__pitch rv">Run the business from it.</p>
         <div class="pb__stats"><p class="st rv"><b>10</b><span>pages</span></p><p class="st rv"><b>3</b><span>business mailboxes</span></p></div>
         <a class="btn btn--xl pb__btn rv" href="start.html?plan=business&amp;pay=once">Start now</a>
+        <a class="pb__ask" href="#ask">Questions first? Ask us, no payment</a>
       </div>
       <ul class="pb__list">
         <li class="ln ln--val ln--tag rv"><span class="ln__k">Pages</span><span class="ln__v">10: Launch pages plus 3 single-service pages, Reviews and FAQ</span></li>
@@ -169,6 +192,7 @@
         <p class="pb__pitch rv">Room to grow.</p>
         <div class="pb__stats"><p class="st rv"><b>20</b><span>pages</span></p><p class="st rv"><b>5</b><span>business mailboxes</span></p></div>
         <a class="btn btn--xl pb__btn rv" href="start.html?plan=pro&amp;pay=once">Start now</a>
+        <a class="pb__ask" href="#ask">Questions first? Ask us, no payment</a>
       </div>
       <ul class="pb__list">
         <li class="ln ln--val ln--tag rv"><span class="ln__k">Pages</span><span class="ln__v">20: Business pages plus 4 more service pages, 3 town pages, Team, Blog and Careers</span></li>
@@ -198,6 +222,7 @@
         <p class="pb__pitch rv">Sell online.</p>
         <div class="pb__stats"><p class="st rv"><small>up to</small><b>100</b><span>products</span></p><p class="st rv"><b>5</b><span>business mailboxes</span></p></div>
         <a class="btn btn--xl pb__btn rv" href="start.html?plan=store&amp;pay=once">Start now</a>
+        <a class="pb__ask" href="#ask">Questions first? Ask us, no payment</a>
       </div>
       <ul class="pb__list">
         <li class="ln ln--val ln--tag rv"><span class="ln__k">Pages</span><span class="ln__v">Online store: Home, About, Shop, product pages for up to 100 products, Cart, Checkout, Account, FAQ, Shipping and returns, Contact</span></li>

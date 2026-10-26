@@ -3,6 +3,7 @@
  *   Google Ads - loads the Google tag and reports three conversions:
  *     purchase  - thanks.html reached after a Stripe payment (plan from localStorage kn_plan, set on the Pay click in launch.js)
  *     brief     - the build brief delivered (brief.js fires the kn:brief-sent event on success)
+ *     lead      - a question sent from the Ask-us-first form or contact.html (kn:lead-sent)
  *     whatsapp  - any tap on a wa.me link (page buttons and the chat square)
  * All ids live in track-config.js. Each feature is off when its id is empty, so this file is safe on the live site. */
 (function () {
@@ -53,6 +54,10 @@
 
   /* brief sent */
   document.addEventListener('kn:brief-sent', function () { if (once('kn_conv_brief')) conv(C.brief); });
+
+  /* question sent (Ask-us-first form on the plan pages, contact.html form): a lead.
+   * Uses its own label when one is set in track-config.js (lead), else the Submit-lead-form action (brief). */
+  document.addEventListener('kn:lead-sent', function () { if (once('kn_conv_lead')) conv(C.lead || C.brief); });
 
   /* WhatsApp tap: counted on every tap, Google de-duplicates by its own rules */
   document.addEventListener('click', function (e) {
