@@ -1,5 +1,5 @@
 {
- "commit": "ce0925c8d5979edfdebec816c749a0758c0cbdc4",
+ "commit": "41700e524eb7b07cad288e08f3a80bf151eee47a",
  "files": [
   {
    "site": "getignitro.com",
@@ -189,6 +189,54 @@
   },
   {
    "site": "getknservices.com",
+   "path": "assets/bakery/item-1.jpg",
+   "sha256": "b17770c7fabdbd6599dc31bbe7b275c4fda2716586be48c25c36340be2a491a0",
+   "size": 198639
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/bakery/item-2.jpg",
+   "sha256": "135d99b5db45e740296c13f352b76d79bdb2571ac978d152cb3b4bed34ef200e",
+   "size": 95263
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/bakery/item-3.jpg",
+   "sha256": "749dfa6486c4e904365dd65d49fb9aee0ad58f409e78db5e865a1a4713016326",
+   "size": 122085
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/fonts/InstrumentSans-500.ttf",
+   "sha256": "a7bcb84cb01f6e33eecdd2cbff3f97ff1674c0e8e37c6921b6cd717b8c854d98",
+   "size": 48732
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/fonts/Sora-600.ttf",
+   "sha256": "4e79171a1720d04b72eb68bd7604f85888c31c05bb6b432147d4524e9439af30",
+   "size": 46216
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/logo/kn-build-mark-ink.svg",
+   "sha256": "9a875f40207f6cc2c12228b3440e2fa49fe8a571864b677de0de245b705556bc",
+   "size": 5450
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/logo/kn-build-mark.json",
+   "sha256": "4a04baadc57450c8b10f3cacbd0edcdf3f93b825068b6e46697231af2fb73a51",
+   "size": 4909
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/logo/kn-build-mark.svg",
+   "sha256": "0201659dda7f29d2c0b004ad68a211faedde526702573f1676230f92b50fc37b",
+   "size": 5620
+  },
+  {
+   "site": "getknservices.com",
    "path": "assets/proof/bakery-1120.webp",
    "sha256": "4a89318d98e2690913fe90cbcaa09ca0819bf0a70b434cd95281321112538856",
    "size": 71970
@@ -237,6 +285,126 @@
   },
   {
    "site": "getknservices.com",
+   "path": "assets/reels/reel-1.jpg",
+   "sha256": "a8f756bf0bd6a5c62674d9f973d8abc4f305db7ed945d85acd7f7e015893c36b",
+   "size": 52012
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-1.mp4",
+   "sha256": "64bcf677cb928bbbce679577ff5aae2a4c833e23ab505020496e459bf997ccca",
+   "size": 576776
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-2.jpg",
+   "sha256": "430d41e7e770f59c468cf46fdebb6245a0cc07c2761c50d2e9d6fe0ac1bd2150",
+   "size": 37578
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-2.mp4",
+   "sha256": "cc779c648809f1c3974cf4961cbf18cf90c5a4fcd97d3efd4c5ff426c997a709",
+   "size": 460341
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-3.jpg",
+   "sha256": "382355fc5cfcf831c5af97b5b5f083aee6ffcb63176562b825e1999478e57001",
+   "size": 18995
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-3.mp4",
+   "sha256": "6a5ca6dbd3d6ff875f16c873ca2b798f7e2c1392e813138598d741d1c6ec0d6c",
+   "size": 925294
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-4.jpg",
+   "sha256": "5db1d1b980e62be5caf57a53dc9bd4368513621020f61f28e312232b936a503c",
+   "size": 122050
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-4.mp4",
+   "sha256": "7ee8c27ea72c3eca4a920e920a398ab896d91ba2b3c215afc536a5ade5880913",
+   "size": 1435075
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-5.jpg",
+   "sha256": "6256054f5b74e098761f2be3de5acb89344a8130e4c3e5dc9fcb04a62024c1cb",
+   "size": 60112
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-5.mp4",
+   "sha256": "d40c2b84b02c9d0bfa68f616e399cefbb3cafd0959ca194341a9f576f5cf59a0",
+   "size": 1122972
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-6.jpg",
+   "sha256": "e5ebd7ede8b779e47234fc14c3567e3aa73bc9247bd3340eba217993c49d8dfe",
+   "size": 56860
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/reels/reel-6.mp4",
+   "sha256": "99ad56c60d40033f9ceec6a61073af54a1ae431421d35a6c4dfb6c66a5c32c87",
+   "size": 823532
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/bakery.jpg",
+   "sha256": "14a69bd19d9dbf35ad3159e7b3e6482021526b7b055b2f78ac64af7cb55f1412",
+   "size": 160132
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/bakery.mp4",
+   "sha256": "b75233ce99f0621d0a3906ca4106a0269fdb9296c0981ca5592b46ec32361d0c",
+   "size": 1700640
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/barber.jpg",
+   "sha256": "29cb1ad219fa26f81d8002fb42cdeabb9280d9abde93d5c98a9b10e9fa7b591b",
+   "size": 135233
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/barber.mp4",
+   "sha256": "8c357b9eaf3d35fba215a7beae69ffe40c0bcb0ffc9762583400b216847867a5",
+   "size": 3567642
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/dental.jpg",
+   "sha256": "77d7f44790bcccdfa6e5a4e1fdd66216a4307dd3c5f19cd8e54a6be3c6a1e4c9",
+   "size": 117433
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/dental.mp4",
+   "sha256": "df9821b15700730e031188f2c0bf7a849b9b94c23394b7cd4ed364edef57ddb6",
+   "size": 4528323
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/garage.jpg",
+   "sha256": "b65c917e296ca3ebb29614aeaad0e964f944205edbc3479eac7041d4623f2255",
+   "size": 118683
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/garage.mp4",
+   "sha256": "ab31af63566162d8d408d9e45dc95f41247bd4cc6a94fdd0e76c36f065549ec5",
+   "size": 3792730
+  },
+  {
+   "site": "getknservices.com",
    "path": "assets/scenes/m/bakery.mp4",
    "sha256": "9b517fbb11784e2f63e9001d498e7f9af0d17e229d13f98af3142fbc41b79baf",
    "size": 934244
@@ -273,15 +441,45 @@
   },
   {
    "site": "getknservices.com",
+   "path": "assets/scenes/opening.jpg",
+   "sha256": "4ccb2c05d60ccf22b240fea16937046db2d96b1d513f7451827f60c4fecc1a8c",
+   "size": 129560
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/opening.mp4",
+   "sha256": "dba309c2273b01c59364e492d43632f1500b5abce7245a81b9232e17c6c90666",
+   "size": 6535786
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/software.jpg",
+   "sha256": "5594f6442a854cba548c7e5669b9560d3eef0a69560f7628a9037af906d2d7f3",
+   "size": 86624
+  },
+  {
+   "site": "getknservices.com",
+   "path": "assets/scenes/software.mp4",
+   "sha256": "1ffab33ca35450f5ff17505c11e8679bbdfefdf90868da51f4b713f5c34ab770",
+   "size": 2575816
+  },
+  {
+   "site": "getknservices.com",
+   "path": "blog/small-business-website-cost.html",
+   "sha256": "b1d37e8a2484ea87f50fd927934e23cdbfee0cb242690f9477d327eaf213f66e",
+   "size": 14896
+  },
+  {
+   "site": "getknservices.com",
    "path": "brief.html",
-   "sha256": "7e0c8c38d156aa54ee33a2fe4e659606201861915d79a641ff3e0ba5a4cd7e62",
-   "size": 2937
+   "sha256": "d1ed1a6611cbbfc69b2b6919816f8e80f88ac298a3326fde5a7fb0c224a6fae2",
+   "size": 3021
   },
   {
    "site": "getknservices.com",
    "path": "contact.html",
-   "sha256": "f375d9dadbe1abef7dec2624c84b5cb7fbbb8bb0aade47c64cf45d9df7a31fcd",
-   "size": 8328
+   "sha256": "78108d614c04e1dfccd5d06df2dcc4390cf558176f2e34bff3224ef6a1ee4091",
+   "size": 8412
   },
   {
    "site": "getknservices.com",
@@ -297,15 +495,75 @@
   },
   {
    "site": "getknservices.com",
+   "path": "css/packages.css",
+   "sha256": "9e891fe71be89abf52e1b66b738041c3359e491026210eea174b28a314d7599d",
+   "size": 18485
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/plans.css",
+   "sha256": "1b5978aba36d9783c547eb094c617cbb20d5e7ab44a33fd1a687621cdd24e4ea",
+   "size": 15205
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/s-bakery.css",
+   "sha256": "a2cb5ca863cd3fa001599c125f4e36d039a4d4f0a789e705057aaae2a204e2a4",
+   "size": 26018
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/s-barber.css",
+   "sha256": "3e32221039e0d18d1a8a6320be0f91a3dac7645216de21935317617da8ea204b",
+   "size": 20563
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/s-dental.css",
+   "sha256": "4f9eead57f94db61b96316f333a639a65e6d07a74302370e8a1b4292279cb4e0",
+   "size": 19066
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/s-garage.css",
+   "sha256": "517128bb0ffc6ba0d3da5b1c71aff39cb65160a4d1e654a116c5c06188d818af",
+   "size": 22531
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/samples.css",
+   "sha256": "95f0be0b31d76ca7ce131124581cc4ab81e5c8986a7e69391a972dfa34cabbc5",
+   "size": 2271
+  },
+  {
+   "site": "getknservices.com",
+   "path": "css/samples2.css",
+   "sha256": "9b33db085beb4fc23e083c438bdfbc54a67c1ced2d7ea551b94a4829e661d129",
+   "size": 1201
+  },
+  {
+   "site": "getknservices.com",
    "path": "css/site.css",
    "sha256": "bc9f7ac27eb4a81a7cde7be9001e3ba12386b56dd19be2b1f44d082ddbd5c3f4",
    "size": 27431
   },
   {
    "site": "getknservices.com",
+   "path": "css/type.css",
+   "sha256": "f9c761f50c2ee677e53a3f013c8bd32454ba315e01a120da2bb0b55f9f472b31",
+   "size": 1540
+  },
+  {
+   "site": "getknservices.com",
    "path": "email/kn-build-mark.png",
    "sha256": "942a20bd973c09164aa996428466865479b03939b03bd09c5fcdfdfaea9b6ae2",
    "size": 7209
+  },
+  {
+   "site": "getknservices.com",
+   "path": "favicon.svg",
+   "sha256": "57262825f39c644c1120252597a938a490d13b9a2ba1c24e254445814a305e65",
+   "size": 5719
   },
   {
    "site": "getknservices.com",
@@ -316,8 +574,8 @@
   {
    "site": "getknservices.com",
    "path": "index.html",
-   "sha256": "9c4bcffb673a47c560f9ff197eff17889c00e932076be11ca0c128cfd4510e60",
-   "size": 49901
+   "sha256": "9cb7710009dcf8b28986b7fb422197b12ad9079f5735ce5d79399945b6e22b9a",
+   "size": 49971
   },
   {
    "site": "getknservices.com",
@@ -333,6 +591,18 @@
   },
   {
    "site": "getknservices.com",
+   "path": "js/chat.js",
+   "sha256": "5558a96173c0d1816c8b30781e4579c7a4cc2239d1a82b6e383c601cc0b5b633",
+   "size": 5025
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/details.js",
+   "sha256": "71119d292d1aef25e4c7f0157fde0d5e2008bd0cb5173fcd9d7f2a03022474d6",
+   "size": 4956
+  },
+  {
+   "site": "getknservices.com",
    "path": "js/launch.js",
    "sha256": "0451fdc760a589199aed691687e1f2efc014f4e85d0c574eb13787b50951d45d",
    "size": 5996
@@ -342,6 +612,18 @@
    "path": "js/main.js",
    "sha256": "80ec8d334edfae386ce3e90bb4cdc00b4bcaad9ab18b30879e9647ecea0d4f9f",
    "size": 50597
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/pay-config.js",
+   "sha256": "0c2840621a6823f4aac884cff7a3850bb14877cdfc61ab475a0920f555ad206b",
+   "size": 1019
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/stage/logo2d.js",
+   "sha256": "a4c38c3a2fef8c4fed661cf2590d2cf2d24700c1912bc31dbd0b9c7695944750",
+   "size": 20903
   },
   {
    "site": "getknservices.com",
@@ -369,9 +651,81 @@
   },
   {
    "site": "getknservices.com",
+   "path": "js/ui/booking.js",
+   "sha256": "5e2d454c76f1dd17d20c600cb50adb10f8fc8d50a965d2539522b4371e5482e0",
+   "size": 181
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/build.js",
+   "sha256": "2f2b6e26472b42d13bb23d525d8e1821df7049a068ed7aacb0f078df59f45486",
+   "size": 7971
+  },
+  {
+   "site": "getknservices.com",
    "path": "js/ui/feed.js",
    "sha256": "17b043608004d99995f8d19526b7697b90992349cb63da6e950a11ecc48c4899",
    "size": 4360
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/hud.js",
+   "sha256": "8c976c9b3ff18e6d78a530f4800172c4c6f3d54e4946b46459d1003ff0960913",
+   "size": 5884
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/lens.js",
+   "sha256": "ae63da2cc4b3e9eeb06fa301d401827bed53ffeac800323f7781db03751456fe",
+   "size": 2022
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/plans.js",
+   "sha256": "6b48fab78647da028986bab4a231ac54fbaf8f1c16a2fc3bb148330adba50ebe",
+   "size": 9632
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/s-bakery.js",
+   "sha256": "23e99c64e14d6b7a7890b4f5b5aad0aa61d3b6beb3e6301542061b1579902f25",
+   "size": 3861
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/s-barber.js",
+   "sha256": "bb5f06b495f2cf4da3a5986ed5dc629d67bac7acaa61097a821ee880c4096dd8",
+   "size": 3511
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/s-dental.js",
+   "sha256": "8c2fed08c329d1d6b010ed694c035e7bb917fd4551624c5b5e199f475617824d",
+   "size": 5638
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/s-garage.js",
+   "sha256": "3ff21db9d5c6d5a78860cfa4b8051e2b5aa942f9f12ac6a9204a9fc3d5ba7fed",
+   "size": 7784
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/samples.js",
+   "sha256": "7094dc5dd64cbbd5a1b0db12bd765150c0aa78a4b93fb0d528e8e602b1b13af6",
+   "size": 5214
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/samples2.js",
+   "sha256": "bde92a01cbfa1f6882173bdd6c1dd599f7703f857f2869c6610a84205389f1fb",
+   "size": 849
+  },
+  {
+   "site": "getknservices.com",
+   "path": "js/ui/type.js",
+   "sha256": "65ea4bf7ea7219776c451e677a3aee7559c485c0eea9fa255b48be432cf783f3",
+   "size": 17396
   },
   {
    "site": "getknservices.com",
@@ -382,8 +736,8 @@
   {
    "site": "getknservices.com",
    "path": "privacy.html",
-   "sha256": "4417cef31f47b5e6c3ecea7ba0b76e58472d584c61c85801cc29261571d45751",
-   "size": 10181
+   "sha256": "0abbcb36c997a6e3e7ff87d3277a36c100ec3fd312acfceb2492ae5b31d600c2",
+   "size": 10265
   },
   {
    "site": "getknservices.com",
@@ -394,20 +748,20 @@
   {
    "site": "getknservices.com",
    "path": "samples.html",
-   "sha256": "af36131337995ca1e790906e5164a491e0f8144668ee696a094bec5919e19e2c",
-   "size": 45483
+   "sha256": "a2e0ac2404bd13faf423fd9a7b838a777b01ff694e29adb24160e543b0d438cd",
+   "size": 45553
   },
   {
    "site": "getknservices.com",
    "path": "sitemap.xml",
-   "sha256": "80d0b6eb2684d113293f98fee1e0de5c7b0a9519bf03e81caebfdbf8af563890",
-   "size": 841
+   "sha256": "3684abfc3be343cc8bcfeca2c29546c0a26c99bba7c2fb6f2844071af7bca719",
+   "size": 958
   },
   {
    "site": "getknservices.com",
    "path": "social-media.html",
-   "sha256": "216ebbd841ab5070f96fa5ca1ded10e41a3a7d953a98fffee8126eadb0b6ddc9",
-   "size": 20942
+   "sha256": "84e52588eb83c5f29a570ab9761b7e395ca031ef78e146993d8041b32ee6dc30",
+   "size": 21026
   },
   {
    "site": "getknservices.com",
@@ -526,26 +880,26 @@
   {
    "site": "getknservices.com",
    "path": "start.html",
-   "sha256": "e29b84fb9094beb200bc3ad4640dfb32c4f0525624a541a069f4d077f86751dc",
-   "size": 18752
+   "sha256": "80894bfaa040301ca68fd27bf5e72bd8891ea6226113cabea5cff7c7c2202cb6",
+   "size": 18836
   },
   {
    "site": "getknservices.com",
    "path": "terms.html",
-   "sha256": "f258535337c9b259436456ed5481692a9e91921d06eb5de4cca63b5579dba564",
-   "size": 10646
+   "sha256": "500108514d2fb9f8eae90d08e9de77e3524ebd54850ab48a95509225315062bf",
+   "size": 10730
   },
   {
    "site": "getknservices.com",
    "path": "thanks.html",
-   "sha256": "c385acb4336edf523e5f1c0188ad8d6239e86cdb60539647ab6a4eb942a4b637",
-   "size": 6967
+   "sha256": "daa7f2750b6d21986ec6ea3c19f19acff0ad4d66b086d9d5fec42cc94e792e65",
+   "size": 7051
   },
   {
    "site": "getknservices.com",
    "path": "website-plans.html",
-   "sha256": "e0ad4d8d1814b160d9d4cc7d603aba815f4dd2355a27ac9c60391a7a73a19557",
-   "size": 104565
+   "sha256": "b250e1940ff4ef79a596da49ac02e79cbb7fad5696aced54f3d3f35115050f49",
+   "size": 104649
   },
   {
    "site": "menu.afrofusionqatar.com",
