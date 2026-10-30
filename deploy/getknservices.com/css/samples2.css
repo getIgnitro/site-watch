@@ -1,0 +1,20 @@
+/* samples2.css - round 7 (Amendment 7): sample builds 03 (garage) and 04 (dental).
+   Each sample has its own identity; KN orange is never a sample colour. The KN tags (.kn-tag, samples.css)
+   and the KN caption (.kn-cap, site.css) keep their KN styling. Sample text 18 px or more at 1920.
+   GARAGE palette sampled from assets/scenes/garage.jpg: bay black #030B0E, wall shadow #171B1C,
+     pillar steel #2A3034, wall steel #4E5253, stripe yellow #FECD4D (lit) / #E3A72A (shade).
+   DENTAL palette sampled from assets/scenes/dental.jpg: soft white #F9F6EF, wall #EDE6D8,
+     chair mint #DBE3DA / #BEC8BE, cabinet sage #B5B29A; deep teal #1E4A47 (the chair's hue, darkened)
+     for text and buttons. */
+
+/* garage: moved to css/s-garage.css (chat 19) */
+/* dental: moved to css/s-dental.css (chat 19) */
+
+/* ================= GARAGE: the chapter moved to css/s-garage.css (chat 19); the C3 marquee stays here ================= */
+.marquee--c .marquee__row span { color: var(--gr-light, #E9EBEA); font-stretch: 62%; }
+.marquee--c .marquee__row span i { color: #FECD4D; }
+
+/* (DENTAL moved to css/s-dental.css, chat 19) */
+
+/* (GARAGE desktop and phone rules moved to css/s-garage.css, chat 19) */
+

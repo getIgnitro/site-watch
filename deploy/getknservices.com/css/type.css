@@ -1,0 +1,35 @@
+/* type.css - proof 4, TEXT agent (js/ui/type.js).
+   html.ty = motion on (set by type.js). Without it (reduced motion, no JS) every line is static. */
+
+.ty-host { position: relative; }
+
+/* D4: characters wait for the block; they stay real, selectable text */
+html.ty .ty-c { opacity: 0; }
+html.ty .ty-c.on { opacity: 1; }
+
+/* the one orange block: about cap height, square, never decoration */
+.ty-cur {
+  position: absolute; left: 0; top: 0; width: .7em; height: .7em;
+  background: var(--signal); opacity: 0; pointer-events: none; z-index: 3;
+  will-change: transform, opacity;
+}
+
+/* the block types these lines (fear line, then the answer line), so the snap cover bar is not used on them */
+html.ty .hero__fear > .blk,
+html.ty .hero__sub > .blk,
+html.ty .fs__fear > .blk,
+html.ty .fs__sol > .blk,
+html.ty .end__line > .blk { display: none; }
+
+/* strike: driven by --ty-sk (type.js), after the line is typed */
+html.ty .fs__t.ty-t { background-size: calc(var(--ty-sk, 0) * 100%) .13em; }
+
+/* D5: end headline built from stroke-sized tiles, "next." drawn on, one block waiting */
+.ty-h2 { position: relative; }
+.ty-tiles { position: absolute; left: 0; top: 0; width: 0; height: 0; pointer-events: none; z-index: 2; }
+.ty-tiles i { position: absolute; display: block; background: var(--ink); opacity: 0; }
+.ty-block {
+  position: absolute; left: 0; top: 0; width: 0; height: 0;
+  background: var(--signal); opacity: 0; pointer-events: none; z-index: 3;
+}
+.ty-probe { display: inline-block; width: 0; height: 0; vertical-align: baseline; }

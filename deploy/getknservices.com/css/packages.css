@@ -1,0 +1,292 @@
+/* KN v5 proof 3 - package screens (website plans, social media, software), badges, fear -> solution.
+   Size law (B1): --rd is the reading floor: 20px at 1920 wide, 16px at 1536 and below.
+   --k is the fit scale written by main.js (fitPackages): it only shrinks the big display parts
+   (prices, numerals, button heights) when a card would overflow; text never drops under --rd. */
+
+:root {
+  --rd: clamp(16px, 1.0417vw, 20px);
+  --rd22: clamp(16px, 1.1459vw, 22px);
+  --fsz: clamp(18px, 1.6vw, 34px);
+  --h2: clamp(36px, 4.4vw, 96px);
+  --cg: clamp(10px, .75vw, 16px);
+  --cp: clamp(16px, 1.3vw, 28px);
+  --pk-top: clamp(10px, 2.4vh, 30px);
+  --pk-bot: clamp(16px, 3.2vh, 36px);
+  --pk-gap: clamp(14px, 2.6vh, 30px);
+  --feed-w: 30vw;
+  --line-p: rgba(243,238,228,.24);
+  --line-i: rgba(11,11,12,.24);
+}
+
+/* ---------- badges: one fact per square block ---------- */
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.badge {
+  position: relative; display: inline-flex; align-items: center; gap: .55em; white-space: nowrap;
+  height: calc(var(--rd) * 2.3); padding: 0 .85em 0 .7em;
+  font: 600 var(--rd)/1 var(--f-body); color: var(--paper);
+  background: rgba(243,238,228,.07); box-shadow: inset 0 0 0 1px rgba(243,238,228,.36);
+}
+.badge::before { content: ''; flex: none; width: .42em; height: .42em; background: var(--peri); }
+.badges--ink .badge, .scene--social .badge { color: var(--ink); background: rgba(11,11,12,.05); box-shadow: inset 0 0 0 1px rgba(11,11,12,.55); }
+.badges--ink .badge::before, .scene--social .badge::before { background: var(--ink); }
+
+/* ---------- fear -> solution pair ---------- */
+.fs { --strike: var(--paper); display: grid; row-gap: .2em; font-size: var(--fsz); justify-items: start; }
+.fs__fear { font: 500 1em/1.16 var(--f-body); color: rgba(243,238,228,.55); max-width: 30em; }
+.fs__t {
+  --sk: 1;
+  background-image: linear-gradient(var(--strike), var(--strike));
+  background-repeat: no-repeat; background-position: 0 56%;
+  background-size: calc(var(--sk) * 100%) .13em;
+}
+.fs__sol { font: 600 1em/1.16 var(--f-body); color: var(--paper); max-width: 30em; }
+.scene--social .fs { --strike: var(--ink); }
+.scene--social .fs__fear { color: rgba(11,11,12,.55); }
+.scene--social .fs__sol { color: var(--ink); }
+
+/* ---------- package screen frame ---------- */
+.scene.pk {
+  padding: calc(var(--bar-h) + var(--pk-top)) var(--m) var(--pk-bot);
+  display: flex; flex-direction: column; gap: var(--pk-gap);
+}
+.pk__head { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(28px, 3.2vw, 72px); align-items: end; }
+.pk__head--stack { grid-template-columns: minmax(0, 1fr); row-gap: clamp(10px, 1.9vh, 22px); }
+.pk__h {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  letter-spacing: -0.02em; line-height: .86; font-size: calc(min(var(--k, 1), 1) * var(--h2)); white-space: nowrap; margin: 0;
+}
+.pk__h em {
+  font-family: var(--f-serif); font-style: italic; font-weight: 400; text-transform: lowercase;
+  font-stretch: 100%; letter-spacing: -0.01em; font-size: 1.12em; line-height: .7;
+}
+.pk__copy { display: grid; row-gap: clamp(10px, 1.7vh, 20px); justify-items: start; align-content: end; }
+
+/* ---------- card rows ---------- */
+/* Six shared rows (name, price, pitch, stats, bullets, button): every card's parts line up across the row. */
+.cards {
+  flex: 1 1 0; min-height: 0; display: grid; column-gap: var(--cg); row-gap: clamp(6px, 1vh, 14px);
+  grid-template-rows: auto auto auto 1fr auto;
+  container-type: inline-size; --n: 4;
+  --cu: calc(((100cqw - (var(--n) - 1) * var(--cg)) / var(--n) - 2 * var(--cp)) / 100);
+}
+.cards--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.cards--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); --n: 3; }
+
+/* ---------- card anatomy (plans + social): name, price, a month, pitch, two stat tiles, three bullets, button ---------- */
+.card {
+  position: relative; isolation: isolate; min-height: 0; min-width: 0;
+  grid-row: 1 / span 5; display: grid; grid-template-rows: subgrid; align-items: start;
+  padding: var(--cp); color: var(--paper); --surf: var(--ink-2); --line: var(--line-p); --dot: var(--peri);
+}
+.card__pr { display: grid; justify-items: stretch; }
+.card__tiles { position: absolute; inset: 0; display: grid; z-index: -1; }
+.card__tiles i, .tiles i { display: block; background: var(--surf); }
+.card__name {
+  margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  letter-spacing: -0.01em; line-height: .9; font-size: max(var(--rd), calc(calc(9.5 * var(--cu)) * var(--k, 1))); color: var(--peri);
+}
+.card__top { display: grid; }
+.card__price {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.035em;
+  font-size: calc(var(--pz, calc(31 * var(--cu))) * var(--k, 1)); line-height: .8; display: flex; align-items: flex-start; white-space: nowrap;
+  margin-top: calc(calc(3 * var(--cu)) * var(--k, 1));
+}
+.card__price { margin-bottom: -.15em; }
+.card__price .cur { font-size: .46em; line-height: 1; margin: .07em .05em 0 0; }
+.card__price .sep, .sw-card__price .sep, .ep__v .sep { display: inline-block; height: 1em; line-height: 1; margin-right: -.04em; }
+.card__per { font: 600 max(var(--rd22), calc(5 * var(--cu)))/1.05 var(--f-body); color: rgba(243,238,228,.78); margin-top: calc(calc(1.2 * var(--cu)) * var(--k, 1)); }
+.card__pitch { font: 500 max(var(--rd), calc(6 * var(--cu)))/1.16 var(--f-body); text-wrap: balance; }
+.card__body { align-self: stretch; display: flex; flex-direction: column; gap: clamp(8px, 1.3vh, 16px); min-height: 0; }
+.card__stats { flex: 1 1 0; min-height: clamp(80px, 11vh, 260px); display: grid; grid-template-columns: 1fr 1fr; gap: calc(2.2 * var(--cu)); }
+.stat {
+  position: relative; display: flex; flex-direction: column; justify-content: space-between; margin: 0; min-width: 0; min-height: 0;
+  container-type: size; padding: calc(3.4 * var(--cu)) calc(3.8 * var(--cu)) calc(3.6 * var(--cu)); box-shadow: inset 0 0 0 1px var(--line);
+}
+.stat small { display: block; font: 600 max(var(--rd), min(11cqw, 9cqh))/1 var(--f-body); opacity: .78; }
+.stat b {
+  display: block; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.03em; line-height: .84;
+  font-size: min(46cqh, calc(100cqw / (var(--len, 2) * .86 + .12)));
+}
+.stat small { margin-bottom: .35em; }
+.stat span { display: block; margin-top: auto; padding-top: .4em; font: 500 max(var(--rd), min(14cqw, 11cqh))/1.12 var(--f-body); }
+/* 5 Oct: the two figures never read as one number (20 | 4 read as "204"): a clear gap, and the second figure in its own colour */
+.card__stats { column-gap: calc(6 * var(--cu)); }
+.stat + .stat b { color: var(--peri); }
+.card--inv .stat + .stat b { color: var(--peri-deep); }
+.card__list {
+  flex: none; display: flex; flex-direction: column; row-gap: max(6px, calc(1.7 * var(--cu)));
+  font: 500 max(var(--rd), calc(4.6 * var(--cu)))/1.24 var(--f-body); margin: 0; padding: 0; list-style: none;
+}
+.card__list li { position: relative; padding-left: 1.15em; }
+.card__list li::before { content: ''; position: absolute; left: 0; top: .36em; width: .48em; height: .48em; background: var(--dot); }
+.card .card__btn {
+  align-self: end; justify-self: stretch; height: max(48px, calc(calc(14.5 * var(--cu)) * var(--k, 1))); padding: 0 16px;
+  font: 600 max(var(--rd), calc(4.6 * var(--cu)))/1 var(--f-body); letter-spacing: .005em;
+}
+/* the inverted entry card */
+.card--inv { --surf: var(--paper); --line: var(--line-i); --dot: var(--ink); color: var(--ink); }
+.card--inv .card__name { color: var(--peri-deep); }
+.card--inv .card__per { color: rgba(11,11,12,.72); }
+.card--inv .btn::after { background: var(--ink); }
+.card--inv .btn:hover, .card--inv .btn:focus-visible { color: var(--paper); }
+
+/* ---------- WEBSITE PLANS ---------- */
+.scene--plans .cards--4 .card { --pz: calc(31 * var(--cu)); }
+
+/* ---------- SOCIAL MEDIA (flat periwinkle ground, ink type) ---------- */
+.scene--social { color: var(--ink); --blk: var(--ink); }
+.scene--social.pk { padding-right: calc(var(--m) + var(--feed-w) + clamp(24px, 2.4vw, 48px)); }
+.so__main { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; gap: var(--pk-gap); }
+.scene--social .card { --surf: var(--ink); }
+.scene--social .card--inv { --surf: #F7F3EB; outline: 1px solid rgba(11,11,12,.16); outline-offset: -1px; }   /* 5 Oct: lighter cream + ink hairline so it reads as a card on the stone ground */
+.scene--social .cards--3 .card { --pz: calc(25 * var(--cu)); }
+.so__note { font: 500 max(var(--rd), 18px)/1.3 var(--f-body); color: var(--ink); margin-top: calc(var(--pk-gap) * -.35); }
+/* Amendment 6: platforms named under the stats, and a "See everything included" text link under each button */
+.scene--social .cards { grid-template-rows: auto auto auto 1fr auto auto; }
+.scene--social .card { grid-row: 1 / span 6; }
+.card__plat { margin: 0; font: 600 max(var(--rd22), calc(5.4 * var(--cu)))/1.14 var(--f-body); text-wrap: balance; }
+.see {
+  justify-self: start; align-self: start; display: inline-block; padding: 2px 0; color: inherit;
+  font: 600 max(18px, var(--rd))/1.2 var(--f-body); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .24em;
+}
+.see:hover { text-decoration-thickness: 3px; }
+.card__list li, .plc__list li { text-wrap: balance; }
+.scene--social .card__price { margin-bottom: .02em; } /* the comma in $1,799 no longer touches "a month" */
+.see:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.scene--social .pk__h em { font-size: 1.12em; }
+
+.feed { position: absolute; top: 0; bottom: 0; right: var(--m); width: var(--feed-w); display: grid; grid-template-columns: 1fr 1fr; column-gap: 12px; overflow: hidden; }
+.feed__col { position: relative; min-width: 0; overflow: hidden; }
+.feed__track { display: flex; flex-direction: column; gap: 12px; will-change: transform; }
+.reel { position: relative; flex: none; aspect-ratio: 9 / 16; background: #D6CEBF; overflow: hidden; }
+.reel video, .reel img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.reel__tiles { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(9, 1fr); z-index: 2; }
+.reel__tiles i { display: block; background: var(--ground); }
+.feed__chip {
+  position: absolute; left: 0; bottom: var(--pk-bot); z-index: 3; margin: 0;
+  background: var(--ink); color: var(--paper); padding: 14px 18px 14px 16px;
+  font: 600 20px/1 var(--f-body); display: flex; gap: 12px; align-items: center; white-space: nowrap;
+  /* never run under the chat square in the corner: wrap to two even lines when the column is narrow */
+  max-width: calc(100% - 52px); white-space: normal; line-height: 1.12; text-wrap: balance;
+}
+.feed__chip::before { content: ''; flex: none; width: 9px; height: 9px; background: var(--peri); }
+
+/* ---------- SOFTWARE (dark film, paper type) ---------- */
+.scene--software.pk { justify-content: space-between; }
+.scene--software .pk__h { font-size: calc(min(var(--k, 1), 1) * clamp(34px, 3.9vw, 88px)); }
+.fs--wide .fs__fear, .fs--wide .fs__sol { max-width: none; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--cg); margin: 0; padding: 0; list-style: none; }
+.step {
+  position: relative; isolation: isolate; container-type: inline-size; min-width: 0; --surf: var(--ink-2);
+  padding: var(--cp); display: flex; flex-direction: column;
+}
+.step__n {
+  display: block; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.03em;
+  font-size: calc(22cqw * var(--k, 1)); line-height: .8; color: var(--peri); margin-bottom: calc(5cqw * var(--k, 1));
+}
+.step__t { font: 600 clamp(20px, 1.36vw, 30px)/1.16 var(--f-body); }
+.step__d { margin-top: .55em; font: 400 var(--rd)/1.3 var(--f-body); color: rgba(243,238,228,.8); }
+.sw-prices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--cg); flex: none; }
+.sw-card {
+  position: relative; isolation: isolate; container-type: inline-size; min-width: 0; min-height: 0;
+  padding: var(--cp); display: flex; flex-direction: column; align-items: flex-start; color: var(--paper); --surf: var(--ink-2);
+}
+.sw-card__name { margin-bottom: calc(7cqw * var(--k, 1)) !important; }
+.sw-card:first-child { color: var(--ink); --surf: var(--paper); }
+.sw-card__name {
+  margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  letter-spacing: -0.01em; line-height: .9; font-size: max(var(--rd), calc(6.6cqw * var(--k, 1))); color: var(--peri);
+}
+.sw-card:first-child .sw-card__name { color: var(--peri-deep); }
+.sw-card__from { align-self: flex-start; font: 600 max(20px, 4.4cqw)/1 var(--f-body); margin: 0 0 calc(2.4cqw * var(--k, 1)); }
+.sw-card__price {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.035em;
+  font-size: calc(19.5cqw * var(--k, 1)); line-height: .8; display: flex; align-items: flex-start; white-space: nowrap;
+}
+.sw-card__price { margin-bottom: -.06em; align-self: stretch; }
+.sw-card__price .cur { font-size: .46em; line-height: 1; margin: .07em .05em 0 0; }
+.sw-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px 40px; flex-wrap: wrap; }
+.sw-foot__txt { display: grid; row-gap: 6px; }
+.sw-care { font: 500 var(--rd22)/1.3 var(--f-body); }
+.sw-care b { font-weight: 600; }
+.sw-bill { font: 600 var(--rd22)/1.3 var(--f-body); color: var(--peri); }
+.sw-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* generic tile surface (steps, software price cards) */
+.tiles { position: absolute; inset: 0; display: grid; z-index: -1; }
+
+/* ---------- mid desktops ---------- */
+@media (max-width: 1440px) {
+  :root { --feed-w: 25vw; }
+}
+/* short desktop screens: the social head goes two-up (H2 on two lines beside the pair) */
+@media (min-width: 701px) and (max-height: 920px) {
+  .scene--social .pk__head--stack { grid-template-columns: auto minmax(0, 1fr); column-gap: clamp(24px, 2.4vw, 48px); align-items: end; }
+  .scene--social .pk__h em { display: block; margin-top: .12em; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 700px) {
+  :root { --rd: 16px; --fsz: 17px; --h2: 9.4vw; --cp: 18px; --pk-top: 12px; --pk-bot: 18px; --pk-gap: 14px; --cg: 10px; }
+  .scene.pk { gap: 14px; }
+  .pk__head, .pk__head--stack { grid-template-columns: 1fr; row-gap: 10px; }
+  .pk__h { white-space: normal; }
+  .badges { gap: 6px; }
+  .badge { height: 34px; }
+  /* cards swipe sideways */
+  .cards, .sw-prices, .steps {
+    display: flex; gap: 10px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory;
+    pointer-events: auto; margin: 0 calc(-1 * var(--m)); padding: 0 var(--m); scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .cards::-webkit-scrollbar, .sw-prices::-webkit-scrollbar, .steps::-webkit-scrollbar { display: none; }
+  .cards { --cu: calc((82vw - 2 * var(--cp)) / 100); container-type: normal; }
+  .card { flex: 0 0 82vw; scroll-snap-align: center; display: flex; flex-direction: column; gap: 12px; grid-row: auto; }
+  .card .card__btn { margin-top: auto; align-self: stretch; }
+  .card__list { flex: none; justify-content: flex-start; }
+  .card__body { flex: 1 1 auto; }
+  .step { flex: 0 0 64vw; scroll-snap-align: start; }
+  .sw-card { flex: 0 0 72vw; scroll-snap-align: start; }
+  .scene--social.pk { padding-right: var(--m); }
+  .so__main { display: contents; }
+  .scene--social .pk__head { order: 0; }
+  .scene--social .feed { order: 1; }
+  .scene--social .cards { order: 2; }
+  .so__note { order: 3; margin-top: 0; }
+  .feed { position: relative; top: auto; bottom: auto; right: auto; width: auto; height: 132px; flex: none; display: block; margin: 0 calc(-1 * var(--m)); }
+  .feed__col { position: absolute; inset: 0; overflow: hidden; }
+  .feed__col + .feed__col { display: none; }
+  .feed__track { flex-direction: row; height: 100%; }
+  .reel { height: 100%; width: auto; }
+  .feed__chip { left: var(--m); bottom: 8px; font-size: 16px; padding: 9px 12px; }
+  .so__note { font-size: 16px; }
+  .sw-foot { gap: 10px; }
+  .sw-btns .btn { height: 48px; font-size: 16px; padding: 0 16px; }
+}
+
+/* Round 4 (directing): SOCIAL number tiles sized to their content, no hollow middle; the freed height goes to
+   bigger bullets. Desktop only; the phone layout lives in plans.css. */
+@media (min-width: 701px) {
+  .scene--social .card__stats { flex: none; min-height: 0; }
+  .scene--social .stat { container-type: inline-size; justify-content: flex-start; }
+  .scene--social .stat b { font-size: calc(min(var(--k, 1), 1) * 100cqw / (max(var(--len, 2), 2) * .86 + .12)); }
+  .scene--social .stat span { margin-top: .5em; padding-top: 0; font-size: max(var(--rd), 13cqw); }
+  .scene--social .card__list { flex: 1 1 0; justify-content: space-between; font-size: max(var(--rd), calc(6.2 * var(--cu))); }
+}
+/* 5 Oct: short windows - nothing may run under [Start now]. The card body and its bullet list wrap as columns
+   inside a clipped box, so a part that has no room moves whole into a hidden second column: the last bullets
+   go first, then the platforms line, then the number tiles. Never a line cut in half. The zero-height ::before
+   is the first item of each column, so even the first part can move out whole. Only on short windows: taller
+   ones keep the original fit (main.js shrinks the card until every bullet shows). */
+@media (min-width: 701px) and (max-height: 800px) {
+  .scene--social .card__body { flex-wrap: wrap; align-content: flex-start; overflow: hidden; --bg: clamp(8px, 1.3vh, 16px); }
+  .scene--social .card__body > * { width: 100%; }
+  .scene--social .card__body::before, .scene--social .card__list::before { content: ''; flex: none; width: 100%; height: 0; }
+  .scene--social .card__body::before { margin-bottom: calc(-1 * var(--bg)); }
+  .scene--social .card__list { min-height: 0; flex-wrap: wrap; align-content: flex-start; overflow: hidden; column-gap: 40px; }
+  .scene--social .card__list::before { margin-bottom: calc(-1 * max(6px, calc(1.7 * var(--cu)))); }
+  .scene--social .card__list li { width: 100%; }
+}
+/* very short windows: the pitch line steps aside so the card keeps its number tiles and never runs into the note under it */
+@media (min-width: 701px) and (max-height: 600px) {
+  .scene--social .card__pitch { display: none; }
+}

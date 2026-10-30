@@ -1,0 +1,37 @@
+/* samples.css - round 4: working features inside the two sample sites (bakery, barber).
+   Each sample keeps its own palette and type; the KN tags are ink chips with the periwinkle block
+   (never orange). Reading text: 20 px at 1920x1080, never under 16 px anywhere. Loaded by js/ui/samples.js. */
+
+.sx { --sf: clamp(16px, min(1.05vw, 1.9vh), 20px); --sg: clamp(10px, 0.8vw, 16px); font-size: var(--sf); line-height: 1.25; }
+:where(.sx) button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
+.sx-col { display: flex; flex-direction: column; gap: var(--sg); }
+.sx-f { position: relative; display: flex; flex-direction: column; align-items: flex-start; }
+.sx-f > .sx-panel { align-self: stretch; }
+
+/* KN tag: which plan includes this feature */
+.kn-tag {
+  display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 6px 12px 6px 10px;
+  background: var(--ink); color: var(--paper); font: 600 var(--sf, clamp(16px, min(1.05vw, 1.9vh), 20px))/1.2 var(--f-body); letter-spacing: 0; white-space: nowrap;
+}
+.kn-tag::before { content: ''; flex: none; width: 10px; height: 10px; background: var(--peri); }
+
+/* bakery: chat 19 moved it to css/s-bakery.css */
+
+/* barber: chat 19 moved it to css/s-barber.css */
+.sx-swap .bk-feat, .sx-swap .bb-feat { left: auto; right: var(--m); }
+/* filter, not visibility/opacity: main.js tweens the widget's autoAlpha and would read ours back */
+.sx-aside .bk-bake, .sx-aside .bb-book { filter: opacity(0); pointer-events: none; }
+
+/* ---------- phone: step 3 swaps the step-2 panel for a sideways strip of features ---------- */
+@media (max-width: 700px) {
+  .sx { --sf: 16px; --sg: 10px; }
+  .bk-feat, .bb-feat {
+    left: 0; right: 0; bottom: 132px; padding: 0 var(--m); gap: 10px; align-items: flex-end;
+    overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain;
+  }
+  .bk-feat::-webkit-scrollbar, .bb-feat::-webkit-scrollbar { display: none; }
+  .bk-feat .sx-col, .bb-feat .sx-col { display: contents; }
+  .bk-feat .sx-f, .bb-feat .sx-f { flex: none; width: calc(100vw - 2 * var(--m) - 28px); scroll-snap-align: start; scroll-margin-left: var(--m); }
+}
+@media (prefers-reduced-motion: reduce) {
+}

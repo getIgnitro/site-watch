@@ -1,0 +1,257 @@
+/* s-bakery.css - chat 19: the bakery sample, its own composition (approved mock: _dev/mocks/bakery.html).
+   Everything for this chapter lives here; scale by --u (see the builder brief). Mock pixels are 1920 x 1080
+   with the 60 px KN bar on top, so a mock y of N sits at 60px + u * (N - 60).
+   Build steps: .js-b1 masthead, rule, headline, sub, hanging sign · .js-b2 the order ticket (.js-w parts)
+   · .js-s3 Today's bake (desktop shelf; on the phone the photos land in the ticket rows).
+   Every snapped element is padded so its clip box holds its shadows (the snap leaves clip-path inset(0)). */
+
+.scene--bakery {
+  --u: min(calc(100vw / 1920), calc((100vh - 60px) / 1020));
+  --gc-flour: #FFF7EA; --gc-cream: #F4E9D6; --gc-crust: #3B2313; --gc-gold: #E2B26B; --gc-gold-2: #B9813F;
+  --gc-sage: #A8C58A; --gc-oven: 14, 8, 4;
+  --gc-serif: 'Fraunces', Georgia, serif;
+  --gc-mono: 'DM Mono', ui-monospace, Consolas, monospace;
+  --gc-m: calc(var(--u) * 64);
+  --blk: var(--gc-cream);
+  color: var(--gc-flour); font-family: var(--gc-serif); -webkit-font-smoothing: antialiased;
+}
+.scene--bakery :where(p:not(.kn-tag):not(.kn-cap), h2, h3, ul) { margin: 0; padding: 0; }
+.scene--bakery ul { list-style: none; }
+.scene--bakery a { color: inherit; }
+.scene--bakery button { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; }
+
+/* film grade: the mock's veils over the stage film (top, behind the headline, under the sub, bottom, sides) */
+.scene--bakery .gc-veil { position: absolute; inset: 60px 0 0 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(var(--gc-oven), .8) 0, rgba(var(--gc-oven), .36) calc(var(--u) * 150), rgba(var(--gc-oven), 0) calc(var(--u) * 380)),
+    radial-gradient(ellipse 34% 30% at 50% 27%, rgba(18, 9, 4, .5), rgba(18, 9, 4, 0) 100%),
+    radial-gradient(ellipse 26% 12% at 50% 50%, rgba(18, 9, 4, .62), rgba(18, 9, 4, 0) 100%),
+    linear-gradient(0deg, rgba(var(--gc-oven), .84) 0, rgba(var(--gc-oven), .5) calc(var(--u) * 230), rgba(var(--gc-oven), 0) calc(var(--u) * 470)),
+    linear-gradient(90deg, rgba(var(--gc-oven), .5) 0, rgba(var(--gc-oven), 0) 34%, rgba(var(--gc-oven), 0) 70%, rgba(var(--gc-oven), .42) 100%); }
+
+/* ---------- masthead ---------- */
+.scene--bakery .gc-mast { position: absolute; z-index: 5; left: var(--gc-m); right: var(--gc-m); top: 60px; height: calc(var(--u) * 96);
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.scene--bakery .gc-nav { display: flex; align-items: center; gap: calc(var(--u) * 44); font: 500 max(15px, calc(var(--u) * 18))/1 var(--gc-mono);
+  letter-spacing: .16em; text-transform: uppercase; color: rgba(255, 247, 234, .86); }
+.scene--bakery .gc-nav a { text-decoration: none; }
+.scene--bakery .gc-nav--r { justify-content: flex-end; }
+.scene--bakery .gc-bag { display: inline-flex; align-items: center; gap: calc(var(--u) * 10); }
+.scene--bakery .gc-bag b { display: inline-grid; place-items: center; min-width: max(24px, calc(var(--u) * 30)); height: max(24px, calc(var(--u) * 30)); padding: 0 calc(var(--u) * 8);
+  border-radius: 99px; background: var(--gc-flour); color: var(--gc-crust); font: 500 max(15px, calc(var(--u) * 17))/1 var(--gc-mono); letter-spacing: 0; }
+.scene--bakery .gc-mark { text-align: center; font-weight: 560; font-size: calc(var(--u) * 46); line-height: 1; letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 72, 'SOFT' 100, 'WONK' 1; color: var(--gc-flour); white-space: nowrap; }
+.scene--bakery .gc-mark span { font-style: italic; font-weight: 400; color: var(--gc-gold); }
+.scene--bakery .gc-rule { position: absolute; z-index: 5; left: var(--gc-m); right: var(--gc-m); top: calc(60px + var(--u) * 96); height: 5px;
+  border-top: 1px solid rgba(244, 233, 214, .42); border-bottom: 1px solid rgba(244, 233, 214, .22); }
+
+/* ---------- headline (padded: the italic descenders and the glow stay inside the snap's clip box) ---------- */
+.scene--bakery .gc-h { position: absolute; z-index: 4; left: 0; right: 0; top: calc(60px + var(--u) * 92); padding: calc(var(--u) * 40) 0 calc(var(--u) * 64);
+  text-align: center; font-family: var(--gc-serif); font-weight: 330; font-size: calc(var(--u) * 176); line-height: .9; letter-spacing: -0.03em;
+  font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 0; color: #FFF5E6; text-shadow: 0 4px 40px rgba(20, 8, 2, .55); pointer-events: none; }
+.scene--bakery .gc-h em { font-style: italic; font-weight: 300; font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1; color: #F6D59E; }
+/* sub: the mock's known flaw (its line ends ran onto the bright loaf crust) fixed with a soft dark veil
+   inside the element, a slightly narrower measure and a firmer shadow */
+.scene--bakery .gc-sub { position: absolute; z-index: 4; left: calc(50% - var(--u) * 470); width: calc(var(--u) * 940); top: calc(60px + var(--u) * 436);
+  padding: calc(var(--u) * 46) 0; text-align: center; font: 400 max(15px, calc(var(--u) * 26))/1.32 var(--gc-serif); letter-spacing: -0.005em;
+  font-variation-settings: 'opsz' 24, 'SOFT' 50; color: rgba(255, 245, 230, .95); text-shadow: 0 1px 2px rgba(20, 8, 2, .6), 0 2px 18px rgba(20, 8, 2, .8); pointer-events: none;
+  background: radial-gradient(closest-side, rgba(var(--gc-oven), .74) 0, rgba(var(--gc-oven), .58) 55%, rgba(var(--gc-oven), 0) 100%); }
+
+/* ---------- hanging sign: open now + find us ---------- */
+.scene--bakery .gc-sign { position: absolute; z-index: 6; left: calc(var(--gc-m) - var(--u) * 30); top: calc(60px + var(--u) * 101);
+  width: calc(max(calc(var(--u) * 318), 252px) + var(--u) * 60); padding: 0 calc(var(--u) * 30) calc(var(--u) * 50); }
+.scene--bakery .gc-sign__wire { display: block; width: 100%; height: auto; }
+.scene--bakery .gc-sign__plate { position: relative; margin-top: -2px; padding: calc(var(--u) * 22) calc(var(--u) * 20) calc(var(--u) * 20); text-align: center; border-radius: calc(var(--u) * 10);
+  background: radial-gradient(120% 140% at 50% 0%, #3A2414 0%, #20130A 70%); color: var(--gc-cream);
+  box-shadow: inset 0 0 0 1px rgba(226, 178, 107, .9), inset 0 0 0 6px #22150B, inset 0 0 0 7px rgba(226, 178, 107, .45), 0 calc(var(--u) * 22) calc(var(--u) * 40) rgba(0, 0, 0, .55); }
+.scene--bakery .gc-sign__state { display: inline-flex; align-items: center; gap: calc(var(--u) * 14); font: italic 600 calc(var(--u) * 40)/1 var(--gc-serif);
+  font-variation-settings: 'opsz' 72, 'SOFT' 100, 'WONK' 1; color: #F2CB8C;
+  background: linear-gradient(180deg, #FBE2B0 0%, #E2B26B 55%, #B9813F 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; padding: 0.06em 0.04em 0.1em; }
+.scene--bakery .gc-sign__dot { flex: none; width: calc(var(--u) * 12); height: calc(var(--u) * 12); border-radius: 50%; background: var(--gc-sage);
+  box-shadow: 0 0 0 4px rgba(168, 197, 138, .18), 0 0 14px rgba(168, 197, 138, .8); -webkit-text-fill-color: initial; }
+.scene--bakery .gc-sign__hrs { margin-top: calc(var(--u) * 10); font: 400 max(15px, calc(var(--u) * 19))/1.3 var(--gc-mono); color: rgba(244, 233, 214, .92); white-space: nowrap; }
+.scene--bakery .gc-sign__rule { display: block; width: calc(var(--u) * 64); height: 1px; margin: calc(var(--u) * 18) auto calc(var(--u) * 16); background: rgba(226, 178, 107, .6); }
+.scene--bakery .gc-sign__lab { font: 500 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); letter-spacing: .16em; text-transform: uppercase; color: var(--gc-gold); }
+.scene--bakery .gc-sign__addr { margin-top: calc(var(--u) * 10); font: 500 max(16px, calc(var(--u) * 25))/1.1 var(--gc-serif); font-variation-settings: 'opsz' 24, 'SOFT' 80; color: var(--gc-flour); }
+.scene--bakery .gc-sign__go { display: inline-block; margin-top: calc(var(--u) * 12); font: 500 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); letter-spacing: .06em;
+  text-decoration: none; padding-bottom: 5px; border-bottom: 1px solid rgba(226, 178, 107, .7); color: var(--gc-cream); }
+.scene--bakery .gc-sign .kn-tag { margin-top: calc(var(--u) * 14); }
+
+/* ---------- order ticket (.js-b2); the wrapper's padding holds the drop shadow, the clip and the string ---------- */
+.scene--bakery .gc-tkw { position: absolute; z-index: 8; right: calc(var(--gc-m) - var(--u) * 40); top: calc(60px + var(--u) * 96);
+  width: calc(var(--u) * 484); padding: calc(var(--u) * 20) calc(var(--u) * 40) calc(var(--u) * 64); }
+.scene--bakery .gc-tkw > .kn-tag { position: relative; z-index: 2; }
+.scene--bakery .gc-tk { position: relative; margin-top: calc(var(--u) * 10); filter: drop-shadow(0 calc(var(--u) * 26) calc(var(--u) * 34) rgba(0, 0, 0, .55)) drop-shadow(0 2px 2px rgba(0, 0, 0, .3)); }
+.scene--bakery .gc-tk__string { position: absolute; z-index: 1; left: calc(76% - 1px); top: calc(var(--u) * -50); width: 2px; height: calc(var(--u) * 36); background: #B88B48; }
+.scene--bakery .gc-tk__clip { position: absolute; z-index: 3; left: 76%; top: calc(var(--u) * -14); transform: translateX(-50%); width: calc(var(--u) * 92); height: calc(var(--u) * 30);
+  border-radius: 6px 6px 4px 4px; background: linear-gradient(180deg, #F2D49A 0%, #C9974F 45%, #8E6127 100%); box-shadow: 0 6px 12px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .6); }
+.scene--bakery .gc-tk__clip::before { content: ''; position: absolute; left: 24%; right: 24%; top: calc(var(--u) * -18); height: calc(var(--u) * 22);
+  border: 3px solid #B88B48; border-bottom: 0; border-radius: 12px 12px 0 0; }
+.scene--bakery .gc-tk__paper { position: relative; padding: calc(var(--u) * 42) calc(var(--u) * 28) calc(var(--u) * 24); color: var(--gc-crust);
+  background:
+    radial-gradient(circle at calc(var(--u) * 9) calc(var(--u) * 9), rgba(18, 10, 5, .9) calc(var(--u) * 3.6), transparent calc(var(--u) * 4.2)) 0 calc(var(--u) * 16) / calc(var(--u) * 20) calc(var(--u) * 18) repeat-x,
+    linear-gradient(180deg, #FFFBF2 0%, #FAF1E1 100%); }
+.scene--bakery .gc-tk__paper::before { content: ''; position: absolute; inset: 0; opacity: .5; mix-blend-mode: multiply; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='p'><feTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3'/><feColorMatrix values='0 0 0 0 .55  0 0 0 0 .45  0 0 0 0 .33  0 0 0 .22 0'/></filter><rect width='100%' height='100%' filter='url(%23p)'/></svg>"); }
+.scene--bakery .gc-tk__paper > * { position: relative; }
+.scene--bakery .gc-tk__teeth { display: block; height: calc(var(--u) * 14); background:
+  linear-gradient(135deg, #FAF1E1 50%, transparent 50.5%) 0 0 / calc(var(--u) * 14) calc(var(--u) * 14) repeat-x,
+  linear-gradient(225deg, #FAF1E1 50%, transparent 50.5%) 0 0 / calc(var(--u) * 14) calc(var(--u) * 14) repeat-x; }
+.scene--bakery .gc-tk__head { text-align: center; }
+.scene--bakery .gc-tk__title { font: italic 600 calc(var(--u) * 34)/1.05 var(--gc-serif); font-variation-settings: 'opsz' 72, 'SOFT' 100, 'WONK' 1; color: var(--gc-crust); }
+.scene--bakery .gc-tk__meta { margin-top: calc(var(--u) * 10); font: 400 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(59, 35, 19, .62); }
+.scene--bakery .gc-tk__dash { display: block; height: 0; border-top: 2px dashed rgba(59, 35, 19, .32); margin: calc(var(--u) * 15) 0; }
+.scene--bakery .gc-tk__items { display: flex; flex-direction: column; gap: calc(var(--u) * 12); }
+.scene--bakery .gc-row { display: grid; grid-template-columns: 1fr auto; row-gap: calc(var(--u) * 8); align-items: end; }
+.scene--bakery .gc-thumb { display: none; }
+.scene--bakery .gc-row__n { display: flex; align-items: baseline; gap: 8px; font: 500 max(15px, calc(var(--u) * 21))/1.1 var(--gc-serif); font-variation-settings: 'opsz' 24, 'SOFT' 60; white-space: nowrap; }
+.scene--bakery .gc-row__n::after { content: ''; flex: 1; min-width: 12px; border-bottom: 2px dotted rgba(59, 35, 19, .42); transform: translateY(-4px); }
+.scene--bakery .gc-row__p { padding-left: 8px; font: 500 max(15px, calc(var(--u) * 21))/1.1 var(--gc-mono); color: var(--gc-crust); }
+.scene--bakery .gc-row__s { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; }
+.scene--bakery .gc-step { display: inline-grid; grid-template-columns: max(30px, calc(var(--u) * 40)) max(28px, calc(var(--u) * 38)) max(30px, calc(var(--u) * 40)); height: max(30px, calc(var(--u) * 40));
+  border-radius: 99px; box-shadow: inset 0 0 0 1.5px rgba(59, 35, 19, .42); }
+.scene--bakery .gc-step button, .scene--bakery .gc-step output { display: grid; place-items: center; font: 500 max(15px, calc(var(--u) * 21))/1 var(--gc-mono); color: var(--gc-crust); }
+.scene--bakery .gc-step button { border-radius: 99px; }
+.scene--bakery .gc-step button:hover { background: rgba(59, 35, 19, .08); }
+.scene--bakery .gc-step button:disabled { opacity: .28; cursor: default; background: none; }
+.scene--bakery .gc-row.is-zero .gc-row__n, .scene--bakery .gc-row.is-zero .gc-row__p { opacity: .55; }
+.scene--bakery .gc-row__l { font: 400 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); color: rgba(59, 35, 19, .6); }
+.scene--bakery .gc-tk__lab { font: 500 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); letter-spacing: .1em; text-transform: uppercase; color: rgba(59, 35, 19, .7); margin-bottom: calc(var(--u) * 12); }
+.scene--bakery .gc-times { display: grid; grid-template-columns: repeat(4, 1fr); gap: calc(var(--u) * 8); }
+.scene--bakery .gc-time { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: calc(var(--u) * 4); height: calc(var(--u) * 62); border-radius: calc(var(--u) * 8);
+  box-shadow: inset 0 0 0 1.5px rgba(59, 35, 19, .3); color: var(--gc-crust); }
+.scene--bakery .gc-time:hover { background: rgba(59, 35, 19, .06); }
+.scene--bakery .gc-time b { font: 500 max(15px, calc(var(--u) * 22))/1 var(--gc-mono); }
+.scene--bakery .gc-time span { font: 400 max(15px, calc(var(--u) * 18))/1 var(--gc-mono); opacity: .7; }
+.scene--bakery .gc-time.is-on { background: var(--gc-crust); color: var(--gc-flour); box-shadow: none; }
+.scene--bakery .gc-time.is-on span { opacity: .8; }
+.scene--bakery .gc-tk__total { display: flex; align-items: baseline; justify-content: space-between; }
+.scene--bakery .gc-tk__total span { font: italic 500 calc(var(--u) * 26)/1 var(--gc-serif); font-variation-settings: 'opsz' 48, 'SOFT' 100; }
+.scene--bakery .gc-tk__total b { font: 500 calc(var(--u) * 40)/1 var(--gc-mono); letter-spacing: -0.02em; }
+.scene--bakery .gc-tk__note { margin-top: calc(var(--u) * 8); font: 400 max(15px, calc(var(--u) * 18))/1.2 var(--gc-mono); color: rgba(59, 35, 19, .62); white-space: nowrap; }
+.scene--bakery .gc-tk.is-placed .gc-tk__note { color: #3E6B2A; }
+.scene--bakery .gc-tk.is-empty .gc-tk__note { color: #A2421F; }
+.scene--bakery .gc-place { margin-top: calc(var(--u) * 16); width: 100%; height: calc(var(--u) * 64); border-radius: 99px; background: var(--gc-crust); color: var(--gc-flour);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 calc(var(--u) * 12) 0 calc(var(--u) * 30);
+  font: 600 max(16px, calc(var(--u) * 23))/1 var(--gc-serif); font-variation-settings: 'opsz' 24, 'SOFT' 100; box-shadow: 0 8px 18px rgba(59, 35, 19, .28); }
+.scene--bakery .gc-place:hover { background: #4E3019; }
+.scene--bakery .gc-place i { width: calc(var(--u) * 44); height: calc(var(--u) * 44); border-radius: 50%; background: var(--gc-gold); color: var(--gc-crust); display: grid; place-items: center;
+  font: 500 max(15px, calc(var(--u) * 22))/1 var(--gc-mono); font-style: normal; }
+.scene--bakery .gc-tk.is-placed .gc-place { background: #3E6B2A; }
+.scene--bakery .gc-tk.is-placed .gc-place i { font-size: 0; }
+.scene--bakery .gc-tk.is-placed .gc-place i::before { content: ''; width: 32%; height: 16%; margin-top: -8%; border: solid var(--gc-crust); border-width: 0 0 2.5px 2.5px; transform: rotate(-45deg); }
+
+/* ---------- Today's bake shelf (.js-s3) ---------- */
+.scene--bakery .gc-shelf { position: absolute; z-index: 6; left: calc(var(--gc-m) - var(--u) * 24); top: calc(60px + var(--u) * 546); width: calc(var(--u) * 1334); }
+.scene--bakery .gc-shelf .sx-f { position: relative; display: block; }
+.scene--bakery .gc-shelf .gc-shelf__head { display: flex; }
+.scene--bakery .gc-shelf__head { display: flex; flex-direction: row; align-items: center; gap: calc(var(--u) * 20); width: max-content; padding: calc(var(--u) * 10) calc(var(--u) * 24); }
+.scene--bakery .gc-shelf__t { font: italic 400 calc(var(--u) * 44)/1.1 var(--gc-serif); font-variation-settings: 'opsz' 96, 'SOFT' 100, 'WONK' 1; color: var(--gc-flour);
+  text-shadow: 0 2px 14px rgba(20, 8, 2, .6); }
+.scene--bakery .gc-shelf__body { padding: calc(var(--u) * 16) 0 calc(var(--u) * 20) calc(var(--u) * 24); }
+.scene--bakery .gc-shelf__row { display: flex; gap: calc(var(--u) * 46); padding-left: calc(var(--u) * 4); }
+.scene--bakery .gc-loaf { position: relative; width: calc(var(--u) * 200); }
+.scene--bakery .gc-loaf__img { width: calc(var(--u) * 200); height: calc(var(--u) * 200); border-radius: 50%; overflow: hidden; background: #1a0f08;
+  box-shadow: 0 0 0 calc(var(--u) * 5) var(--gc-cream), 0 0 0 calc(var(--u) * 6) rgba(59, 35, 19, .4), 0 calc(var(--u) * 24) calc(var(--u) * 30) rgba(0, 0, 0, .55); }
+.scene--bakery .gc-loaf__img img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 56%; transform: scale(1.18); }
+.scene--bakery .gc-tag { position: absolute; right: calc(var(--u) * -26); top: calc(var(--u) * 12); transform: rotate(8deg); transform-origin: 0 50%; display: flex; align-items: center;
+  height: max(28px, calc(var(--u) * 40)); padding: 0 calc(var(--u) * 14) 0 max(18px, calc(var(--u) * 26)); background: #FFF6E6; color: var(--gc-crust); font: 500 max(15px, calc(var(--u) * 21))/1 var(--gc-mono);
+  clip-path: polygon(max(10px, calc(var(--u) * 14)) 0, 100% 0, 100% 100%, max(10px, calc(var(--u) * 14)) 100%, 0 50%); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .4)); }
+.scene--bakery .gc-tag::before { content: ''; position: absolute; left: max(7px, calc(var(--u) * 10)); top: 50%; width: 6px; height: 6px; margin-top: -3px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px rgba(42, 25, 13, .7); }
+.scene--bakery .gc-ledge { display: block; position: relative; height: calc(var(--u) * 18); }
+.scene--bakery .gc-ledge::before { content: ''; position: absolute; left: calc(var(--u) * -20); right: 0; top: calc(var(--u) * -8); height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, rgba(226, 178, 107, 0) 0, rgba(226, 178, 107, .75) 6%, rgba(226, 178, 107, .75) 60%, rgba(226, 178, 107, 0) 100%); box-shadow: 0 10px 18px rgba(0, 0, 0, .55); }
+.scene--bakery .gc-shelf__names { display: flex; gap: calc(var(--u) * 46); padding-left: calc(var(--u) * 4); }
+.scene--bakery .gc-shelf__names p { width: calc(var(--u) * 200); text-align: center; font: 500 max(15px, calc(var(--u) * 22))/1.1 var(--gc-serif); font-variation-settings: 'opsz' 24, 'SOFT' 80;
+  color: var(--gc-flour); white-space: nowrap; text-shadow: 0 2px 10px rgba(20, 8, 2, .7); }
+
+/* KN caption: centred under the composition, as the mock places it */
+.scene--bakery .kn-cap { left: 50%; right: auto; transform: translateX(-50%); bottom: calc(var(--u) * 28); max-width: calc(100vw - 2 * var(--gc-m)); width: max-content;
+  font-size: max(16px, calc(var(--u) * 20)); padding: calc(var(--u) * 16) calc(var(--u) * 22) calc(var(--u) * 16) calc(var(--u) * 18); }
+
+/* ---------- phone: a stacked layout, same fonts, palette and order ticket ----------
+   step 1: masthead, headline, sub, sign · step 2: the ticket; the sub and the sign step aside (gc-tkon,
+   set by s-bakery.js) · step 3: the three bakes land as round photos in the ticket rows. */
+@media (max-width: 700px) {
+  .scene--bakery { --u: 1px; --gc-m: 16px; }
+  .scene--bakery .gc-veil { inset: 0;
+    background: linear-gradient(180deg, rgba(var(--gc-oven), .9) 0, rgba(var(--gc-oven), .55) 40%, rgba(var(--gc-oven), .7) 70%, rgba(var(--gc-oven), .9) 100%); }
+  .scene--bakery .gc-mast { top: 64px; height: 40px; grid-template-columns: 1fr auto 1fr; }
+  .scene--bakery .gc-nav { gap: 14px; font-size: 14px; letter-spacing: .12em; }
+  .scene--bakery .gc-nav a { min-height: 40px; display: inline-flex; align-items: center; }
+  .scene--bakery .gc-nav a:not(:first-child):not(.gc-bag), .scene--bakery .gc-nav .gc-visit, .scene--bakery .gc-bag span { display: none; }
+  .scene--bakery .gc-bag b { min-width: 30px; height: 30px; font-size: 15px; }
+  .scene--bakery .gc-mark { font-size: 23px; }
+  .scene--bakery .gc-rule { top: 106px; height: 4px; }
+  .scene--bakery .gc-h { top: 106px; padding: 10px 0 10px; font-size: min(11.5vw, 46px); line-height: .92; }
+  .scene--bakery .gc-sub { left: 16px; right: 16px; width: auto; top: calc(106px + 24px + 2 * 0.92 * min(11.5vw, 46px)); padding: 8px 0; font-size: 16px; line-height: 1.35;
+    background: radial-gradient(closest-side, rgba(var(--gc-oven), .6), rgba(var(--gc-oven), 0)); }
+  .scene--bakery .gc-sign { left: 50%; transform: translateX(-50%); top: auto; bottom: 130px; width: min(300px, calc(100vw - 32px)); padding: 0 0 4px; }
+  .scene--bakery .gc-sign__wire { width: 70%; margin: 0 auto; }
+  .scene--bakery .gc-sign__plate { padding: 14px 14px 14px; border-radius: 8px; }
+  .scene--bakery .gc-sign__state { font-size: 26px; gap: 10px; }
+  .scene--bakery .gc-sign__dot { width: 10px; height: 10px; }
+  .scene--bakery .gc-sign__hrs { margin-top: 6px; font-size: 15px; }
+  .scene--bakery .gc-sign__rule { margin: 10px auto 8px; width: 48px; }
+  .scene--bakery .gc-sign__lab { font-size: 14px; }
+  .scene--bakery .gc-sign__addr { margin-top: 6px; font-size: 19px; }
+  .scene--bakery .gc-sign__go { margin-top: 4px; font-size: 15px; min-height: 40px; display: inline-flex; align-items: center; padding: 0; border: 0; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(226, 178, 107, .7); }
+  .scene--bakery .gc-sign .kn-tag { margin: 8px auto 0; display: flex; width: max-content; }
+  .scene--bakery.gc-tkon .gc-sign, .scene--bakery.gc-tkon .gc-sub { filter: opacity(0); pointer-events: none; }
+
+  .scene--bakery .gc-shelf { display: none; }
+
+  .scene--bakery .gc-tkw { right: 8px; left: 8px; top: auto; bottom: 108px; width: auto; padding: 10px 8px 6px; }
+  .scene--bakery .gc-tkw > .kn-tag { z-index: 4; margin: 0 0 -16px 0; }
+  .scene--bakery .gc-tk { margin-top: 0; filter: drop-shadow(0 10px 16px rgba(0, 0, 0, .55)); }
+  .scene--bakery .gc-tk__string { display: none; }
+  .scene--bakery .gc-tk__clip { top: -12px; width: 64px; height: 20px; }
+  .scene--bakery .gc-tk__clip::before { top: -10px; height: 12px; border-width: 2px; }
+  .scene--bakery .gc-tk__paper { padding: 26px 14px 9px;
+    background:
+      radial-gradient(circle at 7px 7px, rgba(18, 10, 5, .9) 2.8px, transparent 3.3px) 0 10px / 16px 14px repeat-x,
+      linear-gradient(180deg, #FFFBF2 0%, #FAF1E1 100%); }
+  .scene--bakery .gc-tk__teeth { height: 10px; background-size: 10px 10px, 10px 10px; }
+  .scene--bakery .gc-tk__title { font-size: 23px; text-align: right; padding-right: 2px; }
+  .scene--bakery .gc-tk__meta { display: none; }
+  .scene--bakery .gc-tk__dash { margin: 5px 0; }
+  .scene--bakery .gc-tk__items { gap: 4px; }
+  .scene--bakery .gc-row { grid-template-columns: 40px 1fr auto; grid-template-rows: auto auto; column-gap: 10px; row-gap: 0; align-items: center; }
+  .scene--bakery .gc-thumb { display: block; position: relative; grid-row: 1 / 3; width: 40px; height: 40px; border-radius: 50%; overflow: hidden;
+    box-shadow: inset 0 0 0 1.5px rgba(59, 35, 19, .3); background: rgba(59, 35, 19, .06); }
+  .scene--bakery .gc-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); }
+  .scene--bakery .gc-row__n { grid-column: 2; grid-row: 1; font-size: 16px; }
+  .scene--bakery .gc-row__n::after { display: none; }
+  .scene--bakery .gc-row__p { grid-column: 2; grid-row: 2; padding: 0; font-size: 14px; color: rgba(59, 35, 19, .72); }
+  .scene--bakery .gc-row__s { grid-column: 3; grid-row: 1 / 3; }
+  .scene--bakery .gc-row__l { display: none; }
+  .scene--bakery .gc-step { grid-template-columns: 40px 30px 40px; height: 40px; }
+  .scene--bakery .gc-step button, .scene--bakery .gc-step output { font-size: 17px; }
+  .scene--bakery .gc-tk__lab { font-size: 14px; margin-bottom: 4px; }
+  .scene--bakery .gc-times { gap: 6px; }
+  .scene--bakery .gc-time { height: 40px; flex-direction: row; gap: 4px; border-radius: 6px; }
+  .scene--bakery .gc-time b { font-size: 15px; }
+  .scene--bakery .gc-time span { font-size: 14px; }
+  /* total and Place order share one row; the note runs under both */
+  .scene--bakery .gc-tk__total { display: flex; align-items: center; justify-content: flex-start; gap: 10px; min-height: 44px; padding-right: 162px; }
+  .scene--bakery .gc-tk__total span { font-size: 18px; }
+  .scene--bakery .gc-tk__total b { font-size: 24px; }
+  .scene--bakery .gc-tk__note { margin-top: 2px; font-size: 14px; }
+  .scene--bakery .gc-tk__paper > .gc-place { position: absolute; right: 14px; bottom: 29px; width: 154px; margin: 0; height: 44px; padding: 0 5px 0 16px; font-size: 17px; }
+  .scene--bakery .gc-place i { width: 34px; height: 34px; font-size: 16px; }
+
+  .scene--bakery .kn-cap { left: 16px; right: 16px; transform: none; width: auto; max-width: none; bottom: 14px; font-size: 16px; padding: 10px 12px; }
+}
+@media (max-width: 700px) and (max-height: 700px) {
+  .scene--bakery .gc-mast { height: 36px; }
+  .scene--bakery .gc-rule { top: 101px; }
+  .scene--bakery .gc-h { top: 100px; font-size: min(7.6vw, 29px); padding: 5px 0 3px; }
+  .scene--bakery .gc-sub { top: calc(100px + 12px + 2 * 0.92 * min(7.6vw, 29px)); }
+  .scene--bakery .gc-tk__paper { padding-top: 20px; background-position: 0 6px, 0 0; }
+  .scene--bakery .gc-tk__title { font-size: 21px; }
+  .scene--bakery .gc-tk__note { margin-top: 2px; }
+  .scene--bakery .gc-tk__dash { margin: 4px 0; }
+  .scene--bakery .gc-tk__items { gap: 2px; }
+  .scene--bakery .gc-tk__lab { margin-bottom: 4px; }
+}

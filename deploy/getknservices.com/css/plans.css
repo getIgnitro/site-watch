@@ -1,0 +1,244 @@
+/* KN v5 proof 4 - WEBSITE PLANS screen (D3): four plan columns (one open, three collapsed) + a live
+   preview column holding a coded sample garage site that builds up per plan.
+   Plan state lives on .pln[data-open]. --k (global display scale) and --tz (per card stat numeral size)
+   are written by js/ui/plans.js so the open card is filled top to bottom with no empty band. */
+
+.scene--plans { --pc: clamp(146px, 9.4vw, 210px); --pvw: clamp(380px, 29.2vw, 640px); }
+
+.pln {
+  flex: 1 1 0; min-height: 0; display: grid; gap: var(--cg);
+  grid-template-columns: var(--c0) var(--c1) var(--c2) var(--c3) var(--pvw);
+  --op: calc(100% - 3 * var(--pc) - var(--pvw) - 4 * var(--cg));
+  --c0: var(--pc); --c1: var(--pc); --c2: var(--pc); --c3: var(--pc);
+  transition: grid-template-columns .52s cubic-bezier(.7, 0, .2, 1);
+}
+.pln[data-open="0"] { --c0: var(--op); }
+.pln[data-open="1"] { --c1: var(--op); }
+.pln[data-open="2"] { --c2: var(--op); }
+.pln[data-open="3"] { --c3: var(--op); }
+.pln.is-measuring, .pln.is-measuring * { transition: none !important; }
+.pln.is-measuring .plc__in { min-height: 0 !important; }
+.pln.is-measuring .plc__more { flex: none !important; }
+.pln.is-measuring .plc .plc__btn { margin-top: 0 !important; }
+figure.pv { margin: 0; }
+
+/* ---------- plan card ---------- */
+.plc {
+  position: relative; isolation: isolate; min-width: 0; min-height: 0; overflow: hidden;
+  container-type: inline-size; pointer-events: auto; cursor: pointer;
+  padding: var(--cp); color: var(--paper); --surf: var(--ink-2); --line: var(--line-p); --dot: var(--peri); --blk: var(--paper);
+}
+.plc.is-open { cursor: default; }
+.plc--inv { --surf: var(--paper); --line: var(--line-i); --dot: var(--ink); --blk: var(--ink); color: var(--ink); }
+.plc__in { display: flex; flex-direction: column; gap: clamp(8px, 1.1vh, 14px); min-height: 100%; }
+
+.plc__name {
+  margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; text-transform: uppercase;
+  letter-spacing: -0.01em; line-height: .9; color: var(--peri); white-space: nowrap;
+  font-size: max(20px, calc(10.5cqw * var(--k, 1))); position: relative !important;
+}
+.plc--inv .plc__name { color: var(--peri-deep); }
+.plc__tab {
+  all: unset; display: block; cursor: inherit; font: inherit; color: inherit; letter-spacing: inherit; text-transform: inherit;
+}
+.plc__tab:focus-visible { outline: 2px solid var(--peri); outline-offset: 4px; }
+
+.plc__price {
+  margin: 0; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.035em;
+  line-height: .8; display: flex; align-items: flex-start; white-space: nowrap;
+  font-size: calc(29cqw * var(--k, 1));
+}
+.plc__price .cur { font-size: .46em; line-height: 1; margin: .07em .05em 0 0; }
+.plc__price { margin-bottom: -.12em; }
+.gs-d { text-wrap: pretty; }
+.plc__per { margin: .35em 0 0; font: 600 max(20px, 4.6cqw)/1.05 var(--f-body); opacity: .78; }
+
+.plc__more { display: flex; flex-direction: column; gap: clamp(10px, 1.45vh, 18px); flex: 1 1 auto; }
+.plc__pitch { margin: 0; font: 500 clamp(20px, 1.62vw, 34px)/1.15 var(--f-body); }
+
+.plc__stats { display: flex; flex-wrap: wrap; gap: clamp(8px, .7vw, 14px); align-items: stretch; }
+.plc__stat {
+  position: relative; flex: 0 0 auto; margin: 0; display: flex; flex-direction: column;
+  padding: .7em 1em .8em; box-shadow: inset 0 0 0 1px var(--line); font-size: clamp(16px, 1.1vw, 22px);
+}
+.plc__stat small { display: block; font: 600 1em/1 var(--f-body); opacity: .78; margin-bottom: .3em; }
+.plc__stat b {
+  display: block; font-family: var(--f-display); font-weight: 900; font-stretch: 125%; letter-spacing: -0.03em;
+  line-height: .84; font-size: var(--tz, clamp(52px, 4.6vw, 104px));
+}
+.plc__stat span { display: block; margin-top: .55em; font: 500 1em/1.12 var(--f-body); white-space: nowrap; }
+/* 5 Oct: the two figures never read as one number (20 | 5 read as "205"): a clear gap, and the second figure in its own colour */
+.plc__stats { column-gap: clamp(22px, 2.2vw, 44px); }
+.plc__stat + .plc__stat b { color: var(--peri); }
+.plc--inv .plc__stat + .plc__stat b { color: var(--peri-deep); }
+/* 5 Oct: short windows - the open card always keeps [Start now] in view. The bullet list takes the free height and
+   wraps as columns inside a clipped box, so a bullet with no room moves whole into a hidden second column (never
+   cut mid-line). The zero-height ::before lets even the first bullet move out whole. The fit in js/ui/plans.js
+   still measures the full natural list (is-measuring), so it shrinks the card first and drops bullets only last. */
+@media (min-width: 701px) {
+  .plc.is-open .plc__in { height: 100%; }
+  .plc.is-open .plc__more { flex: 1 1 0; min-height: 0; }
+  .plc.is-open .plc__list { flex: 1 1 0; min-height: 0; flex-wrap: wrap; align-content: flex-start; overflow: hidden; column-gap: 40px; margin-bottom: -2px; } /* 2px slack: the fit rounds to half a pixel */
+  .plc.is-open .plc__list::before { content: ''; flex: none; width: 100%; height: 0; margin-bottom: -.5em; }
+  .plc.is-open .plc__list li { width: 100%; }
+  .pln.is-measuring .plc__in { height: auto !important; }
+  .pln.is-measuring .plc__list { flex: none !important; margin-bottom: 0 !important; }
+}
+@media (min-width: 701px) and (max-height: 820px) {
+  .plc.is-open .plc__list::before { margin-bottom: -.35em; }
+}
+
+.plc__list {
+  margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; row-gap: .5em;
+  font: 500 clamp(18px, 1.25vw, 26px)/1.24 var(--f-body);
+}
+.plc__list li { position: relative; padding-left: 1.05em; }
+.plc__list li::before { content: ''; position: absolute; left: 0; top: .38em; width: .46em; height: .46em; background: var(--dot); }
+
+.plc .plc__btn {
+  margin-top: auto; align-self: stretch; height: clamp(52px, 3.4vw, 72px); padding: 0 16px;
+  font: 600 clamp(18px, 1.15vw, 24px)/1 var(--f-body);
+}
+/* Amendment 6: [Start now] and the "See everything included" link share one row at the foot of the open card */
+.plc__go { margin-top: auto; display: flex; align-items: center; gap: clamp(16px, 1.4vw, 28px); }
+.plc .plc__go .plc__btn { margin-top: 0; flex: 0 1 52%; }
+.plc .plc__see { align-self: center; flex: none; font-size: max(18px, 1.0417vw); white-space: nowrap; }
+.pln.is-measuring .plc__go { margin-top: 0 !important; }
+.plc--inv .btn::after { background: var(--ink); }
+.plc--inv .btn:hover, .plc--inv .btn:focus-visible { color: var(--paper); }
+
+/* collapsed: price block on top, the name set as a vertical spine filling the rest of the column */
+.plc:not(.is-open) .plc__more { display: none; }
+.plc:not(.is-open) .plc__price { font-size: 37cqw; }
+.plc:not(.is-open) .plc__name {
+  position: absolute !important; left: var(--cp); bottom: var(--cp); writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: var(--vn, 64px); line-height: .82;
+}
+.plc:not(.is-open) .plc__in { gap: 0; }
+.plc:not(.is-open) .plc__pr { order: -1; }
+.plc:not(.is-open)::after {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--peri); opacity: .0;
+}
+.plc:not(.is-open):hover::after { opacity: .9; }
+
+/* ---------- PREVIEW: browser frame + coded sample garage site ---------- */
+.pv {
+  position: relative; isolation: isolate; min-width: 0; min-height: 0; overflow: hidden; display: flex; flex-direction: column;
+  --surf: #1E2124; --blk: #E8C547; --gs-ink: #1E2124; --gs-ground: #24282C; --gs-line: rgba(236,233,226,.14);
+  --gs-paper: #ECE9E2; --gs-yel: #E8C547; color: var(--gs-paper);
+  box-shadow: 0 0 0 1px rgba(243,238,228,.22);
+}
+.pv__bar {
+  flex: none; display: flex; align-items: center; gap: 12px; height: 42px; padding: 0 14px;
+  background: var(--ink); color: rgba(243,238,228,.78);
+}
+.pv__tag { font: 600 14px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.pv__url {
+  flex: 1 1 auto; min-width: 0; height: 28px; display: flex; align-items: center; justify-content: center;
+  background: rgba(243,238,228,.08); font: 500 15px/1 var(--f-body); color: var(--paper); white-space: nowrap;
+}
+.pv__count { font: 600 15px/1 var(--f-body); color: var(--paper); white-space: nowrap; }
+.pv__count span { display: none; }
+.pv[data-level="0"] .pv__count [data-only="0"], .pv[data-level="1"] .pv__count [data-only="1"],
+.pv[data-level="2"] .pv__count [data-only="2"], .pv[data-level="3"] .pv__count [data-only="3"] { display: inline; }
+
+.pv__site { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; background: var(--gs-ground); font-family: var(--f-body); }
+.pv [data-from].is-off { display: none !important; }
+
+.gs-nav { flex: none; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 12px 16px; background: var(--gs-ink); }
+.gs-brand { font-family: var(--f-display); font-stretch: 62%; font-weight: 800; font-size: 20px; letter-spacing: .01em; text-transform: uppercase; margin-right: auto; }
+.gs-links { flex: 1 0 100%; order: 3; display: flex; flex-wrap: wrap; gap: 4px 14px; font: 500 15px/1.3 var(--f-body); color: rgba(236,233,226,.82); }
+.gs-links span { position: relative; }
+.gs-cart { font: 600 15px/1 var(--f-body); padding: 7px 10px; box-shadow: inset 0 0 0 1px var(--gs-line); }
+.gs-call { font: 600 15px/1 var(--f-body); padding: 9px 14px; background: var(--gs-yel); color: var(--gs-ink); }
+
+.gs-hero {
+  position: relative; flex: 1 1 0; min-height: 96px; display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 16px; background: #15171A url("../assets/scenes/garage.jpg") 62% 50% / cover no-repeat;
+}
+.gs-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(14,15,17,.82), rgba(14,15,17,0) 70%); z-index: -1; }
+.gs-hero { isolation: isolate; }
+.gs-h { margin: 0; font-family: var(--f-display); font-stretch: 62%; font-weight: 800; text-transform: uppercase; line-height: .92; font-size: clamp(26px, 2vw, 44px); max-width: 12em; }
+.gs-h i { font-style: normal; color: var(--gs-yel); display: block; width: .42em; height: .42em; background: var(--gs-yel); margin-bottom: .3em; }
+
+.gs-grid { flex: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--gs-line); border-top: 1px solid var(--gs-line); }
+.gs-part { position: relative; margin: 0; padding: 12px 14px 13px; background: var(--gs-ground); min-width: 0; }
+.gs-part--2 { grid-column: span 2; }
+.gs-part--3 { grid-column: span 3; }
+.gs-t { margin: 0 0 6px; font: 600 16px/1.15 var(--f-body); color: var(--gs-paper); }
+.gs-d { margin: 0; font: 400 14px/1.35 var(--f-body); color: rgba(236,233,226,.78); }
+.gs-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.gs-chips span { font: 600 14px/1 var(--f-body); padding: 7px 9px; box-shadow: inset 0 0 0 1px var(--gs-line); }
+.gs-chips .on { background: var(--gs-paper); color: var(--gs-ink); box-shadow: none; }
+.gs-chips .go { background: var(--gs-yel); color: var(--gs-ink); box-shadow: none; }
+.gs-rows { display: grid; gap: 4px; margin: 0; padding: 0; list-style: none; font: 500 14px/1.25 var(--f-body); color: rgba(236,233,226,.86); }
+.gs-rows li { display: flex; justify-content: space-between; gap: 8px; box-shadow: 0 1px 0 var(--gs-line); padding-bottom: 4px; }
+.gs-rows b { font-weight: 600; color: var(--gs-paper); }
+.gs-shop { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.gs-prod { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; padding: 10px; background: var(--gs-ink); font: 500 14px/1.2 var(--f-body); }
+.gs-prod b { font: 600 15px/1 var(--f-body); color: var(--gs-yel); }
+
+/* the one orange block that places each new part */
+.pv__placer { position: absolute; left: 0; top: 0; width: 16px; height: 16px; background: var(--signal); z-index: 5; opacity: 0; pointer-events: none; }
+
+/* ---------- shorter desktops ---------- */
+@media (min-width: 701px) and (max-height: 820px) {
+  .gs-nav { padding: 8px 14px; }
+  .gs-part { padding: 9px 12px 10px; }
+  .plc__in { gap: 8px; }
+  .plc__more { gap: 10px; }
+  .plc__pitch { font-size: 18px; }
+  .plc__stat { font-size: 16px; padding: .6em .8em .7em; }
+  .plc__list { font-size: 17px; row-gap: .35em; }
+  .plc .plc__btn { height: 48px; font-size: 17px; }
+}
+/* the sample site scales down as a whole only when its fullest (Store) build would not fit (short screens) */
+.pv__site { zoom: var(--pvz, 1); }
+
+/* ---------- phone: no pin, preview above, all four cards open and stacked ---------- */
+@media (max-width: 700px) {
+  .scene--plans.pk { bottom: auto; min-height: 100%; }
+  .pln { display: flex; flex-direction: column; flex: none; gap: 12px; transition: none; }
+  .pv { order: -1; flex: none; }
+  .gs-hero { flex: none; height: 150px; }
+  .gs-grid { grid-template-columns: minmax(0, 1fr); }
+  .gs-shop { grid-template-columns: 1fr; }
+  .pv__tag { font-size: 14px; }
+  .plc { flex: none; cursor: default; }
+  .plc .plc__more { display: flex !important; }
+  .pln .plc .plc__name, .pln .plc:not(.is-open) .plc__name { position: relative !important; left: auto; bottom: auto; writing-mode: horizontal-tb !important; transform: none !important; font-size: 30px !important; }
+  .pv__count { display: none; }
+  .pv__bar { gap: 10px; padding: 0 12px; }
+  .gs-part--2, .gs-part--3 { grid-column: auto !important; }
+  /* chat 22: --pf (main.js phoneFit) shrinks a card's display parts until the whole card sits on one screen */
+  .plc .plc__price { font-size: calc(25vw * var(--pf, 1)) !important; }
+  .plc .plc__pr { order: 0 !important; }
+  .plc .plc__in { gap: calc(12px * var(--pf, 1)) !important; }
+  .plc__pitch { font-size: max(17px, calc(20px * var(--pf, 1))); }
+  .plc__stat { font-size: 16px; }
+  .plc__stat b { font-size: calc(56px * var(--pf, 1)); }
+  .plc__list { font-size: max(16px, calc(18px * var(--pf, 1))); }
+  /* chat 22: with steps on, the sample design is cut at the foot of the opening plans screen */
+  .pv.is-cut { overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 72px), transparent); mask-image: linear-gradient(#000 calc(100% - 72px), transparent); }
+  .plc .plc__btn { height: 56px; font-size: 18px; margin-top: 4px; }
+  .plc__go { flex-direction: column; align-items: stretch; gap: 14px; }
+  .plc .plc__go .plc__btn { flex: none; }
+  .plc .plc__see { align-self: flex-start; font-size: 18px; }
+  .plc::after { display: none; }
+}
+
+/* ---------- SOCIAL on phone (D3 fix): cards stacked at natural height, no sideways swipe ---------- */
+@media (max-width: 700px) {
+  .scene--social.pk { bottom: auto; min-height: 100%; }
+  .scene--social .cards {
+    display: flex; flex-direction: column; flex: none; gap: 12px; overflow: visible; scroll-snap-type: none;
+    margin: 0; padding: 0; min-height: auto;
+  }
+  .scene--social .card { flex: none; width: auto; height: auto; min-height: 0; }
+  .scene--social .card__body { flex: none; }
+  .scene--social .card__stats { flex: none; min-height: 0; height: auto; }
+  .scene--social .stat { container-type: inline-size; min-height: 0; justify-content: flex-start; }
+  .scene--social .stat b { font-size: 52px; }
+  .scene--social .stat span { font-size: 16px; margin-top: 10px; padding-top: 0; }
+  .scene--social .card .card__btn { margin-top: 6px; position: relative; }
+}

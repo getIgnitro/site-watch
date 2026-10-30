@@ -1,0 +1,309 @@
+/* s-garage.css - chat 19: the garage sample, its own composition (approved mock: _dev/mocks/garage.html).
+   Everything for this chapter lives here; scale by --u (see the builder brief).
+   Desktop: the film shows in the top band (bar to design y 560), a solid asphalt slab covers the rest; the
+   headline crosses the seam, a hazard tape runs from its end (left set by js/ui/s-garage.js). Design px at
+   1920x1080; y is measured from the 60 px KN bar: top = bar + u * (y - 60).
+   Phone (700 px and under): a separate stacked layout (flow), headline size and seam set by s-garage.js. */
+
+.site-garage {
+  --ga-black: #030B0E; --ga-asph: #171B1C; --ga-rule: #2A3034; --ga-line: #4A5358;
+  --ga-steel: #8E989D; --ga-steel-2: #B9C1C4; --ga-white: #EEF1F1; --ga-yellow: #FECD4D; --ga-green: #46E28A;
+  --u: min(calc(100vw / 1920), calc((100vh - 60px) / 1020));
+  --top: var(--slim-h, 60px);
+  --ex: calc((100vw - var(--u) * 1920) / 2);   /* half the width the composition leaves free on wide-short screens */
+  --blk: var(--ga-yellow); color: var(--ga-white); font-family: var(--f-body);
+}
+.site-garage :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; cursor: pointer; text-align: inherit; }
+.site-garage :where(p, h2, h3) { margin: 0; }
+.site-garage :where(a) { color: inherit; text-decoration: none; }
+.ga-brand, .ga-tab, .ga-btn, .ga-h1, .ga-sh__t, .ga-open, .ga-svc, .ga-bk, .ga-go, .ga-phone, .ga-b, .ga-pt__a, .ga-co {
+  font-family: var(--f-display); font-weight: 900; font-stretch: 62%; text-transform: uppercase;
+}
+
+/* ---------- film shade, slab, hazard tape ---------- */
+.ga-shade {
+  position: absolute; left: 0; right: 0; top: var(--top); height: calc(var(--u) * 500); pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(3, 11, 14, .82) 0%, rgba(3, 11, 14, .55) 34%, rgba(3, 11, 14, 0) 58%),
+    linear-gradient(0deg, rgba(3, 11, 14, .78) 0%, rgba(3, 11, 14, 0) 46%),
+    linear-gradient(180deg, rgba(3, 11, 14, .72) 0%, rgba(3, 11, 14, 0) 26%);
+}
+.ga-slab {
+  position: absolute; z-index: 1; left: 0; right: 0; top: calc(var(--top) + var(--u) * 500); bottom: 0;
+  background:
+    linear-gradient(var(--ga-rule), var(--ga-rule)) no-repeat left calc(var(--u) * 1014) top calc(var(--u) * 70) / 1px calc(var(--u) * 328),
+    linear-gradient(var(--ga-rule), var(--ga-rule)) no-repeat right calc(var(--u) * 369 + var(--ex)) top calc(var(--u) * 70) / 1px calc(var(--u) * 328),
+    var(--ga-asph);
+}
+.ga-slab::before {
+  content: ''; position: absolute; inset: 0; opacity: .09; mix-blend-mode: screen; pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+}
+.ga-hazard {
+  position: absolute; z-index: 4; top: calc(var(--top) + var(--u) * 500); left: var(--hzl, 52%); right: 0; height: calc(var(--u) * 16);
+  background: repeating-linear-gradient(-45deg, var(--ga-yellow) 0 calc(var(--u) * 14), var(--ga-black) calc(var(--u) * 14) calc(var(--u) * 28));
+}
+
+/* ---------- site header on the film: plate, nav, town tabs ---------- */
+.ga-head {
+  position: absolute; z-index: 5; left: calc(var(--u) * 56); right: calc(var(--u) * 56); top: calc(var(--top) + var(--u) * 22);
+  display: flex; align-items: flex-start; gap: calc(var(--u) * 44);
+}
+.ga-brand { display: flex; align-items: stretch; height: calc(var(--u) * 52); font-size: calc(var(--u) * 34); line-height: 1; letter-spacing: .01em; white-space: nowrap; }
+.ga-brand__a { display: flex; align-items: center; padding: 0 calc(var(--u) * 14); background: var(--ga-yellow); color: var(--ga-black); }
+.ga-brand__b { display: flex; align-items: center; padding: 0 calc(var(--u) * 14); color: var(--ga-white); box-shadow: inset 0 0 0 2px var(--ga-yellow); }
+.ga-nav { display: flex; align-items: center; height: calc(var(--u) * 52); }
+.ga-nav a { font: 600 max(15px, calc(var(--u) * 20))/1 var(--f-body); color: var(--ga-white); white-space: nowrap; }
+.ga-nav a + a::before { content: ''; display: inline-block; width: calc(var(--u) * 6); height: calc(var(--u) * 6); margin: 0 calc(var(--u) * 18); background: var(--ga-yellow); vertical-align: middle; transform: translateY(-2px); }
+.ga-nav a:hover { color: var(--ga-yellow); }
+.ga-towns { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: calc(var(--u) * 8); }
+.ga-tabs { display: flex; background: rgba(3, 11, 14, .86); box-shadow: inset 0 0 0 1px var(--ga-rule); }
+.ga-tab {
+  height: calc(var(--u) * 48); padding: 0 calc(var(--u) * 18); display: flex; align-items: center;
+  font-size: calc(var(--u) * 24); letter-spacing: .02em; color: var(--ga-steel-2); border-left: 1px solid var(--ga-rule); white-space: nowrap;
+}
+.ga-tab:first-child { border-left: 0; }
+.ga-tab:hover { color: var(--ga-white); }
+.ga-tab.is-on { background: var(--ga-yellow); color: var(--ga-black); }
+.ga-in { font: 500 max(15px, calc(var(--u) * 20))/1.2 var(--f-body); color: var(--ga-white); background: rgba(3, 11, 14, .86); padding: calc(var(--u) * 7) calc(var(--u) * 12); white-space: nowrap; }
+.ga-in b { color: var(--ga-yellow); font-weight: 600; }
+
+/* intro + headline */
+.ga-intro { position: absolute; z-index: 5; left: calc(var(--u) * 56); top: calc(var(--top) + var(--u) * 176); display: flex; align-items: center; gap: calc(var(--u) * 26); }
+.ga-sub { font: 500 calc(var(--u) * 26)/1.3 var(--f-body); color: var(--ga-white); max-width: 18ch; }
+.ga-btn {
+  display: inline-flex; align-items: center; gap: calc(var(--u) * 14); height: calc(var(--u) * 60); padding: 0 calc(var(--u) * 22) 0 calc(var(--u) * 24);
+  background: var(--ga-yellow); color: var(--ga-black); font-size: calc(var(--u) * 26); letter-spacing: .03em; white-space: nowrap;
+}
+.ga-btn svg { width: calc(var(--u) * 24); height: calc(var(--u) * 24); }
+.ga-btn:hover { background: var(--ga-white); }
+.ga-h1 { position: absolute; z-index: 6; left: calc(var(--u) * 48); top: calc(var(--top) + var(--u) * 252); font-size: calc(var(--u) * 168); line-height: .86; letter-spacing: -.005em; pointer-events: none; }
+.ga-h1 span { display: block; white-space: nowrap; }
+.ga-l1 { color: var(--ga-white); }
+.ga-l2 { color: var(--ga-yellow); }
+
+/* ---------- section heads (01 / 02 / 03) ---------- */
+.ga-sh { display: flex; align-items: center; gap: calc(var(--u) * 14); height: calc(var(--u) * 44); }
+.ga-no { font: 400 max(15px, calc(var(--u) * 18))/1 var(--f-mono); color: var(--ga-yellow); }
+.ga-sh__t, .ga-open { font-size: calc(var(--u) * 34); line-height: 1; letter-spacing: .01em; color: var(--ga-white); white-space: nowrap; }
+.ga-sh .kn-tag, .ga-sh .ga-cart { margin-left: auto; }
+
+/* ---------- 01 service board ---------- */
+.ga-board { position: absolute; z-index: 3; left: calc(var(--u) * 56); top: calc(var(--top) + var(--u) * 562); width: calc(var(--u) * 940); }
+.ga-bd { margin-top: calc(var(--u) * 12); background: var(--ga-black); box-shadow: inset 0 0 0 1px var(--ga-rule); }
+.ga-row {
+  position: relative; display: grid; grid-template-columns: 1fr calc(var(--u) * 186) calc(var(--u) * 222) calc(var(--u) * 96); column-gap: calc(var(--u) * 12);
+  align-items: center; height: calc(var(--u) * 48); padding: 0 calc(var(--u) * 14) 0 calc(var(--u) * 18); border-top: 1px solid var(--ga-rule);
+}
+.ga-row--head { height: calc(var(--u) * 36); border-top: 0; }
+.ga-pick { display: grid; grid-template-columns: calc(var(--u) * 40) 1fr calc(var(--u) * 100); column-gap: calc(var(--u) * 12); align-items: center; height: 100%; min-width: 0; }
+.ga-row--head span { font: 400 max(15px, calc(var(--u) * 18))/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ga-steel); white-space: nowrap; }
+.ga-row__no { font: 400 max(15px, calc(var(--u) * 20))/1 var(--f-mono); color: var(--ga-steel); }
+.ga-svc { font-size: calc(var(--u) * 30); line-height: 1; letter-spacing: .015em; color: var(--ga-white); white-space: nowrap; }
+.ga-pick:hover .ga-svc { color: var(--ga-yellow); }
+.ga-flap { display: inline-flex; gap: calc(var(--u) * 3); }
+.ga-flap b {
+  width: calc(var(--u) * 23); height: calc(var(--u) * 36); display: grid; place-items: center;
+  background: linear-gradient(180deg, #141a1c 0 49%, #000 49% 51%, #10161a 51% 100%); box-shadow: inset 0 0 0 1px #232a2e;
+  color: var(--ga-yellow); font: 600 calc(var(--u) * 24)/1 var(--f-mono);
+}
+.ga-cell { display: block; min-width: 0; }
+.ga-dash { display: block; height: 0; border-top: 2px dotted #3a4347; margin-right: calc(var(--u) * 10); }
+.ga-row.is-on .ga-dash { display: none; }
+.ga-days, .ga-times { display: flex; gap: calc(var(--u) * 6); }
+.ga-chip {
+  flex: 1 1 0; height: calc(var(--u) * 36); padding: 0 calc(var(--u) * 4); display: grid; place-items: center;
+  font: 400 max(15px, calc(var(--u) * 19))/1 var(--f-mono); color: var(--ga-white); box-shadow: inset 0 0 0 1px var(--ga-line); white-space: nowrap;
+}
+.ga-chip:hover { box-shadow: inset 0 0 0 2px var(--ga-steel-2); }
+.ga-chip.is-on { background: var(--ga-yellow); color: var(--ga-black); box-shadow: none; font-weight: 600; }
+.ga-bk { height: calc(var(--u) * 36); display: grid; place-items: center; font-size: max(15px, calc(var(--u) * 22)); letter-spacing: .06em; color: var(--ga-white); box-shadow: inset 0 0 0 1px var(--ga-line); }
+.ga-bk:hover { box-shadow: inset 0 0 0 2px var(--ga-yellow); }
+.ga-row.is-on { background: #1d2427; height: calc(var(--u) * 56); }
+.ga-row.is-on::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: calc(var(--u) * 5); background: var(--ga-yellow); }
+.ga-row.is-on .ga-bk { height: calc(var(--u) * 40); background: var(--ga-yellow); color: var(--ga-black); box-shadow: none; }
+.ga-row.is-on .ga-bk:hover { background: var(--ga-white); }
+.ga-row.is-on .ga-row__no { color: var(--ga-yellow); }
+.ga-when { display: none; }
+.ga-status {
+  display: flex; align-items: center; gap: calc(var(--u) * 14); height: calc(var(--u) * 44); padding: 0 calc(var(--u) * 18);
+  border-top: 1px solid var(--ga-rule); font: 400 max(15px, calc(var(--u) * 20))/1 var(--f-mono); color: var(--ga-yellow); white-space: nowrap;
+}
+.ga-status__t { display: inline-block; }
+.ga-status[data-state="pending"] { color: var(--ga-steel-2); }
+.ga-lamp {
+  flex: none; display: block; width: max(9px, calc(var(--u) * 12)); height: max(9px, calc(var(--u) * 12)); border-radius: 50%;
+  background: var(--ga-yellow); box-shadow: 0 0 0 3px rgba(254, 205, 77, .18), 0 0 14px rgba(254, 205, 77, .7);
+}
+.ga-status[data-state="pending"] .ga-lamp { background: transparent; box-shadow: inset 0 0 0 2px var(--ga-steel); }
+
+/* ---------- 02 open now, call the shop ---------- */
+.scene--garage .ga-call { position: absolute; z-index: 3; left: calc(var(--u) * 1032); right: calc(var(--u) * 388 + var(--ex)); top: calc(var(--top) + var(--u) * 562); display: block; }
+.ga-open { display: flex; align-items: center; gap: calc(var(--u) * 12); }
+.ga-lamp--go { width: max(11px, calc(var(--u) * 16)); height: max(11px, calc(var(--u) * 16)); background: var(--ga-green); box-shadow: 0 0 0 4px rgba(70, 226, 138, .16), 0 0 18px rgba(70, 226, 138, .8); }
+.ga-open[data-open="0"] .ga-lamp--go { background: transparent; box-shadow: inset 0 0 0 2px var(--ga-steel); }
+.ga-hrs { margin-top: calc(var(--u) * 12); font: 400 max(15px, calc(var(--u) * 20))/1.4 var(--f-mono); color: var(--ga-steel-2); }
+.ga-tagrow { display: flex; margin-top: calc(var(--u) * 16); }
+.ga-phone { margin-top: calc(var(--u) * 14); font-size: calc(var(--u) * 86); line-height: .9; color: var(--ga-white); white-space: nowrap; }
+.ga-phone span { color: var(--ga-yellow); }
+.ga-callrow { margin-top: calc(var(--u) * 16); display: flex; align-items: center; gap: calc(var(--u) * 8); }
+.ga-addr { margin-right: auto; font: 600 max(15px, calc(var(--u) * 22))/1 var(--f-body); white-space: nowrap; }
+.ga-b { height: calc(var(--u) * 46); padding: 0 calc(var(--u) * 16); display: inline-flex; align-items: center; font-size: max(15px, calc(var(--u) * 22)); letter-spacing: .05em; white-space: nowrap; }
+.ga-b--y { background: var(--ga-yellow); color: var(--ga-black); }
+.ga-b--y:hover { background: var(--ga-white); }
+.ga-b--o { color: var(--ga-white); box-shadow: inset 0 0 0 1px #6b757a; }
+.ga-b--o:hover { box-shadow: inset 0 0 0 2px var(--ga-yellow); }
+
+/* ---------- 03 parts shop ---------- */
+.scene--garage .ga-parts { position: absolute; z-index: 3; right: calc(var(--u) * 56); top: calc(var(--top) + var(--u) * 562); width: calc(var(--u) * 296 + var(--ex)); display: block; }
+.ga-cart { display: inline-flex; align-items: center; gap: calc(var(--u) * 8); font: 400 max(15px, calc(var(--u) * 18))/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ga-white); white-space: nowrap; }
+.ga-cart b { min-width: calc(var(--u) * 28); height: calc(var(--u) * 28); padding: 0 4px; display: grid; place-items: center; background: var(--ga-yellow); color: var(--ga-black); font-weight: 600; }
+.ga-pt { margin-top: calc(var(--u) * 12); background: var(--ga-black); box-shadow: inset 0 0 0 1px var(--ga-rule); }
+.ga-add {
+  width: 100%; display: grid; grid-template-columns: 1fr auto calc(var(--u) * 58); column-gap: calc(var(--u) * 12); align-items: center;
+  height: calc(var(--u) * 52); padding: 0 calc(var(--u) * 12) 0 calc(var(--u) * 16); border-top: 1px solid var(--ga-rule); text-align: left;
+}
+.ga-add:first-child { border-top: 0; }
+.ga-pt__n { font: 500 max(15px, calc(var(--u) * 20))/1.1 var(--f-body); white-space: nowrap; }
+.ga-pt__p { font: 600 max(15px, calc(var(--u) * 20))/1 var(--f-mono); color: var(--ga-yellow); }
+.ga-pt__a { height: calc(var(--u) * 34); display: grid; place-items: center; font-size: max(14px, calc(var(--u) * 19)); letter-spacing: .06em; box-shadow: inset 0 0 0 1px var(--ga-line); }
+.ga-add:hover .ga-pt__a { box-shadow: inset 0 0 0 2px var(--ga-yellow); }
+.ga-add.is-in .ga-pt__a { background: var(--ga-steel-2); color: var(--ga-black); box-shadow: none; }
+.ga-pt__tot { display: flex; align-items: center; justify-content: space-between; gap: calc(var(--u) * 10); padding: calc(var(--u) * 12) calc(var(--u) * 12) calc(var(--u) * 12) calc(var(--u) * 16); border-top: 1px solid var(--ga-rule); }
+.ga-pt__l { display: block; font: 400 max(15px, calc(var(--u) * 18))/1.1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--ga-steel); }
+.ga-pt__l.is-done { color: var(--ga-yellow); }
+.ga-pt__sum { display: block; margin-top: calc(var(--u) * 6); font: 600 calc(var(--u) * 30)/1 var(--f-mono); color: var(--ga-white); }
+.ga-co { flex: none; height: calc(var(--u) * 46); padding: 0 calc(var(--u) * 16); background: var(--ga-yellow); color: var(--ga-black); font-size: max(15px, calc(var(--u) * 22)); letter-spacing: .05em; }
+.ga-co:hover { background: var(--ga-white); }
+.ga-parts .ga-tagrow { margin-top: calc(var(--u) * 10); }
+
+/* narrow desktops: the 02 head keeps its KN tag (16 px floor) inside the column */
+@media (min-width: 701px) and (max-width: 1500px) { .ga-call .ga-sh { gap: calc(var(--u) * 8); } }
+
+/* KN caption: placed as the mock (bottom left, one line) */
+@media (min-width: 701px) {
+  .scene--garage .kn-cap { z-index: 6; left: calc(var(--u) * 56); bottom: calc(var(--u) * 18); max-width: calc(100vw - var(--u) * 112); }
+}
+@media (prefers-reduced-motion: reduce) { .ga-status__t { clip-path: none !important; } }
+
+/* ================= phone: a separate stacked layout ================= */
+@media (max-width: 700px) {
+  .scene--garage {
+    --gp: 6px; --hs: 48px;
+    display: flex; flex-direction: column; gap: var(--gp); padding: calc(var(--slim-h) + 8px) var(--m) 0;
+  }
+  .ga-shade {
+    top: var(--slim-h); height: calc(var(--seam, 220px) - var(--slim-h));
+    background: linear-gradient(90deg, rgba(3, 11, 14, .78) 0%, rgba(3, 11, 14, .4) 62%, rgba(3, 11, 14, .2) 100%),
+      linear-gradient(0deg, rgba(3, 11, 14, .6) 0%, rgba(3, 11, 14, 0) 50%);
+  }
+  .ga-slab { top: var(--seam, 220px); background: var(--ga-asph); }
+  .ga-hazard {
+    top: var(--seam, 220px); left: var(--hzl, 70%); height: 10px;
+    background: repeating-linear-gradient(-45deg, var(--ga-yellow) 0 9px, var(--ga-black) 9px 18px);
+  }
+  .scene--garage .kn-tag { font-size: 14px; padding: 4px 7px 4px 6px; gap: 6px; }
+  .scene--garage .kn-tag::before { width: 8px; height: 8px; }
+
+  /* head: a stacked plate on the left, the Pro tag and the town tabs on the right */
+  .ga-head { position: relative; z-index: 5; left: auto; right: auto; top: auto; display: grid; grid-template-columns: auto 1fr; column-gap: 8px; row-gap: 4px; align-items: center; }
+  .ga-nav { display: none; }
+  .ga-towns { display: contents; }
+  .ga-brand { grid-column: 1; grid-row: 1 / 3; align-self: stretch; height: auto; flex-direction: column; font-size: 17px; }
+  .ga-brand__a, .ga-brand__b { flex: 1; padding: 0 8px; }
+  .ga-towns .kn-tag { grid-column: 2; grid-row: 1; justify-self: end; }
+  .ga-tabs { grid-column: 2; grid-row: 2; justify-self: end; }
+  .ga-tab { height: 40px; padding: 0 8px; font-size: 16px; }
+  .ga-in { grid-column: 1 / -1; grid-row: 3; justify-self: end; font-size: 14px; padding: 3px 8px; }
+
+  .ga-intro { display: none; }
+  .ga-h1 { position: relative; left: auto; top: auto; margin-top: 2px; font-size: var(--hs); }
+
+  .ga-board, .scene--garage .ga-call, .scene--garage .ga-parts { position: relative; z-index: 3; left: auto; right: auto; top: auto; width: auto; }
+  .ga-board { margin-top: max(0px, calc(12px - var(--gp))); }   /* headline to board: 12 px or more */
+  .ga-sh { height: 26px; gap: 8px; }
+  .ga-no { font-size: 14px; }
+  .ga-sh__t, .ga-open { font-size: 20px; }
+  .ga-bd { margin-top: 4px; }
+
+  /* the board: four service tiles across, then day, time and Book on one row */
+  .ga-bd > .ga-row--head { display: none; }
+  .ga-rows { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .ga-row { display: block; height: auto; padding: 0; border-top: 0; border-left: 1px solid var(--ga-rule); }
+  .ga-row:first-child { border-left: 0; }
+  .ga-row.is-on { height: auto; }
+  .ga-row.is-on::before { top: auto; right: 0; width: auto; height: 4px; }
+  .ga-cell, .ga-bk { display: none; }
+  .ga-pick { width: 100%; height: 56px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 7px 6px 8px 8px; }
+  .ga-row__no { display: none; }
+  .ga-svc { font-size: 15px; line-height: .95; white-space: normal; }
+  .ga-flap { gap: 2px; }
+  .ga-flap b { width: 12px; height: 18px; font-size: 14px; }
+  .ga-when { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-top: 1px solid var(--ga-rule); }
+  .ga-days { flex: 3 1 0; gap: 4px; }
+  .ga-times { flex: 4 1 0; gap: 4px; }
+  .ga-chip { height: 40px; padding: 0 2px; font-size: 14px; }
+  .ga-go { flex: none; height: 40px; padding: 0 12px; background: var(--ga-yellow); color: var(--ga-black); font-size: 17px; letter-spacing: .06em; }
+  .ga-status { height: 28px; padding: 0 10px; gap: 8px; font-size: 14px; }
+  .ga-lamp { width: 9px; height: 9px; }
+
+  /* 02: the open lamp in the head; the number and Call the shop on one row */
+  .scene--garage .ga-call { display: grid; grid-template-columns: 1fr auto; column-gap: 8px; row-gap: 4px; align-items: center; }
+  .ga-call > .ga-sh { grid-column: 1 / -1; }
+  .ga-hrs, .ga-call > .ga-tagrow, .ga-addr, .ga-b--o { display: none; }
+  .ga-lamp--go { width: 10px; height: 10px; }
+  .ga-phone { grid-column: 1; margin: 0; font-size: 30px; }
+  .ga-callrow { grid-column: 2; margin: 0; }
+  .ga-b { height: 40px; padding: 0 12px; font-size: 16px; }
+
+  /* 03: the tag on the head row, three item tiles, then cart, total and checkout */
+  .scene--garage .ga-parts { display: grid; grid-template-columns: 1fr auto; row-gap: 4px; align-items: center; }
+  .ga-parts > .ga-sh { grid-column: 1; grid-row: 1; }
+  .ga-parts > .ga-tagrow { grid-column: 2; grid-row: 1; margin: 0; }
+  .ga-pt { grid-column: 1 / -1; grid-row: 2; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); }
+  .ga-cart { position: absolute; z-index: 1; left: 10px; bottom: 0; height: 44px; font-size: 14px; gap: 6px; }
+  .ga-cart b { min-width: 24px; height: 24px; }
+  .ga-add { height: 50px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 3px; padding: 0 8px; border-top: 0; border-left: 1px solid var(--ga-rule); position: relative; }
+  .ga-add:first-child { border-left: 0; }
+  .ga-pt__n { font-size: 14px; }
+  .ga-pt__p { font-size: 14px; }
+  .ga-pt__a { position: absolute; right: 6px; bottom: 6px; height: 20px; padding: 0 5px; font-size: 14px; }
+  .ga-pt__tot { grid-column: 1 / -1; height: 44px; padding: 0 4px 0 92px; }
+  .ga-pt__tot p { display: flex; align-items: baseline; gap: 8px; }
+  .ga-pt__l { font-size: 14px; }
+  .ga-pt__sum { margin: 0; font-size: 17px; }
+  .ga-co { height: 40px; padding: 0 12px; font-size: 16px; }
+}
+@media (max-width: 700px) {
+  .ga-feat { display: flex; flex-direction: column; gap: var(--gp); }
+}
+/* narrow phones (under 390 px): the plate, the tabs and the section heads tighten to keep the KN tags whole */
+@media (max-width: 389px) {
+  .ga-brand { font-size: 15px; }
+  .ga-brand__a, .ga-brand__b { padding: 0 6px; }
+  .ga-tab { padding: 0 6px; font-size: 15px; }
+  .ga-sh { gap: 6px; }
+  .ga-sh__t, .ga-open { font-size: 18px; }
+}
+@media (max-width: 369px) { .ga-sh__t, .ga-open { font-size: 16px; } }
+/* short phones (browser bars showing): the town line gives its row to the headline */
+@media (max-width: 700px) and (max-height: 759px) { .ga-in { display: none; } }
+/* under 720 px the slab tightens so the headline keeps a real size */
+@media (max-width: 700px) and (max-height: 719px) {
+  .scene--garage { padding-top: calc(var(--slim-h) + 6px); }
+  .ga-head { row-gap: 3px; }
+  .ga-pick { height: 50px; padding: 5px 6px 6px 8px; }
+  .ga-when { padding: 4px 8px; }
+  .ga-status { height: 26px; }
+  .ga-add { height: 46px; }
+  .ga-pt__tot { height: 42px; }
+}
+
+/* chat 19 hand fix: "CLOSED NOW" is wider than "OPEN NOW"; keep the 02 head and its tag inside the column */
+@media (min-width: 701px) {
+  .ga-call .ga-sh { gap: calc(var(--u) * 8); }
+  .ga-call .ga-open { font-size: calc(var(--u) * 29); gap: calc(var(--u) * 8); }
+}
+@media (min-width: 701px) and (max-width: 1340px) {
+  .ga-call .ga-sh .kn-tag { display: none; }   /* the same tag repeats under the hours; below 1340 the head has no room for both */
+}
