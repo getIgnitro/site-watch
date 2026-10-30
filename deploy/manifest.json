@@ -1,5 +1,5 @@
 {
- "commit": "3bd1749fd1bd2a73ec5b525dfca04bc9351a56a8",
+ "commit": "ce0925c8d5979edfdebec816c749a0758c0cbdc4",
  "files": [
   {
    "site": "getignitro.com",
@@ -183,6 +183,12 @@
   },
   {
    "site": "getknservices.com",
+   "path": "3da3462087da29545a76432242848e96.txt",
+   "sha256": "69498b4efa5234d98af24c98102784a47fef8f462dddfd57e464accfb1b730cc",
+   "size": 32
+  },
+  {
+   "site": "getknservices.com",
    "path": "assets/proof/bakery-1120.webp",
    "sha256": "4a89318d98e2690913fe90cbcaa09ca0819bf0a70b434cd95281321112538856",
    "size": 71970
@@ -300,6 +306,12 @@
    "path": "email/kn-build-mark.png",
    "sha256": "942a20bd973c09164aa996428466865479b03939b03bd09c5fcdfdfaea9b6ae2",
    "size": 7209
+  },
+  {
+   "site": "getknservices.com",
+   "path": "google6f8f6503ff75b79b.html",
+   "sha256": "1adaa515ab18157dbe7773f8f53b0ee24e82268395453f1c49bd2941ed490562",
+   "size": 53
   },
   {
    "site": "getknservices.com",
