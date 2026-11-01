@@ -1,5 +1,5 @@
 {
- "commit": "ca97a4324712a351fe5589c1ca2985c44e3d4636",
+ "commit": "b55518173e516d03d088d9f2ac91647cbfe8a007",
  "files": [
   {
    "site": "getignitro.com",
@@ -207,6 +207,12 @@
   },
   {
    "site": "getignitro.com",
+   "path": "review/sail-survey/img/og-sail-survey.jpg",
+   "sha256": "797d8cc1b46e5eb16b88dfc1289c0e139ad6fd5f7a7f04c148b6f65c9652caad",
+   "size": 116663
+  },
+  {
+   "site": "getignitro.com",
    "path": "review/sail-survey/img/sail-logo.png",
    "sha256": "abe634486591cc17b39adb510fb64713d5bb125e86e39fd9f7a059c78571492c",
    "size": 53064
@@ -220,8 +226,8 @@
   {
    "site": "getignitro.com",
    "path": "review/sail-survey/index.html",
-   "sha256": "aba1fa7af7f045874ffa8cb1e36d402a3193d1092facf626c7aa5e755945afd4",
-   "size": 175708
+   "sha256": "a34fa2ea0b0d9310ceb5a20c4269a2355047cd2b659af5d813390d9c1b6f232e",
+   "size": 176804
   },
   {
    "site": "getignitro.com",
