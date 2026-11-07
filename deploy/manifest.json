@@ -1,5 +1,5 @@
 {
- "commit": "7b28a17663053188ed49479db5f216efeb5e3f60",
+ "commit": "465175dc4de4cb46df97bf488d1b3b49c59c50e1",
  "files": [
   {
    "site": "getignitro.com",
@@ -396,6 +396,36 @@
    "path": "review/group-plan-r9v4/slides/p36.jpg",
    "sha256": "2ad84a010b4d2b8d6bfc51996fab831e902416f4d5a241f3668ec8c0acc5b021",
    "size": 30893
+  },
+  {
+   "site": "getignitro.com",
+   "path": "review/group-plan-r9v4-deck/fonts/Inter-400.woff2",
+   "sha256": "d99d8ff3db34574615bee0358350d1218cd941944dcd58b07d266bde87ffefc7",
+   "size": 21572
+  },
+  {
+   "site": "getignitro.com",
+   "path": "review/group-plan-r9v4-deck/fonts/Inter-600.woff2",
+   "sha256": "b66179ebe2264c3e9e97430c8a5da614f9a7c4843f4514867cf186bd6dad75d2",
+   "size": 22224
+  },
+  {
+   "site": "getignitro.com",
+   "path": "review/group-plan-r9v4-deck/fonts/Inter-700.woff2",
+   "sha256": "7ae18cc10477085d00b40ebdb83742ae8ca48c4fab941d5961cbe2aa61d24e56",
+   "size": 22272
+  },
+  {
+   "site": "getignitro.com",
+   "path": "review/group-plan-r9v4-deck/fonts/Inter-900.woff2",
+   "sha256": "8607285bc25ace604de578e404c13f6a70cd446637d42e396cd3be53ef2da043",
+   "size": 21596
+  },
+  {
+   "site": "getignitro.com",
+   "path": "review/group-plan-r9v4-deck/index.html",
+   "sha256": "3e61acb89f09c8b325fe7559164bce333cc16e9e850ec276e205d48195bbc06f",
+   "size": 120771
   },
   {
    "site": "getignitro.com",
