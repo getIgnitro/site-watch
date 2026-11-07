@@ -1,5 +1,5 @@
 {
- "commit": "aabe3bfe5c6bcaf4172ed8bac5d264dd286649e5",
+ "commit": "cdb9f9f5fce01a706ec5b1c5c8b692d8fc9cdebe",
  "files": [
   {
    "site": "getignitro.com",
@@ -454,8 +454,8 @@
   {
    "site": "getignitro.com",
    "path": "review/group-plan-r9v4-deck/index.html",
-   "sha256": "4d2ff2df890d4c5416dbfbf977dc1159a1f7b43747851036f066216f549e370d",
-   "size": 756323
+   "sha256": "b0eede639f31a8e0937af737e63fc4915833ffe71e460317bb24c7de2c825bf3",
+   "size": 789641
   },
   {
    "site": "getignitro.com",
