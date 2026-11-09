@@ -808,7 +808,7 @@
   }
   function weekDone(n) { var w = COURSE.weeks[n], k = 0; if (w) w.lessons.forEach(function (l) { if (S.done[l.id]) k++; }); return k; }
   function sRoad() {
-    var nx = doneCount() ? nextUndone() : null, here = nx ? nx._w : 0, box, ms = [], svgBox, title = h("h2", { class: "rd-t" }, "The road, eight weeks.");
+    var nx = doneCount() ? nextUndone() : null, here = nx ? nx._w : 0, box, ms = [], svgBox, legend = null, title = h("h2", { class: "rd-t" }, "The road, eight weeks.");
     function label(w, i) {
       return h("div", { class: "rd-l" }, [h("span", { class: "rd-wt" }, w.title), h("span", { class: "rd-ln" }, LEARN[i] || "")]);
     }
@@ -817,13 +817,14 @@
       var P = WEEKS.map(function (w, i) { return [Math.round(60 + i * 880 / 7), i % 2 ? 300 : 700]; });
       svgBox = h("div", { class: "rd-svg", html: roadSvg(roadD(P, false), "0 0 1000 1000", "rdg1", false) });
       ms = WEEKS.map(function (w, i) {
-        return h("div", { class: "rd-m " + (i % 2 ? "up" : "dn") + (here === w.n ? " here" : ""), style: "--c:" + wc(w.n) + ";left:" + (P[i][0] / 10) + "%;top:" + (P[i][1] / 10) + "%" }, [disc(w), label(w, i)]);
+        return h("div", { class: "rd-m " + (i % 2 ? "up" : "dn") + (here === w.n ? " here" : ""), style: "--c:" + wc(w.n) }, [disc(w), label(w, i)]);
       });
       var pills = STAGES.map(function (st, k) {
         var a = P[k * 2], b = P[k * 2 + 1];
-        return h("span", { class: "rd-pill", style: "--c:" + wc(k * 2 + 1) + ";left:" + ((a[0] + b[0]) / 20) + "%;top:" + (k % 2 ? 57 : 43) + "%" }, [h("b", null, st), " W" + (k * 2 + 1) + "–" + (k * 2 + 2)]);
+        return h("span", { class: "rd-pill", style: "--c:" + wc(k * 2 + 1) + ";left:" + ((a[0] + b[0]) / 20) + "%;top:" + (k % 2 ? 57 : 43) + "%" }, [h("b", null, st), h("i", null, " W" + (k * 2 + 1) + "\u2013" + (k * 2 + 2))]);
       });
       box = h("div", { class: "rd-box" }, [svgBox].concat(pills, ms));
+      legend = h("div", { class: "rd-leg" }, STAGES.map(function (st, k) { return h("span", { class: "rd-chip", style: "--c:" + wc(k * 2 + 1) }, [h("b", null, st), h("i", null, " W" + (k * 2 + 1) + "\u2013" + (k * 2 + 2))]); }));
     } else {
       ms = WEEKS.map(function (w, i) {
         return h("div", { class: "rd-row " + (i % 2 ? "r" : "l") + (here === w.n ? " here" : ""), style: "--c:" + wc(w.n) }, [i % 2 === 0 ? h("p", { class: "rd-st" }, STAGES[i / 2] + " W" + (i + 1) + "–" + (i + 2)) : null, h("div", { class: "rd-rw" }, [disc(w), h("div", { class: "rd-l" }, [here === w.n ? h("span", { class: "rd-hr" }, "You are here") : null, h("span", { class: "rd-wt" }, w.title), h("span", { class: "rd-ln" }, LEARN[i] || "")])])]);
@@ -831,12 +832,45 @@
       svgBox = h("div", { class: "rd-svg" });
       box = h("div", { class: "rd-list" }, [svgBox].concat(ms));
     }
-    var s = scene("road", { key: "road", label: "The road", color: WC[3], kids: h("div", { class: "bx bx-wide rd-bx" }, [h("p", { class: "eyebrow" }, "The road map"), title, box]) });
+    var s = scene("road", { key: "road", label: "The road", color: WC[3], kids: h("div", { class: "bx bx-wide rd-bx" }, [h("p", { class: "eyebrow" }, "The road map"), legend, title, box]) });
     s.layout = function () {
-      if (!NARROW) return;
-      var br = box.getBoundingClientRect(); if (!br.height) return;
-      var P2 = qa(box, ".rd-d").map(function (d) { var r = d.getBoundingClientRect(); return [Math.round((r.left + r.width / 2 - br.left) / br.width * 1000), Math.round((r.top + r.height / 2 - br.top) / br.height * 1000)]; });
-      svgBox.innerHTML = roadSvg(roadD(P2, true), "0 0 1000 1000", "rdg2", true);
+      var br = box.getBoundingClientRect(); if (!br.height || !br.width) return;
+      if (NARROW) {
+        var P2 = qa(box, ".rd-d").map(function (d) { var r = d.getBoundingClientRect(); return [Math.round((r.left + r.width / 2 - br.left) / br.width * 1000), Math.round((r.top + r.height / 2 - br.top) / br.height * 1000)]; });
+        svgBox.innerHTML = roadSvg(roadD(P2, true), "0 0 1000 1000", "rdg2", true);
+        return;
+      }
+      /* wide (v4): measure the real label heights, then place the two rows so no label leaves the box.
+         The stage pills ride the road only when the span between the rows allows; otherwise the scene goes
+         "tight": the pills hide and a stage legend sits above the title in place of the eyebrow. */
+      var Wd = br.width, R0 = 28 + 46 + 4, GAP = 96, rs = 1, P, upY, dnY, span;
+      var lw = Math.min(250, Math.max(140, (Wd - Wd * .16) / 7 * 2 - 14));
+      var mx = Math.max(lw / 2 + 4, Wd * .05), step = (Wd - 2 * mx) / 7;
+      lw = Math.min(lw, 2 * step - 12); mx = Math.max(lw / 2 + 4, Wd * .05); step = (Wd - 2 * mx) / 7;
+      box.style.setProperty("--lw", Math.round(lw) + "px");
+      function need() {
+        var hu = 0, hd = 0;
+        ms.forEach(function (m, i) { var hh = m.querySelector(".rd-l").offsetHeight; if (i % 2) hu = Math.max(hu, hh); else hd = Math.max(hd, hh); });
+        return { hu: hu, hd: hd, total: hu + hd + 2 * R0 * rs + GAP };
+      }
+      function place() {
+        var Hd = box.getBoundingClientRect().height;
+        rs = 1; box.style.removeProperty("--rs");
+        var n = need();
+        if (n.total > Hd) { rs = Math.max(.66, Hd / n.total); box.style.setProperty("--rs", rs.toFixed(3)); n = need(); }
+        var R = R0 * rs; upY = n.hu + R; dnY = Hd - n.hd - R;
+        if (dnY - upY < GAP) { var mid = (upY + dnY) / 2; upY = mid - GAP / 2; dnY = mid + GAP / 2; }
+        span = dnY - upY; P = WEEKS.map(function (w, i) { return [mx + i * step, i % 2 ? upY : dnY]; });
+        ms.forEach(function (m, i) { m.style.left = P[i][0].toFixed(1) + "px"; m.style.top = P[i][1].toFixed(1) + "px"; });
+        svgBox.innerHTML = roadSvg(roadD(P.map(function (q) { return [q[0] / Wd * 1000, q[1] / Hd * 1000]; }), false), "0 0 1000 1000", "rdg1", false);
+      }
+      s.el.classList.remove("tight");
+      place();
+      var ph = 0, room = 4 * step - 68, wide = true;
+      pills.forEach(function (pl) { pl.classList.remove("short"); if (pl.offsetWidth > room) pl.classList.add("short"); if (pl.offsetWidth > room) wide = false; ph = Math.max(ph, pl.offsetHeight); });
+      var po = Math.min(.175 * span, span / 2 - 28 * rs - ph / 2 - 4);
+      if (!wide || po < ph / 2 + 6) { s.el.classList.add("tight"); place(); return; }
+      pills.forEach(function (pl, k) { pl.style.left = ((P[k * 2][0] + P[k * 2 + 1][0]) / 2).toFixed(1) + "px"; pl.style.top = ((upY + dnY) / 2 + (k % 2 ? po : -po)).toFixed(1) + "px"; });
     };
     s.play = function (s, dir) {
       var tl = s.tl = G.timeline({ delay: .3 }), ink = box.querySelector(".rd-ink"), bed = qa(box, ".rd-bed, .rd-mid");
@@ -846,6 +880,7 @@
       tl.fromTo(qa(box, ".rd-d"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .6, stagger: 2.2 / 8, ease: "back.out(2.6)" }, .3);
       tl.fromTo(qa(box, ".rd-wt, .rd-ln, .rd-st"), { autoAlpha: 0, y: NARROW ? 0 : 14, x: NARROW ? 16 : 0 }, { autoAlpha: 1, y: 0, x: 0, duration: .6, stagger: 2.2 / 20, ease: "power3.out" }, .45);
       tl.fromTo(qa(box, ".rd-pill"), { autoAlpha: 0, scale: .7 }, { autoAlpha: 1, scale: 1, duration: .5, stagger: .5, ease: "back.out(2)" }, .9);
+      if (legend) tl.fromTo(qa(legend, ".rd-chip"), { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: .5, stagger: .1, ease: "power3.out" }, .15);
       var hr = box.querySelector(".rd-here");
       if (hr) tl.fromTo(hr, { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: .6, ease: "back.out(2)" }, 2.6);
     };
