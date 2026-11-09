@@ -1,5 +1,5 @@
 {
- "commit": "1155ee08da69b6c893a20092b1a649a24b2a600d",
+ "commit": "95f7336d25f5ad8b5264877e7ef438134ebe8d6d",
  "files": [
   {
    "site": "getignitro.com",
@@ -178,19 +178,19 @@
   {
    "site": "getignitro.com",
    "path": "review/forty-half-hours/app.css",
-   "sha256": "1595d23c204a06d1ab09f23132cd07d71ec9834f224935ef015adac3673e85e1",
-   "size": 48177
+   "sha256": "6384faf66705fa6930f0dffae52e959435a4456cce1d8eff6c018371cd29cde5",
+   "size": 56673
   },
   {
    "site": "getignitro.com",
    "path": "review/forty-half-hours/app.js",
-   "sha256": "086900bdfdce95bd6cd1f691ced29e6ec85fc374dc4f09dd407db11401cebca7",
-   "size": 89569
+   "sha256": "8788f6f54ec89b1e37231326f6273a345afa85ecd57125bc2be207907d6aafb1",
+   "size": 101117
   },
   {
    "site": "getignitro.com",
    "path": "review/forty-half-hours/index.html",
-   "sha256": "3fc9bfd79731a37ba1ea41241b9cb527e76e4e3d854c232f005324faf3d16394",
+   "sha256": "4c07866cea7172cddde0133ace2398462e0614f2435fc411a4f091e335ac5580",
    "size": 2342
   },
   {
