@@ -145,10 +145,66 @@
   function syncTeacher() {
     qa(D, ".sw[data-t], #tsw").forEach(function (b) { b.setAttribute("aria-checked", S.teacher ? "true" : "false"); });
   }
-  function toggleTeacher() {
-    S.teacher = !S.teacher; save("teacher", S.teacher); syncTeacher();
+  /* teacher passcode: asked once per device, only when turning teacher mode on */
+  var TEACHER_PASSCODE = "9896";
+  function teacherUnlocked() { try { if (W.localStorage.getItem("fhh.tunlock") === "1") return true; } catch (e) {} return !!mem.tunlock; }
+  function rememberUnlock() { mem.tunlock = true; try { W.localStorage.setItem("fhh.tunlock", "1"); } catch (e) {} }
+  function setTeacher(on) {
+    S.teacher = on; save("teacher", S.teacher); syncTeacher();
+    toast(on ? "Teacher mode on. Each lesson now ends with your notes and the quiz answers." : "Teacher mode off.");
     if (ROUTEKIND === "lesson") rebuild();
   }
+  function toggleTeacher() {
+    if (!S.teacher && !teacherUnlocked()) { openPin(); return; }
+    setTeacher(!S.teacher);
+  }
+  var toastEl = null, toastT = 0;
+  function toast(msg) {
+    if (!toastEl) { toastEl = h("div", { id: "toast", role: "status", "aria-live": "polite" }); D.body.appendChild(toastEl); }
+    toastEl.textContent = msg;
+    toastEl.classList.remove("show"); void toastEl.offsetWidth; toastEl.classList.add("show");
+    clearTimeout(toastT); toastT = setTimeout(function () { toastEl.classList.remove("show"); }, 4000);
+  }
+  var PIN = null;
+  function openPin() {
+    if (PIN) return;
+    var boxes = [0, 1, 2, 3].map(function (k) { return h("input", { class: "pin-d", type: "password", inputmode: "numeric", pattern: "[0-9]*", maxlength: "1", autocomplete: "off", "aria-label": "Digit " + (k + 1) }); });
+    var msg = h("p", { class: "pin-m", "aria-live": "polite" }, "Asked once on this device.");
+    var card = h("div", { class: "pin-c", role: "dialog", "aria-modal": "true", "aria-label": "Teacher passcode" }, [
+      h("p", { class: "eyebrow" }, "Teacher mode"),
+      h("h2", { class: "pin-t" }, "Enter the four-digit passcode."),
+      h("div", { class: "pin-row" }, boxes), msg,
+      h("button", { type: "button", class: "btn btn-q pin-x", onclick: function () { closePin(); } }, "Cancel")
+    ]);
+    var wrap = h("div", { id: "pin", class: "open" }, card);
+    wrap.addEventListener("click", function (e) { if (e.target === wrap) closePin(); });
+    function code() { return boxes.map(function (b) { return b.value; }).join(""); }
+    function check() {
+      var c = code(); if (c.length < 4) return;
+      if (c === TEACHER_PASSCODE) { rememberUnlock(); closePin(); setTeacher(true); return; }
+      msg.textContent = "That is not the passcode. Try again.";
+      card.classList.remove("shake"); void card.offsetWidth; card.classList.add("shake");
+      boxes.forEach(function (b) { b.value = ""; }); boxes[0].focus();
+    }
+    boxes.forEach(function (b, k) {
+      b.addEventListener("input", function () {
+        var v = b.value.replace(/\D/g, "");
+        if (v.length > 1) { v.split("").slice(0, 4 - k).forEach(function (ch, j) { boxes[k + j].value = ch; }); var nx = Math.min(3, k + v.length); boxes[nx].focus(); check(); return; }
+        b.value = v;
+        if (v && k < 3) boxes[k + 1].focus();
+        check();
+      });
+      b.addEventListener("keydown", function (e) {
+        if (e.key === "Backspace" && !b.value && k > 0) { boxes[k - 1].focus(); boxes[k - 1].value = ""; e.preventDefault(); }
+        else if (e.key === "Escape") { closePin(); e.preventDefault(); }
+      });
+    });
+    D.body.appendChild(wrap);
+    PIN = wrap;
+    if (ANIM) G.fromTo(card, { y: 40, autoAlpha: 0, scale: .96 }, { y: 0, autoAlpha: 1, scale: 1, duration: .5, ease: "power3.out" });
+    setTimeout(function () { boxes[0].focus(); }, 60);
+  }
+  function closePin() { if (!PIN) return; var w = PIN; PIN = null; w.remove(); }
   tswHdr.addEventListener("click", toggleTeacher);
 
   var PHASES = [{ n: "Recap", m: "0–5 min", w: 5 }, { n: "Teach", m: "5–20 min", w: 15 }, { n: "Do it now", m: "20–27 min", w: 7 }, { n: "Homework", m: "27–30 min", w: 3 }];
@@ -241,6 +297,7 @@
     return true;
   }
   function step(d) {
+    if (PIN) { closePin(); return true; }
     if (OV) { closeOv(); return true; }
     return go(cur + d, d);
   }
@@ -267,20 +324,26 @@
   }
 
   /* wheel: a notch is one scene, a stream (trackpad, free spin, inertia) is one scene */
-  var lockUntil = 0, lastWheel = -1e4, stream = false, lastAbs = 0;
+  /* A gesture ends only when the wheel goes quiet. Events handled straight out of a main-thread stall
+     (Chrome coalesces wheel events while the thread is busy) always belong to the gesture in progress. */
+  var lockUntil = 0, lastTs = -1e4, stream = false, lastAbs = 0;
+  var lastRaf = 0, rafOn = false, rafStopAt = 0;
+  function hb() { lastRaf = now(); if (lastRaf < rafStopAt) requestAnimationFrame(hb); else rafOn = false; }
+  function heartbeat() { rafStopAt = now() + 2500; if (!rafOn) { rafOn = true; lastRaf = now(); requestAnimationFrame(hb); } }
   W.addEventListener("wheel", function (e) {
     if (e.ctrlKey) return;
     e.preventDefault();
     var dy = e.deltaY, dx = e.deltaX;
     if (!dy || Math.abs(dx) > Math.abs(dy)) return;
-    var t = (e.timeStamp > 0 ? e.timeStamp : now()), gap = t - lastWheel, a = Math.abs(dy);
-    lastWheel = t;
-    if (t < lockUntil) { stream = true; lastAbs = a; return; }
-    if (stream && gap < 160) { lastAbs = a; return; }
+    var t = now(), ts = e.timeStamp > 0 ? e.timeStamp : t, gap = ts - lastTs, a = Math.abs(dy);
+    var stalled = rafOn && (t - lastRaf) > 90;
+    lastTs = ts; heartbeat();
+    if (t < lockUntil || stalled) { stream = true; lastAbs = a; return; }
+    if (stream && gap < 320) { lastAbs = a; return; }
     if (stream && gap < 400 && a < lastAbs * 0.8) { lastAbs = a; return; }
     stream = true; lastAbs = a;
     step(dy > 0 ? 1 : -1);
-    lockUntil = t + 430;
+    lockUntil = now() + 430;
   }, { passive: false });
 
   /* keys: one press, one scene */
