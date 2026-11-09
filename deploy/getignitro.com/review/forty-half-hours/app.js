@@ -259,6 +259,7 @@
       s.el.style.setProperty("--wcC", hexa(s.color, .26));
       stage.appendChild(s.el);
     });
+    list.forEach(function (s) { if (s.layout) s.layout(); });
     list.forEach(fit);
     cur = Math.max(0, Math.min(list.length - 1, start || 0));
     var s = SC[cur];
@@ -527,8 +528,8 @@
 
   /* ================= HOME ================= */
   function buildHome() {
-    var L = [sCover(), sPromise(), sClock()];
-    WEEKS.forEach(function (w) { L.push(sWeek(w)); });
+    var L = [sCover(), sRoad(), sPromise(), sClock()];
+    WEEKS.forEach(function (w) { L.push(sWeek(w, false)); });
     L.push(sCases(), sCFO(), sCapstone(), sStart());
     return L;
   }
@@ -620,22 +621,22 @@
     return s;
   }
 
-  function sWeek(w) {
+  function sWeek(w, live) {
     var c = wc(w.n);
     var back = h("div", { class: "wk-num", "aria-hidden": "true" }, h("span", null, pad2(w.n)));
     var tiles = w.lessons.map(function (l) {
       var d5 = l.day === 5;
-      return h("a", { class: "tile" + (S.done[l.id] ? " done" : ""), href: "#" + l.id, "aria-label": "Week " + w.n + ", day " + l.day + ": " + l.title + (S.done[l.id] ? ", done" : "") }, [
+      return h(live ? "a" : "div", { class: "tile " + (live ? "live" : "ro") + (S.done[l.id] ? " done" : ""), href: live ? "#" + l.id : null, "aria-label": "Week " + w.n + ", day " + l.day + ": " + l.title + (S.done[l.id] ? ", done" : "") }, [
         h("span", { class: "t-day" }, "Day " + l.day),
         h("span", { class: "t-title" }, l.title),
-        h("span", { class: "t-foot" }, [d5 ? h("span", { class: "t-tag" }, w.n === 8 ? "final exam" : "week quiz") : h("span", { class: "t-min" }, "30 min"), h("span", { class: "t-ar", html: ARROW })]),
+        h("span", { class: "t-foot" }, [d5 ? h("span", { class: "t-tag" }, w.n === 8 ? "final exam" : "week quiz") : h("span", { class: "t-min" }, "30 min"), live ? h("span", { class: "t-ar", html: ARROW }) : null]),
         S.done[l.id] ? h("span", { class: "t-tick", html: TICK }) : null
       ]);
     });
     var title = h("h2", { class: "wk-title" }, w.title);
-    var eb = h("p", { class: "eyebrow" }, "Week " + w.n + " of 8");
+    var eb = h("p", { class: "eyebrow" }, "Week " + w.n + " of 8" + (live ? " · tap a day to open it" : ""));
     var pr = h("p", { class: "wk-pr" }, w.promise);
-    var s = scene("week", { key: "week" + w.n, label: "Week " + w.n, color: c, back: back, kids: h("div", { class: "bx" }, [eb, title, pr, h("div", { class: "tiles" }, tiles)]) });
+    var s = scene("week", { key: (live ? "cweek" : "week") + w.n, label: "Week " + w.n, color: c, back: back, kids: h("div", { class: "bx" }, [eb, title, pr, h("div", { class: "tiles" }, tiles)]) });
     s.play = function (s, dir) {
       var tl = s.tl = G.timeline({ delay: .3 });
       tl.fromTo(eb, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: .6 }, 0);
@@ -762,16 +763,15 @@
   function nextUndone() { for (var i = 0; i < LESSONS.length; i++) if (!S.done[LESSONS[i].id]) return LESSONS[i]; return null; }
   function sStart() {
     var n = doneCount(), total = LESSONS.length || 40, nx = nextUndone();
-    var big = h("a", { class: "btn-g st-big", href: "#w1d1" }, [h("span", null, "Start Day 1"), h("span", { class: "btn-ar", html: ARROW })]);
+    var big = h("a", { class: "btn-g st-big", href: "#course" }, [h("span", null, "Start the course"), h("span", { class: "btn-ar", html: ARROW })]);
     var sec = h("div", { class: "st-sec" }, [
-      n && nx && nx.id !== "w1d1" ? h("a", { class: "btn-o", href: "#" + nx.id }, "Continue · Week " + nx._w + " Day " + nx.day) : null,
       h("a", { class: "btn-o", href: "#glossary" }, "Glossary"),
       h("a", { class: "btn-o", href: "#exam" }, "Final exam")
     ]);
     var prog = h("div", { class: "st-prog" }, [h("p", { class: "st-pn" }, [h("b", null, String(n)), " of " + total + " lessons done"]), h("span", { class: "st-bar" }, h("i", { style: "width:" + (n / total * 100).toFixed(1) + "%" }))]);
     var foot = h("p", { class: "st-foot" }, "Ignitro Innovative Solutions · Doha");
     var map = h("div", { class: "st-map", "aria-hidden": "true" }, WEEKS.map(function (w) {
-      return h("div", { class: "sm-col", style: "--c:" + wc(w.n) }, [h("span", { class: "sm-w" }, "W" + w.n)].concat(w.lessons.map(function (l) { return h("a", { class: "sm-d" + (S.done[l.id] ? " on" : ""), href: "#" + l.id, tabindex: "-1" }); })));
+      return h("div", { class: "sm-col", style: "--c:" + wc(w.n) }, [h("span", { class: "sm-w" }, "W" + w.n)].concat(w.lessons.map(function (l) { return h("span", { class: "sm-d" + (S.done[l.id] ? " on" : "") }); })));
     }));
     var s = scene("start", { key: "start", label: "Start", color: WC[5], kids: [h("div", { class: "bx st-grid" }, [h("div", null, [h("p", { class: "eyebrow", "data-a": "" }, "Thirty minutes a day, starting now"), h("div", { "data-a": "" }, big), h("div", { "data-a": "" }, sec), h("div", { "data-a": "" }, prog), h("div", { "data-a": "" }, teacherRow())]), map]), foot] });
     s.play = function (s, dir) {
@@ -782,6 +782,128 @@
       tl.fromTo(qa(map, ".sm-d"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .5, ease: "back.out(2.4)", stagger: .02 }, .2);
     };
     return s;
+  }
+
+
+  /* the road: eight weeks as milestones on one winding road */
+  var LEARN = ["Explain marketing in one sentence", "Run a sales call, answer objections", "Know what every digital channel is for", "Write content that sells", "Judge a budget like a CFO: CAC, LTV, payback", "Run the lead-to-cash system", "Audit and plan a real business", "Present the plan, pass the exam"];
+  var STAGES = ["Foundations", "Digital", "Numbers and systems", "Strategy and capstone"];
+  function roadD(P, vertical, lim) {
+    lim = lim || 1000;
+    var a = P[0], z = P[P.length - 1], d, i, p, q, m;
+    if (!vertical) {
+      d = "M0 " + a[1] + " L" + a[0] + " " + a[1];
+      for (i = 1; i < P.length; i++) { p = P[i - 1]; q = P[i]; m = (q[0] - p[0]) / 2; d += " C" + (p[0] + m) + " " + p[1] + " " + (q[0] - m) + " " + q[1] + " " + q[0] + " " + q[1]; }
+      return d + " L" + lim + " " + z[1];
+    }
+    d = "M" + a[0] + " 0 L" + a[0] + " " + a[1];
+    for (i = 1; i < P.length; i++) { p = P[i - 1]; q = P[i]; m = (q[1] - p[1]) / 2; d += " C" + p[0] + " " + (p[1] + m) + " " + q[0] + " " + (q[1] - m) + " " + q[0] + " " + q[1]; }
+    return d + " L" + z[0] + " " + lim;
+  }
+  function roadSvg(d, vb, gid, vertical) {
+    return '<svg viewBox="' + vb + '" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="' + gid + '" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="' + (vertical ? 0 : 1) + '" y2="' + (vertical ? 1 : 0) + '"><stop offset="0" stop-color="#FF7A1A"/><stop offset=".3" stop-color="#FF6464"/><stop offset=".55" stop-color="#E83AB8"/><stop offset=".8" stop-color="#9358FF"/><stop offset="1" stop-color="#6B45F5"/></linearGradient></defs>' +
+      '<path class="rd-bed" d="' + d + '" vector-effect="non-scaling-stroke"/>' +
+      '<path class="rd-mid" d="' + d + '" vector-effect="non-scaling-stroke"/>' +
+      '<path class="rd-ink" d="' + d + '" pathLength="1" stroke="url(#' + gid + ')" vector-effect="non-scaling-stroke"/></svg>';
+  }
+  function weekDone(n) { var w = COURSE.weeks[n], k = 0; if (w) w.lessons.forEach(function (l) { if (S.done[l.id]) k++; }); return k; }
+  function sRoad() {
+    var nx = doneCount() ? nextUndone() : null, here = nx ? nx._w : 0, box, ms = [], svgBox, title = h("h2", { class: "rd-t" }, "The road, eight weeks.");
+    function label(w, i) {
+      return h("div", { class: "rd-l" }, [h("span", { class: "rd-wt" }, w.title), h("span", { class: "rd-ln" }, LEARN[i] || "")]);
+    }
+    function disc(w) { return h("span", { class: "rd-d" }, [h("b", null, String(w.n)), here === w.n ? h("span", { class: "rd-here" }, "You are here") : null]); }
+    if (!NARROW) {
+      var P = WEEKS.map(function (w, i) { return [Math.round(60 + i * 880 / 7), i % 2 ? 300 : 700]; });
+      svgBox = h("div", { class: "rd-svg", html: roadSvg(roadD(P, false), "0 0 1000 1000", "rdg1", false) });
+      ms = WEEKS.map(function (w, i) {
+        return h("div", { class: "rd-m " + (i % 2 ? "up" : "dn") + (here === w.n ? " here" : ""), style: "--c:" + wc(w.n) + ";left:" + (P[i][0] / 10) + "%;top:" + (P[i][1] / 10) + "%" }, [disc(w), label(w, i)]);
+      });
+      var pills = STAGES.map(function (st, k) {
+        var a = P[k * 2], b = P[k * 2 + 1];
+        return h("span", { class: "rd-pill", style: "--c:" + wc(k * 2 + 1) + ";left:" + ((a[0] + b[0]) / 20) + "%;top:" + (k % 2 ? 57 : 43) + "%" }, [h("b", null, st), " W" + (k * 2 + 1) + "–" + (k * 2 + 2)]);
+      });
+      box = h("div", { class: "rd-box" }, [svgBox].concat(pills, ms));
+    } else {
+      ms = WEEKS.map(function (w, i) {
+        return h("div", { class: "rd-row " + (i % 2 ? "r" : "l") + (here === w.n ? " here" : ""), style: "--c:" + wc(w.n) }, [i % 2 === 0 ? h("p", { class: "rd-st" }, STAGES[i / 2] + " W" + (i + 1) + "–" + (i + 2)) : null, h("div", { class: "rd-rw" }, [disc(w), h("div", { class: "rd-l" }, [here === w.n ? h("span", { class: "rd-hr" }, "You are here") : null, h("span", { class: "rd-wt" }, w.title), h("span", { class: "rd-ln" }, LEARN[i] || "")])])]);
+      });
+      svgBox = h("div", { class: "rd-svg" });
+      box = h("div", { class: "rd-list" }, [svgBox].concat(ms));
+    }
+    var s = scene("road", { key: "road", label: "The road", color: WC[3], kids: h("div", { class: "bx bx-wide rd-bx" }, [h("p", { class: "eyebrow" }, "The road map"), title, box]) });
+    s.layout = function () {
+      if (!NARROW) return;
+      var br = box.getBoundingClientRect(); if (!br.height) return;
+      var P2 = qa(box, ".rd-d").map(function (d) { var r = d.getBoundingClientRect(); return [Math.round((r.left + r.width / 2 - br.left) / br.width * 1000), Math.round((r.top + r.height / 2 - br.top) / br.height * 1000)]; });
+      svgBox.innerHTML = roadSvg(roadD(P2, true), "0 0 1000 1000", "rdg2", true);
+    };
+    s.play = function (s, dir) {
+      var tl = s.tl = G.timeline({ delay: .3 }), ink = box.querySelector(".rd-ink"), bed = qa(box, ".rd-bed, .rd-mid");
+      linesIn(tl, title, 0, .08);
+      tl.fromTo(bed, { autoAlpha: 0 }, { autoAlpha: 1, duration: .6 }, .1);
+      if (ink) tl.fromTo(ink, { strokeDasharray: "1 1", strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: "power2.inOut" }, .2);
+      tl.fromTo(qa(box, ".rd-d"), { scale: 0, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: .6, stagger: 2.2 / 8, ease: "back.out(2.6)" }, .3);
+      tl.fromTo(qa(box, ".rd-wt, .rd-ln, .rd-st"), { autoAlpha: 0, y: NARROW ? 0 : 14, x: NARROW ? 16 : 0 }, { autoAlpha: 1, y: 0, x: 0, duration: .6, stagger: 2.2 / 20, ease: "power3.out" }, .45);
+      tl.fromTo(qa(box, ".rd-pill"), { autoAlpha: 0, scale: .7 }, { autoAlpha: 1, scale: 1, duration: .5, stagger: .5, ease: "back.out(2)" }, .9);
+      var hr = box.querySelector(".rd-here");
+      if (hr) tl.fromTo(hr, { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, duration: .6, ease: "back.out(2)" }, 2.6);
+    };
+    return s;
+  }
+
+  /* ================= COURSE INDEX (behind Start) ================= */
+  var pendingWeek = 0;
+  function buildCourse() {
+    var L = [], n = doneCount(), l = nextUndone() || LESSONS[0], total = LESSONS.length || 40;
+    var segs = h("div", { class: "cn-clock" }, PHASES.map(function (p, k) { return h("div", { class: "cn-seg", style: "--m:" + p.w + ";--c:" + SEGS[k].c }, [h("i"), h("span", null, [h("b", null, p.n), " " + p.m])]); }));
+    var card = h("div", { class: "cn-card", style: "--wc:" + wc(l._w) }, [
+      h("p", { class: "cn-k" }, "Week " + l._w + " · Day " + l.day + " · " + (COURSE.weeks[l._w] ? COURSE.weeks[l._w].title : "")),
+      h("h2", { class: "cn-t" }, l.title),
+      h("p", { class: "cn-b" }, l.bigIdea),
+      h("div", { class: "cn-row" }, [h("a", { class: "btn-g cn-open", href: "#" + l.id }, [h("span", null, "Open lesson"), h("span", { class: "btn-ar", html: ARROW })]), h("p", { class: "cn-n" }, [h("b", null, String(n)), " of " + total + " done"])])
+    ]);
+    var c0 = scene("cont", { key: "cont", label: "Continue", color: wc(l._w), kids: h("div", { class: "bx" }, [h("p", { class: "eyebrow", "data-a": "" }, n ? "Continue where you stopped" : "Begin with Day 1"), h("div", { "data-a": "" }, card), h("div", { "data-a": "" }, segs)]) });
+    c0.play = function (s, dir) { var tl = s.tl = G.timeline({ delay: .3 }); reveal(tl, s, dir, 0); tl.fromTo(qa(segs, "i"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: .6, stagger: .2, ease: "power2.out" }, .5); };
+    L.push(c0);
+    WEEKS.forEach(function (w) { L.push(sWeek(w, true)); });
+    var ref = scene("ref", { key: "ref", label: "Glossary and exam", color: WC[7], kids: h("div", { class: "bx" }, [h("p", { class: "eyebrow", "data-a": "" }, "Look it up, then prove it"), h("h2", { class: "rf-t", "data-a": "" }, "Every term in one place. One exam across all eight weeks."), h("div", { class: "rf-row", "data-a": "" }, [h("a", { class: "btn-g", href: "#glossary" }, [h("span", null, "Glossary"), h("span", { class: "btn-ar", html: ARROW })]), h("a", { class: "btn-g", href: "#exam" }, [h("span", null, "Final exam"), h("span", { class: "btn-ar", html: ARROW })])]), h("a", { class: "cl-prev", href: "#home", "data-a": "" }, "Back to the start")]) });
+    ref.play = function (s, dir) { var tl = s.tl = G.timeline({ delay: .3 }); reveal(tl, s, dir, 0); };
+    L.push(ref);
+    return L;
+  }
+
+  /* ================= PROGRESS RAIL (lessons and #course) ================= */
+  var railEl = h("nav", { id: "rail", "aria-label": "Course progress" });
+  D.body.appendChild(railEl);
+  function buildRail(curW, curD) {
+    railEl.innerHTML = "";
+    var vert = !NARROW;
+    var P = WEEKS.map(function (w, i) { var f = Math.round(60 + i * 880 / 7), o = i % 2 ? 640 : 360; return vert ? [o, f] : [f, o]; });
+    railEl.appendChild(h("div", { class: "rl-svg", html: roadSvg(roadD(P, vert), "0 0 1000 1000", "rlg", vert) }));
+    WEEKS.forEach(function (w, i) {
+      var k = weekDone(w.n), cur = w.n === curW;
+      var fill = h("i", { class: "rl-f" });
+      var tip = h("span", { class: "rl-tip" + (i < 2 ? " lo" : i > 5 ? " hi" : "") }, [h("b", null, "Week " + w.n + " · " + w.title), h("span", null, k + " of 5 done")]);
+      var d = h("button", { type: "button", class: "rl-d" + (cur ? " cur" : ""), style: "--c:" + wc(w.n) + ";left:" + P[i][0] / 10 + "%;top:" + P[i][1] / 10 + "%", "aria-label": "Week " + w.n + ": " + w.title + ", " + k + " of 5 done", "data-w": String(w.n) }, [fill, h("span", { class: "rl-n" }, String(w.n)), tip]);
+      d.addEventListener("click", function () { pendingWeek = w.n; if (ROUTE === "course") { go(w.n); pendingWeek = 0; } else location.hash = "course"; });
+      railEl.appendChild(d);
+      if (cur) {
+        var ticks = h("span", { class: "rl-ticks", style: "left:" + P[i][0] / 10 + "%;top:" + P[i][1] / 10 + "%" }, w.lessons.map(function (l) { return h("i", { class: (S.done[l.id] ? "on" : "") + (l.day === curD ? " now" : "") }); }));
+        railEl.appendChild(ticks);
+      }
+    });
+    railFill(false);
+  }
+  function railFill(anim) {
+    qa(railEl, ".rl-d").forEach(function (d) {
+      var n = +d.getAttribute("data-w"), k = weekDone(n), f = d.querySelector(".rl-f"), w = COURSE.weeks[n];
+      if (ANIM && anim) G.to(f, { scaleY: k / 5, duration: .6, ease: "power2.out" }); else f.style.transform = "scaleY(" + (k / 5) + ")";
+      var sp = d.querySelector(".rl-tip span"); if (sp) sp.textContent = k + " of 5 done";
+      d.setAttribute("aria-label", "Week " + n + ": " + (w ? w.title : "") + ", " + k + " of 5 done");
+    });
+    var cur = railEl.querySelector(".rl-ticks"), cw = railEl.querySelector(".rl-d.cur");
+    if (cur && cw) { var w2 = COURSE.weeks[+cw.getAttribute("data-w")]; qa(cur, "i").forEach(function (t, j) { t.classList.toggle("on", !!(w2 && S.done[w2.lessons[j].id])); }); }
   }
 
   /* ================= LESSON ================= */
@@ -1133,10 +1255,11 @@
       doneB.setAttribute("aria-checked", on ? "true" : "false");
       doneB.querySelector(".ds-l").textContent = on ? "Lesson done" : "Mark lesson done";
       if (on) burst(doneB.querySelector(".ds-box"), c);
+      railFill(true);
     });
     var next = nx ? h("a", { class: "btn-g cl-next", href: "#" + nx.id }, [h("span", { class: "cl-nx" }, [h("span", null, "Next lesson"), h("small", null, "Week " + nx._w + " · Day " + nx.day + " · " + nx.title)]), h("span", { class: "btn-ar", html: ARROW })])
       : h("a", { class: "btn-g cl-next", href: "#exam" }, [h("span", { class: "cl-nx" }, [h("span", null, "Final exam"), h("small", null, "Twenty-five questions from all eight weeks")]), h("span", { class: "btn-ar", html: ARROW })]);
-    var prev = pv ? h("a", { class: "cl-prev", href: "#" + pv.id }, "Previous lesson · " + pv.title) : h("a", { class: "cl-prev", href: "#home" }, "Back to the course map");
+    var prev = pv ? h("a", { class: "cl-prev", href: "#" + pv.id }, "Previous lesson · " + pv.title) : h("a", { class: "cl-prev", href: "#course" }, "Back to the course");
     var s = scene("close", { key: "close", label: "Close", color: c, phase: 3, kids: h("div", { class: "bx" }, [h("p", { class: "eyebrow", "data-a": "" }, "Homework · ten minutes, due tomorrow"), h("div", { "data-a": "" }, hw), h("div", { class: "chips", "data-a": "" }, chips), h("div", { class: "cl-act", "data-a": "" }, [doneB, next]), h("div", { "data-a": "" }, prev)]) });
     s.play = function (s, dir) { var tl = s.tl = G.timeline({ delay: .3 }); reveal(tl, s, dir, 0); tl.fromTo(next, { scale: .9 }, { scale: 1, duration: 1, ease: "elastic.out(1,.6)" }, .35); };
     return s;
@@ -1215,7 +1338,7 @@
     var cells = h("div", { class: "xr-cells", "aria-hidden": "true" }, pick.map(function () { return h("i"); }));
     var big = h("p", { class: "xr-n" }), msg = h("p", { class: "xr-m" }), best = h("p", { class: "xr-b" });
     var again = h("button", { type: "button", class: "btn-g xr-again", onclick: function () { RS.exam = null; mount(buildExam(), 1); } }, [h("span", null, "Try again"), h("span", { class: "btn-ar", html: ARROW })]);
-    var res = scene("xresult", { key: "xresult", label: "Result", color: WC[5], kids: h("div", { class: "bx xr-grid" }, [h("div", null, [h("p", { class: "eyebrow", "data-a": "" }, "Final exam · result"), h("div", { "data-a": "" }, big), h("div", { "data-a": "" }, msg), h("div", { "data-a": "" }, best), h("div", { class: "xr-act", "data-a": "" }, [again, h("a", { class: "btn-o", href: "#home" }, "Back to the course")])]), h("div", { "data-a": "" }, cells)]) });
+    var res = scene("xresult", { key: "xresult", label: "Result", color: WC[5], kids: h("div", { class: "bx xr-grid" }, [h("div", null, [h("p", { class: "eyebrow", "data-a": "" }, "Final exam · result"), h("div", { "data-a": "" }, big), h("div", { "data-a": "" }, msg), h("div", { "data-a": "" }, best), h("div", { class: "xr-act", "data-a": "" }, [again, h("a", { class: "btn-o", href: "#course" }, "Back to the course")])]), h("div", { "data-a": "" }, cells)]) });
     function refreshResult() {
       var answered = 0; for (var i = 0; i < pick.length; i++) if (g.answers[i] != null) answered++;
       var r = g.right();
@@ -1238,35 +1361,43 @@
     if (r === "home") return buildHome();
     if (r === "glossary") return buildGloss();
     if (r === "exam") return buildExam();
+    if (r === "course") return buildCourse();
     return buildLesson(BYID[r]);
   }
   var prevRoute = null;
   function render() {
     var hs = (location.hash || "").replace(/^#/, "") || "home";
-    if (hs !== "home" && hs !== "glossary" && hs !== "exam" && !BYID[hs]) hs = "home";
+    if (hs !== "home" && hs !== "glossary" && hs !== "exam" && hs !== "course" && !BYID[hs]) hs = "home";
     if (hs !== ROUTE) {
       if (RS.clean) RS.clean.forEach(function (f) { try { f(); } catch (e) {} });
       prevRoute = ROUTE;
       RS = { clean: [] };
     }
     ROUTE = hs;
-    ROUTEKIND = hs === "home" ? "home" : hs === "glossary" ? "gloss" : hs === "exam" ? "exam" : "lesson";
+    ROUTEKIND = hs === "home" ? "home" : hs === "glossary" ? "gloss" : hs === "exam" ? "exam" : hs === "course" ? "course" : "lesson";
     NARROW = W.innerWidth < 760;
-    body.className = "r-" + ROUTEKIND + (NARROW ? " narrow" : "");
+    var rail = ROUTEKIND === "lesson" || ROUTEKIND === "course";
+    body.className = "r-" + ROUTEKIND + (NARROW ? " narrow" : "") + (rail ? " has-rail" : "");
+    D.querySelector("#hdr .wm").setAttribute("href", ROUTEKIND === "home" ? "#home" : "#course");
+    railEl.innerHTML = "";
+    if (ROUTEKIND === "lesson") buildRail(BYID[hs]._w, BYID[hs].day);
+    else if (ROUTEKIND === "course") { var nu = nextUndone() || LESSONS[0]; buildRail(nu._w, nu.day); }
     stripEl.innerHTML = ""; gbarEl.innerHTML = "";
     if (ROUTEKIND === "lesson") buildStrip(BYID[hs]);
     if (ROUTEKIND === "gloss") buildGlossChips();
     if (ROUTEKIND === "home") startClock();
     var list = buildFor(hs), start = 0;
-    if (ROUTEKIND === "home" && prevRoute && BYID[prevRoute]) start = 2 + BYID[prevRoute]._w;
+    if (ROUTEKIND === "course") { if (pendingWeek) start = pendingWeek; else if (prevRoute && BYID[prevRoute]) start = BYID[prevRoute]._w; pendingWeek = 0; }
     mount(list, start);
     syncTeacher();
-    D.title = ROUTEKIND === "lesson" ? BYID[hs].title + " · Forty Half Hours" : ROUTEKIND === "gloss" ? "Glossary · Forty Half Hours" : ROUTEKIND === "exam" ? "Final exam · Forty Half Hours" : "Forty Half Hours";
+    D.title = ROUTEKIND === "lesson" ? BYID[hs].title + " · Forty Half Hours" : ROUTEKIND === "gloss" ? "Glossary · Forty Half Hours" : ROUTEKIND === "exam" ? "Final exam · Forty Half Hours" : ROUTEKIND === "course" ? "The course · Forty Half Hours" : "Forty Half Hours";
   }
   function rebuild() {
     var key = SC[cur] && SC[cur].key, was = cur;
     NARROW = W.innerWidth < 760;
     body.classList.toggle("narrow", NARROW);
+    if (ROUTEKIND === "lesson") buildRail(BYID[ROUTE]._w, BYID[ROUTE].day);
+    else if (ROUTEKIND === "course") { var nu2 = nextUndone() || LESSONS[0]; buildRail(nu2._w, nu2.day); }
     var list = buildFor(ROUTE), idx = -1;
     for (var i = 0; i < list.length; i++) if (list[i].key === key) { idx = i; break; }
     if (idx < 0 && key === "teacher") { for (var j = 0; j < list.length; j++) if (list[j].key === "close") idx = j; }
